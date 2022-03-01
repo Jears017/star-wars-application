@@ -1,25 +1,12 @@
+import { Box } from "@mui/material";
 import React from "react";
+import { Header } from "./components/blocks/Header";
 
-function App() {
+export function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit
-          <code>src/App.js</code>
-          and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box>
+      <Header />
+      <div>Контент</div>
+    </Box>
   );
 }
-
-export default App;
