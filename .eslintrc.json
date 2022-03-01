@@ -19,6 +19,7 @@
   "rules": {
     "semi": "warn",
     "prefer-destructuring": "error",
+    "import/prefer-default-export": "off",
     "max-len": [
       "warn",
       {
