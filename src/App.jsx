@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import React from "react";
 import { Header } from "./components/blocks/Header";
 
-export function App() {
+export default function App() {
   return (
     <Box>
       <Header />
