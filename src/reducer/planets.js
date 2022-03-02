@@ -1,5 +1,5 @@
 const initialState = {
-  planets: [],
+  planetsList: [],
 };
 
 export default function (state = initialState, { type, payload } = {}) {
