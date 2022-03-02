@@ -1,25 +1,23 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
   "extends": [
-    "plugin:react/recommended",
-    "airbnb",
-    "plugin:prettier/recommended"
+    "standard",
+    "standard-react",
+    "plugin:react/recommended"
   ],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+  "plugins": [
+    "prettier",
+    "react-hooks"
+  ],
+  "parser": "babel-eslint",
+  "env": {
+    "node": true,
+    "browser": true,
+    "jest": true
   },
-  "plugins": ["react"],
   "rules": {
-    "semi": "warn",
-    "prefer-destructuring": "error",
-    "import/prefer-default-export": "off",
+    "arrow-parens": ["error", "as-needed"],
+    "semi": ["error", "never"],
+    "prefer-destructuring":"error",
     "max-len": [
       "warn",
       {
@@ -30,21 +28,38 @@
     ],
     "no-unused-vars": "warn",
     "operator-linebreak": "warn",
+    "react-hooks/rules-of-hooks": "error",
     "react/jsx-closing-tag-location": 2,
     "react/jsx-closing-bracket-location": [
       2,
       {
         "nonEmpty": "line-aligned",
-        "selfClosing": "after-props"
+        "selfClosing": "tag-aligned"
+      }
+    ],
+    "react/jsx-max-props-per-line": [
+      2,
+      {
+        "maximum": 2,
+        "when": "always"
       }
     ],
     "react/jsx-filename-extension": [
       2,
       {
-        "extensions": [".jsx"]
+        "extensions": [
+          ".jsx"
+        ]
       }
     ],
-    "jsx-quotes": ["error", "prefer-double"],
+    "jsx-quotes": [
+      "error",
+      "prefer-double"
+    ],
+    "comma-dangle": [
+      2,
+      "always-multiline"
+    ],
     "prefer-const": [
       "error",
       {
@@ -52,11 +67,13 @@
         "ignoreReadBeforeAssign": false
       }
     ],
-    "react/prop-types": [1]
+    "react/prop-types": [
+      1
+    ]
   },
   "overrides": [
     {
-      "files": ["src/index.js"],
+      "files":["src/index.js"],
       "rules": {
         "react/jsx-filename-extension": "off"
       }
