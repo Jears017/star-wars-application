@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 const pages = ["planets", "characters", "starships", "films"];
 
-export function Header() {
+export default function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
