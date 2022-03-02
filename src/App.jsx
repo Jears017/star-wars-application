@@ -6,7 +6,7 @@ export function App() {
   return (
     <Box>
       <Header />
-      <div>Контент</div>
+      Content
     </Box>
   );
 }
