@@ -1,5 +1,5 @@
 const initialState = {
-  planets: [],
+  planetsList: [],
 }
 
 export const planetsReducer = (
