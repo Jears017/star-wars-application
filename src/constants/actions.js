@@ -1,1 +1,2 @@
-export const SAY_HELLO = "SAY_HELLO";
+export const SAY_HELLO = 'SAY_HELLO'
+

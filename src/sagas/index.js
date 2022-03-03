@@ -1,6 +1,7 @@
-import { all } from "redux-saga/effects";
-import { planetsWorker } from "./planetsSaga";
+import { all } from 'redux-saga/effects'
 
-export default function* rootSaga() {
-  yield all([planetsWorker()]);
+import { planetsWorker } from './planetsSaga'
+
+export default function * rootSaga () {
+  yield all([planetsWorker()])
 }

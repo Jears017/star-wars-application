@@ -1,132 +1,74 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import LanguageIcon from "@mui/icons-material/Language";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import MenuIcon from "@mui/icons-material/Menu";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-const pages = ["planets", "characters", "starships", "films"];
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Container,
+  Button,
+} from '@mui/material'
 
-export function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+import { makeStyles, createStyles } from '@mui/styles'
+import LanguageIcon from '@mui/icons-material/Language'
+import LightModeIcon from '@mui/icons-material/LightMode'
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+const pages = ['planets', 'characters', 'starships', 'films']
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#000000",
+const useStyles = makeStyles(theme =>
+  ({
+    logoMD: {
+      mr: 2,
+      [theme.breakpoints.only('md')]: {
+        display: 'flex',
       },
-      mode: "dark",
     },
-  });
+    navBar: { flexGrow: 1, display: 'flex' },
+    navBarItem: { my: 2, color: theme.palette.common.white, display: 'block' },
+    navLink: { textDecoration: 'none', color: theme.palette.common.white },
+    switcherContainer: { flexGrow: 0 },
+  }),
+)
+
+export function Header () {
+  const classes = useStyles()
 
   return (
-    <ThemeProvider theme={theme}>
-      <AppBar position="static">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-            >
-              STAR WARS
-            </Typography>
-
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-Akbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            className={classes.logoMD}
+          >
+            STAR WARS
+          </Typography>
+          <Box className={classes.navBar}>
+            {pages.map(page => (
+              <Link key={page} className={classes.navLink}
+                to={`/${page}`}
               >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                }}
-              >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Link
-                      style={{ textDecoration: "none", color: "white" }}
-                      to="/characters"
-                    >
-                      <Typography textAlign="center">{page}</Typography>
-                    </Link>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-            >
-              STAR WARS
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
-                <Link
-                  key={page}
-                  style={{ textDecoration: "none" }}
-                  to={`/${page}`}
-                >
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
-                    {page}
-                  </Button>
-                </Link>
-              ))}
-            </Box>
+                <Button className={classes.navBarItem}>
+                  {page}
+                </Button>
+              </Link>
+            ))}
+          </Box>
 
-            <Box sx={{ flexGrow: 0 }}>
-              <IconButton>
-                <LightModeIcon />
-              </IconButton>
-              <IconButton>
-                <LanguageIcon />
-              </IconButton>
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </ThemeProvider>
-  );
+          <Box className={classes.switcherContainer}>
+            <IconButton>
+              <LightModeIcon />
+            </IconButton>
+            <IconButton>
+              <LanguageIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  )
 }

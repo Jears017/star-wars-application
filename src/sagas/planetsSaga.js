@@ -1,10 +1,11 @@
-import { takeEvery } from "redux-saga/effects";
-import { SAY_HELLO } from "../constants";
+import { takeEvery } from 'redux-saga/effects'
 
-function* planetsSagaWorker() {
-  yield "Hello";
+import { SAY_HELLO } from '@/constants'
+
+function * planetsSagaWorker () {
+  yield 'Hello'
 }
 
-export function* planetsWorker() {
-  yield takeEvery(SAY_HELLO, planetsSagaWorker);
+export function * planetsWorker () {
+  yield takeEvery(SAY_HELLO, planetsSagaWorker)
 }
