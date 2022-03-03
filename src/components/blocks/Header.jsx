@@ -1,19 +1,19 @@
-import * as React from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
+
 import {
   AppBar,
   Box,
   Toolbar,
   IconButton,
   Typography,
-  Menu,
   Container,
   Button,
-  MenuItem,
 } from '@mui/material'
+
 import { makeStyles, createStyles } from '@mui/styles'
 import LanguageIcon from '@mui/icons-material/Language'
 import LightModeIcon from '@mui/icons-material/LightMode'
-import { Link } from 'react-router-dom'
 
 const pages = ['planets', 'characters', 'starships', 'films']
 
@@ -26,23 +26,13 @@ const useStyles = makeStyles(theme =>
       },
     },
     navBar: { flexGrow: 1, display: 'flex' },
-    navBarItem: { my: 2, color: 'white', display: 'block' },
-    navLink: { textDecoration: 'none', color: 'white' },
+    navBarItem: { my: 2, color: [theme.palette.primary.light], display: 'block' },
+    navLink: { textDecoration: 'none', color: [theme.palette.primary.light] },
     switcherContainer: { flexGrow: 0 },
   }),
 )
 
 export function Header () {
-  const [anchorElNav, setAnchorElNav] = React.useState(null)
-
-  const handleOpenNavMenu = event => {
-    setAnchorElNav(event.currentTarget)
-  }
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null)
-  }
-
   const classes = useStyles()
 
   return (
@@ -62,10 +52,7 @@ export function Header () {
               <Link key={page} className={classes.navLink}
                 to={`/${page}`}
               >
-                <Button
-                  onClick={handleCloseNavMenu}
-                  className={classes.navBarItem}
-                >
+                <Button className={classes.navBarItem}>
                   {page}
                 </Button>
               </Link>

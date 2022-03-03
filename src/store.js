@@ -1,7 +1,8 @@
 import { applyMiddleware, createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import rootReducer from './reducer/index'
-import { planetsWorker } from './sagas/planetsSaga'
+
+import rootReducer from '@/reducer/index'
+import { planetsWorker } from '@/sagas/planetsSaga'
 
 const sagaMiddleware = createSagaMiddleware()
 
