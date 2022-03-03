@@ -1,13 +1,13 @@
 const initialState = {
   planets: [],
-};
+}
 
 export const planetsReducer = (
   state = initialState,
-  { type, payload } = {}
+  { type, payload } = {},
 ) => {
   switch (type) {
     default:
-      return state;
+      return state
   }
-};
+}

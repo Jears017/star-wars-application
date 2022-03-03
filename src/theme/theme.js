@@ -1,10 +1,10 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles'
 
 export default createTheme({
   palette: {
     primary: {
-      main: "#000000",
+      main: '#000000',
     },
-    mode: "dark",
+    mode: 'dark',
   },
-});
+})
