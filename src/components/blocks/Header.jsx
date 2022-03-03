@@ -18,7 +18,7 @@ import LightModeIcon from '@mui/icons-material/LightMode'
 const pages = ['planets', 'characters', 'starships', 'films']
 
 const useStyles = makeStyles(theme =>
-  createStyles({
+  ({
     logoMD: {
       mr: 2,
       [theme.breakpoints.only('md')]: {
@@ -26,8 +26,8 @@ const useStyles = makeStyles(theme =>
       },
     },
     navBar: { flexGrow: 1, display: 'flex' },
-    navBarItem: { my: 2, color: [theme.palette.primary.light], display: 'block' },
-    navLink: { textDecoration: 'none', color: [theme.palette.primary.light] },
+    navBarItem: { my: 2, color: theme.palette.common.white, display: 'block' },
+    navLink: { textDecoration: 'none', color: theme.palette.common.white },
     switcherContainer: { flexGrow: 0 },
   }),
 )
