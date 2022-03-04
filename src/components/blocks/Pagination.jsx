@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pagination, Stack } from '@mui/material'
+import { Pagination as MuiPagination, Stack } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles(theme => ({
@@ -8,11 +8,11 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function PaginationComponent () {
+export default function Pagination () {
   const classes = useStyles()
   return (
     <Stack className={classes.paginationContainer}>
-      <Pagination count={10} />
+      <MuiPagination count={10} />
     </Stack>
   )
 }
