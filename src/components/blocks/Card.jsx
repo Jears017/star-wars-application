@@ -6,20 +6,18 @@ import Typography from '@mui/material/Typography'
 import { makeStyles } from '@mui/styles'
 import { Link } from 'react-router-dom'
 
-const useStyles = makeStyles(theme =>
-  ({
-    cardWrapper: {
-      maxWidth: 345,
-    },
-    cardMediaContainer: {
-      height: 250,
-    },
-    cardLink: {
-      textDecoration: 'none',
-      color: theme.palette.common.white,
-    },
-  }),
-)
+const useStyles = makeStyles(theme => ({
+  cardWrapper: {
+    maxWidth: 345,
+  },
+  cardMediaContainer: {
+    height: 250,
+  },
+  cardLink: {
+    textDecoration: 'none',
+    color: theme.palette.common.white,
+  },
+}))
 
 export default function MediaCard () {
   const classes = useStyles()
@@ -31,13 +29,15 @@ export default function MediaCard () {
         image="/static/images/cards/contemplative-reptile.jpg"
       />
       <CardContent>
-          <Link className={classes.cardLink} to={'/card'}>
-                <Typography gutterBottom variant="h5"
-                    component="div"
-                >
-                    Tatoine
-                </Typography>
-          </Link>
+        <Link className={classes.cardLink} to={'/card'}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+          >
+            Tatoine
+          </Typography>
+        </Link>
       </CardContent>
     </Card>
   )
