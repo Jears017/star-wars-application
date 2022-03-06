@@ -1,11 +1,20 @@
-import { takeEvery } from 'redux-saga/effects'
+import { put, takeEvery, call } from 'redux-saga/effects'
 
-import { SAY_HELLO } from '@/constants'
+import { GET_PLANETS } from '@/constants'
+import { setPlanets } from '@/actions'
+
+function receivePlanetsFromApi () {
+  return fetch('https://swapi.dev/api/planets')
+    .then(results => results)
+    .then(planets => planets.json())
+    .catch(e => console.log(e))
+}
 
 function * planetsSagaWorker () {
-  yield 'Hello'
+  const planets = yield call(receivePlanetsFromApi)
+  yield put(setPlanets(planets.results))
 }
 
 export function * planetsWorker () {
-  yield takeEvery(SAY_HELLO, planetsSagaWorker)
+  yield takeEvery(GET_PLANETS, planetsSagaWorker)
 }
