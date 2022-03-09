@@ -1,11 +1,14 @@
 import React from 'react'
-import { Card as MuiCard, CardContent, CardMedia, Typography } from '@mui/material'
+import { Card as MuiCard, CardMedia as MediaCard, CardContent, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { Link } from 'react-router-dom'
 
+import PropTypesOfCard from '@/prop-types/PropTypesOfCard'
+import { CARD_DETAILS_PAGE_PATH } from '@/constants'
+
 const useStyles = makeStyles(theme => ({
   cardWrapper: {
-    maxWidth: 345,
+    width: 345,
   },
   cardMediaContainer: {
     height: 250,
@@ -16,26 +19,29 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Card () {
+export default function Card ({ name, imageUrl, id }) {
   const classes = useStyles()
   return (
     <MuiCard className={classes.cardWrapper}>
-      <CardMedia
+      <MediaCard
         className={classes.cardMediaContainer}
         component="img"
-        image="/static/images/cards/contemplative-reptile.jpg"
+        image={imageUrl}
+        alt={name}
       />
       <CardContent>
-        <Link className={classes.cardLink} to={'/card'}>
+        <Link className={classes.cardLink} to={`${CARD_DETAILS_PAGE_PATH}/${name}/${id}`}>
           <Typography
             gutterBottom
             variant="h5"
             component="div"
           >
-            Tatoine
+            {name}
           </Typography>
         </Link>
       </CardContent>
     </MuiCard>
   )
 }
+
+Card.propTypes = PropTypesOfCard

@@ -1,11 +1,17 @@
-import { takeEvery } from 'redux-saga/effects'
+import { put, takeEvery, call } from 'redux-saga/effects'
 
-import { SAY_HELLO } from '@/constants'
+import { planetsRequest, planetsResponse, planetsResponseFail } from '@/actions'
+import { planetsAPI } from '@/api/api'
 
 function * planetsSagaWorker () {
-  yield 'Hello'
+  try {
+    const planets = yield call(planetsAPI.getPlanets)
+    yield put(planetsResponse(planets.results))
+  } catch (error) {
+    yield put(planetsResponseFail(error))
+  }
 }
 
 export function * planetsWorker () {
-  yield takeEvery(SAY_HELLO, planetsSagaWorker)
+  yield takeEvery(planetsRequest, planetsSagaWorker)
 }
