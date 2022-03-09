@@ -1,11 +1,13 @@
 import * as axios from 'axios'
 
+import { SWAPI_URL, PLANETS_PAGE_PATH } from '@/constants'
+
 const instance = axios.create({
-  baseURL: 'https://swapi.dev/api',
+  baseURL: SWAPI_URL,
 })
 
 export const planetsAPI = {
   getPlanets () {
-    return instance.get('/planets').then(results => results.data)
+    return instance.get(PLANETS_PAGE_PATH).then(results => results.data)
   },
 }

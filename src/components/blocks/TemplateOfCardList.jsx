@@ -7,7 +7,7 @@ import Card from '@/components/blocks/Card'
 import { getId } from '@/utils/getId'
 
 const useStyles = makeStyles(theme => ({
-  listOfItems: {
+  itemsList: {
     display: 'flex',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
@@ -17,13 +17,14 @@ const useStyles = makeStyles(theme => ({
 export default function TemplateOfCardList ({ data, imageUrl }) {
   const classes = useStyles()
   return (
-    <Box className={classes.listOfItems}>
+    <Box className={classes.itemsList}>
       {data.map(content => {
         return (
           <Card
             key={content.name}
             name={content.name}
-            imageUrl={imageUrl + getId(content.url) + '.jpg'}
+            imageUrl={`${imageUrl}${getId(content.url)}.jpg`}
+            id={getId(content.url)}
           />
         )
       })}

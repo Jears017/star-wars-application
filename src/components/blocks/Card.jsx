@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card as MediaCard, CardContent, CardMedia, Typography } from '@mui/material'
+import { Card as MuiCard, CardMedia as MediaCard, CardContent, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { Link } from 'react-router-dom'
 
@@ -19,18 +19,18 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Card ({ name, imageUrl }) {
+export default function Card ({ name, imageUrl, id }) {
   const classes = useStyles()
   return (
-    <MediaCard className={classes.cardWrapper}>
-      <CardMedia
+    <MuiCard className={classes.cardWrapper}>
+      <MediaCard
         className={classes.cardMediaContainer}
         component="img"
         image={imageUrl}
         alt={name}
       />
       <CardContent>
-        <Link className={classes.cardLink} to={`${CARD_DETAILS_PAGE_PATH}-${name}`}>
+        <Link className={classes.cardLink} to={`${CARD_DETAILS_PAGE_PATH}/${name}/${id}`}>
           <Typography
             gutterBottom
             variant="h5"
@@ -40,7 +40,7 @@ export default function Card ({ name, imageUrl }) {
           </Typography>
         </Link>
       </CardContent>
-    </MediaCard>
+    </MuiCard>
   )
 }
 
