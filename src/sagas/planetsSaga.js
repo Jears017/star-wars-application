@@ -1,18 +1,17 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
 
 import { GET_PLANETS } from '@/constants'
-import { setPlanets } from '@/actions'
-
-function receivePlanetsFromApi () {
-  return fetch('https://swapi.dev/api/planets')
-    .then(results => results)
-    .then(planets => planets.json())
-    .catch(e => console.log(e))
-}
+import { planetsRequest, planetsResponse, planetsResponseFail } from '@/actions'
+import { planetsAPI } from '@/api/api'
 
 function * planetsSagaWorker () {
-  const planets = yield call(receivePlanetsFromApi)
-  yield put(setPlanets(planets.results))
+  try {
+    yield put(planetsRequest())
+    const planets = yield call(planetsAPI.getPlanets)
+    yield put(planetsResponse(planets.results))
+  } catch (error) {
+    yield put(planetsResponseFail(error))
+  }
 }
 
 export function * planetsWorker () {

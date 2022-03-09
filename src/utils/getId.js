@@ -1,3 +1,5 @@
 export function getId (url) {
-  return url.split('/')[url.split('/').length - 2]
+  const arrayFromUrl = url.split('/')
+  const indexOfId = arrayFromUrl.length - 2
+  return arrayFromUrl[indexOfId]
 }
