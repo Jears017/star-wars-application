@@ -1,6 +1,6 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
 
-import { charactersRequest, charactersResponse, charactersResponseFail } from '@/actions'
+import { charactersResponse, charactersResponseFail } from '@/actions'
 import { charactersAPI } from '@/api/api'
 import { CHARACTERS_REQUEST } from '@/constants'
 

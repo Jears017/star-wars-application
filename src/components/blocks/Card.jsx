@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Card ({ name, imageUrl, id }) {
+export default function Card ({ name, imageUrl, id, title }) {
   const classes = useStyles()
   return (
     <MuiCard className={classes.cardWrapper}>
@@ -30,13 +30,13 @@ export default function Card ({ name, imageUrl, id }) {
         alt={name}
       />
       <CardContent>
-        <Link className={classes.cardLink} to={`${CARD_DETAILS_PAGE_PATH}/${name}/${id}`}>
+        <Link className={classes.cardLink} to={`${CARD_DETAILS_PAGE_PATH}/${name || title}/${id}`}>
           <Typography
             gutterBottom
             variant="h5"
             component="div"
           >
-            {name}
+            {name || title}
           </Typography>
         </Link>
       </CardContent>
