@@ -2,6 +2,7 @@ import { put, takeEvery, call } from 'redux-saga/effects'
 
 import { charactersRequest, charactersResponse, charactersResponseFail } from '@/actions'
 import { charactersAPI } from '@/api/api'
+import { CHARACTERS_REQUEST } from '@/constants'
 
 function * charactersSagaWorker () {
   try {
@@ -13,5 +14,5 @@ function * charactersSagaWorker () {
 }
 
 export function * charactersWorker () {
-  yield takeEvery(charactersRequest, charactersSagaWorker)
+  yield takeEvery(CHARACTERS_REQUEST, charactersSagaWorker)
 }
