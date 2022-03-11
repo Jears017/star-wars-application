@@ -4,10 +4,10 @@ import { planetsResponse, planetsResponseFail } from '@/actions'
 import { planetsAPI } from '@/api/api'
 import { PLANETS_REQUEST } from '@/constants'
 
-function * planetsSagaWorker () {
+function * planetsSagaWorker ({ payload }) {
   try {
-    const planets = yield call(planetsAPI.getPlanets)
-    yield put(planetsResponse(planets.results))
+    const { results, count } = yield call(planetsAPI.getPlanets, payload)
+    yield put(planetsResponse({ results, count }))
   } catch (error) {
     yield put(planetsResponseFail(error))
   }

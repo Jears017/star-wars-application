@@ -13,8 +13,8 @@ const instance = axios.create({
 })
 
 export const planetsAPI = {
-  getPlanets () {
-    return instance.get(PLANETS_API_PATH).then(results => results.data)
+  getPlanets (page) {
+    return instance.get(`${PLANETS_API_PATH}/?page=${page}`).then(results => results.data)
   },
 }
 
