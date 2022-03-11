@@ -5,11 +5,11 @@ import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 
 import App from '@/App'
-import { store } from '@/store'
+import { getStore } from '@/store'
 import theme from '@/theme/theme'
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={getStore()}>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <App />

@@ -7,6 +7,26 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 const sagaMiddleware = createSagaMiddleware()
 
-export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)))
+let store = null
 
-sagaMiddleware.run(rootSaga)
+const createDevelopmentStore = () => {
+  return createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(sagaMiddleware)),
+  )
+}
+
+const createProductionStore = () => {
+  return createStore(rootReducer, applyMiddleware(sagaMiddleware))
+}
+
+export const getStore = () => {
+  if (!store) {
+    store =
+      process.env.NODE_ENV === 'development'
+        ? createDevelopmentStore()
+        : createProductionStore
+    sagaMiddleware.run(rootSaga)
+  }
+  return store
+}
