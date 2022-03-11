@@ -4,7 +4,7 @@ import { Box } from '@mui/system'
 
 import TemplateOfCardList from '@/components/blocks/TemplateOfCardList'
 import { starshipsRequest } from '@/actions'
-import { CHARACTERS_IMAGE_URL } from '@/constants'
+import { STARSHIPS_IMAGE_URL } from '@/constants'
 
 export default function Starships () {
   const dispatch = useDispatch()
@@ -16,7 +16,7 @@ export default function Starships () {
 
   return (
     <Box>
-      <TemplateOfCardList data={starshipsList} imageUrl={CHARACTERS_IMAGE_URL} />
+      <TemplateOfCardList data={starshipsList} imageUrl={STARSHIPS_IMAGE_URL} />
     </Box>
   )
 }

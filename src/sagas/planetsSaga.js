@@ -2,6 +2,7 @@ import { put, takeEvery, call } from 'redux-saga/effects'
 
 import { planetsRequest, planetsResponse, planetsResponseFail } from '@/actions'
 import { planetsAPI } from '@/api/api'
+import { PLANETS_REQUEST } from '@/constants'
 
 function * planetsSagaWorker () {
   try {
@@ -13,5 +14,5 @@ function * planetsSagaWorker () {
 }
 
 export function * planetsWorker () {
-  yield takeEvery(planetsRequest, planetsSagaWorker)
+  yield takeEvery(PLANETS_REQUEST, planetsSagaWorker)
 }
