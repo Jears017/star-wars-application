@@ -1,6 +1,6 @@
 import { put, takeEvery, call } from 'redux-saga/effects'
 
-import { planetsRequest, planetsResponse, planetsResponseFail } from '@/actions'
+import { planetsResponse, planetsResponseFail } from '@/actions'
 import { planetsAPI } from '@/api/api'
 import { PLANETS_REQUEST } from '@/constants'
 

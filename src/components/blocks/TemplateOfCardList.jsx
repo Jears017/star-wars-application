@@ -23,6 +23,7 @@ export default function TemplateOfCardList ({ data, imageUrl }) {
           <Card
             key={content.name}
             name={content.name}
+            title={content.title}
             imageUrl={`${imageUrl}${getId(content.url)}.jpg`}
             id={getId(content.url)}
           />
