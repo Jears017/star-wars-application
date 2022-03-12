@@ -19,8 +19,8 @@ export const planetsAPI = {
 }
 
 export const charactersAPI = {
-  getCharacters () {
-    return instance.get(CHARACTERS_API_PATH).then(results => results.data)
+  getCharacters (page) {
+    return instance.get(`${CHARACTERS_API_PATH}/?page=${page}`).then(results => results.data)
   },
 }
 

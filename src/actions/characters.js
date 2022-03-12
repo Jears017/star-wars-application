@@ -4,8 +4,8 @@ import {
   CHARACTERS_RESPONSE_FAIL,
 } from '@/constants/actions'
 
-export const charactersRequest = () => {
-  return { type: CHARACTERS_REQUEST, payload: null }
+export const charactersRequest = page => {
+  return { type: CHARACTERS_REQUEST, payload: page }
 }
 
 export const charactersResponse = characters => {
