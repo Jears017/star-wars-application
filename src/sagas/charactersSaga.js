@@ -4,10 +4,10 @@ import { charactersResponse, charactersResponseFail } from '@/actions'
 import { charactersAPI } from '@/api/api'
 import { CHARACTERS_REQUEST } from '@/constants'
 
-function * charactersSagaWorker () {
+function * charactersSagaWorker ({ payload }) {
   try {
-    const characters = yield call(charactersAPI.getCharacters)
-    yield put(charactersResponse(characters.results))
+    const { results, count } = yield call(charactersAPI.getCharacters, payload)
+    yield put(charactersResponse({ results, count }))
   } catch (error) {
     yield put(charactersResponseFail(error))
   }
