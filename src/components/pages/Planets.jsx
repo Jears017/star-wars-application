@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Box } from '@mui/system'
 import { makeStyles } from '@mui/styles'
 
-import { PLANETS_IMAGE_URL } from '@/constants'
+import { PLANETS_IMAGE_URL, LIMIT_CARDS_PER_PAGE } from '@/constants'
 import TemplateOfCardList from '@/components/blocks/TemplateOfCardList'
 import { planetsRequest } from '@/actions/planets'
 import Pagination from '@/components/blocks/Pagination'
@@ -30,12 +30,14 @@ export default function Planets () {
   return (
     <Box>
       <TemplateOfCardList data={planetsList} imageUrl={PLANETS_IMAGE_URL} />
-      <Box className={classes.pagination}>
-        <Pagination
-          count={getCountOfPages(count)}
-          handleChange={handleChange}
-        />
-      </Box>
+      {count > LIMIT_CARDS_PER_PAGE && (
+        <Box className={classes.pagination}>
+          <Pagination
+            count={getCountOfPages(count)}
+            handleChange={handleChange}
+          />
+        </Box>
+      )}
     </Box>
   )
 }

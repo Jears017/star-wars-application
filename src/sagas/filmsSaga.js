@@ -4,11 +4,10 @@ import { filmsResponse, filmsResponseFail } from '@/actions'
 import { filmsAPI } from '@/api/api'
 import { FILMS_REQUEST } from '@/constants'
 
-function * filmsSagaWorker () {
+function * filmsSagaWorker ({ payload }) {
   try {
-    const films = yield call(filmsAPI.getFilms)
-    console.log('Films', films)
-    yield put(filmsResponse(films.results))
+    const { results, count } = yield call(filmsAPI.getFilms, payload)
+    yield put(filmsResponse({ results, count }))
   } catch (error) {
     yield put(filmsResponseFail(error))
   }
