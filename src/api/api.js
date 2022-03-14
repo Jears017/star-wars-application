@@ -25,8 +25,8 @@ export const charactersAPI = {
 }
 
 export const starshipsAPI = {
-  getStarships () {
-    return instance.get(STARSHIPS_API_PATH).then(results => results.data)
+  getStarships (page) {
+    return instance.get(`${STARSHIPS_API_PATH}/?page=${page}`).then(results => results.data)
   },
 }
 

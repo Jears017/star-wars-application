@@ -4,10 +4,10 @@ import { starshipsResponse, starshipsResponseFail } from '@/actions'
 import { starshipsAPI } from '@/api/api'
 import { STARSHIPS_REQUEST } from '@/constants'
 
-function * starshipsSagaWorker () {
+function * starshipsSagaWorker ({ payload }) {
   try {
-    const starships = yield call(starshipsAPI.getStarships)
-    yield put(starshipsResponse(starships.results))
+    const { results, count } = yield call(starshipsAPI.getStarships, payload)
+    yield put(starshipsResponse({ results, count }))
   } catch (error) {
     yield put(starshipsResponseFail(error))
   }
