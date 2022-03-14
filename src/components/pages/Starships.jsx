@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles'
 
 import TemplateOfCardList from '@/components/blocks/TemplateOfCardList'
 import { starshipsRequest } from '@/actions'
-import { STARSHIPS_IMAGE_URL } from '@/constants'
+import { STARSHIPS_IMAGE_URL, LIMIT_CARDS_PER_PAGE } from '@/constants'
 import Pagination from '@/components/blocks/Pagination'
 import { getCountOfPages } from '@/utils/getCountOfPages'
 
@@ -30,7 +30,7 @@ export default function Starships () {
   return (
     <Box>
       <TemplateOfCardList data={starshipsList} imageUrl={STARSHIPS_IMAGE_URL} />
-      {count > 10 && (
+      {count > LIMIT_CARDS_PER_PAGE && (
         <Box className={classes.pagination}>
           <Pagination
             count={getCountOfPages(count)}
