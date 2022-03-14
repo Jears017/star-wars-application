@@ -1,1 +1,2 @@
 export const LIMIT_CARDS_PER_PAGE = 10
+export const SEARCHING_TIME_INTERVAL = 500

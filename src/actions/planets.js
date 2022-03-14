@@ -4,8 +4,8 @@ import {
   PLANETS_RESPONSE_FAIL,
 } from '@/constants/actions'
 
-export const planetsRequest = page => {
-  return { type: PLANETS_REQUEST, payload: page }
+export const planetsRequest = (page, search) => {
+  return { type: PLANETS_REQUEST, payload: { page, search } }
 }
 
 export const planetsResponse = planets => {

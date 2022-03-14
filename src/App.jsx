@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box } from '@mui/material'
 import { Routes, Route } from 'react-router-dom'
+import { makeStyles } from '@mui/styles'
 
 import { Header } from '@/components/blocks/Header'
 import Characters from '@/components/pages/Characters'
@@ -18,9 +19,14 @@ import {
   FILMS_PAGE_PATH,
 } from '@/constants'
 
+const useStyles = makeStyles(theme => ({
+  applicationWrapper: { backgroundColor: theme.palette.grey[700] },
+}))
+
 export default function App () {
+  const classes = useStyles()
   return (
-    <Box>
+    <Box className={classes.applicationWrapper}>
       <Header />
       <Routes>
         <Route path={ROOT_PATH} element={<Main />} />
