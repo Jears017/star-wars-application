@@ -4,8 +4,8 @@ import {
   FILMS_RESPONSE_FAIL,
 } from '@/constants/actions'
 
-export const filmsRequest = () => {
-  return { type: FILMS_REQUEST, payload: null }
+export const filmsRequest = page => {
+  return { type: FILMS_REQUEST, payload: page }
 }
 
 export const filmsResponse = films => {

@@ -30,12 +30,14 @@ export default function Characters () {
   return (
     <Box>
       <TemplateOfCardList data={charactersList} imageUrl={CHARACTERS_IMAGE_URL} />
-      <Box className={classes.pagination}>
-        <Pagination
-          count={getCountOfPages(count)}
-          handleChange={handleChange}
-        />
-      </Box>
+      {count > 10 && (
+        <Box className={classes.pagination}>
+          <Pagination
+            count={getCountOfPages(count)}
+            handleChange={handleChange}
+          />
+        </Box>
+      )}
     </Box>
   )
 }
