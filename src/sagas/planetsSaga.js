@@ -2,7 +2,7 @@ import { put, takeEvery, call, debounce } from 'redux-saga/effects'
 
 import { planetsResponse, planetsResponseFail } from '@/actions'
 import { planetsAPI } from '@/api/api'
-import { PLANETS_REQUEST } from '@/constants'
+import { PLANETS_REQUEST, SEARCHING_TIME_INTERVAL } from '@/constants'
 
 function * planetsSagaWorker ({ payload }) {
   try {
@@ -18,5 +18,5 @@ function * planetsSagaWorker ({ payload }) {
 }
 
 export function * planetsWorker () {
-  yield debounce(500, PLANETS_REQUEST, planetsSagaWorker)
+  yield debounce(SEARCHING_TIME_INTERVAL, PLANETS_REQUEST, planetsSagaWorker)
 }
