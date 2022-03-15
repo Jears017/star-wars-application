@@ -37,9 +37,9 @@ export const starshipsAPI = {
 }
 
 export const filmsAPI = {
-  getFilms (page) {
+  getFilms (page, search) {
     return instance
-      .get(`${FILMS_API_PATH}/?page=${page}`)
+      .get(`${FILMS_API_PATH}/?page=${page}&search=${search}`)
       .then(results => results.data)
   },
 }
