@@ -11,13 +11,19 @@ const initialState = {
   error: null,
   isInitialized: false,
   page: 1,
+  search: '',
   count: null,
 }
 
 export default function (state = initialState, { type, payload } = {}) {
   switch (type) {
     case CHARACTERS_REQUEST:
-      return { ...state, isLoading: true, page: payload }
+      return {
+        ...state,
+        isLoading: true,
+        page: payload.page,
+        search: payload.search,
+      }
     case CHARACTERS_RESPONSE:
       return {
         ...state,

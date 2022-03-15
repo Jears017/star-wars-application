@@ -21,9 +21,9 @@ export const planetsAPI = {
 }
 
 export const charactersAPI = {
-  getCharacters (page) {
+  getCharacters (page, search) {
     return instance
-      .get(`${CHARACTERS_API_PATH}/?page=${page}`)
+      .get(`${CHARACTERS_API_PATH}/?page=${page}&search=${search}`)
       .then(results => results.data)
   },
 }

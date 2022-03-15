@@ -1,4 +1,4 @@
-import { put, takeEvery, call, debounce } from 'redux-saga/effects'
+import { put, call, debounce } from 'redux-saga/effects'
 
 import { planetsResponse, planetsResponseFail } from '@/actions'
 import { planetsAPI } from '@/api/api'
