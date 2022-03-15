@@ -26,7 +26,7 @@ export default function Films () {
   }, [])
 
   const handleChange = (event, value) => {
-    dispatch(filmsRequest(value))
+    dispatch(filmsRequest(value, search))
   }
 
   const onChange = event => {

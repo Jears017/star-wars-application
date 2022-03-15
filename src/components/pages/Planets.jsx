@@ -26,7 +26,7 @@ export default function Planets () {
   }, [])
 
   const handleChange = (event, value) => {
-    dispatch(planetsRequest(value))
+    dispatch(planetsRequest(value, search))
   }
 
   const onChange = event => {
