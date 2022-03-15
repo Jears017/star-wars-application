@@ -26,7 +26,7 @@ export default function Starships () {
   }, [])
 
   const handleChange = (event, value) => {
-    dispatch(starshipsRequest(value))
+    dispatch(starshipsRequest(value, search))
   }
 
   const onChange = event => {

@@ -26,7 +26,7 @@ export default function Characters () {
   }, [])
 
   const handleChange = (event, value) => {
-    dispatch(charactersRequest(value))
+    dispatch(charactersRequest(value, search))
   }
 
   const onChange = event => {
