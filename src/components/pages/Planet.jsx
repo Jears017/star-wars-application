@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 
 import { planetsDetailsRequest } from '@/actions'
@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   planetImage: { borderRadius: '5%', width: 400, height: 400 },
 }))
 
-export default function Planet (props) {
+export default function Planet () {
   const classes = useStyles()
 
   const { id } = useParams()

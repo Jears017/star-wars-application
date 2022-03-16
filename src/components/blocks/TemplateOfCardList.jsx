@@ -9,8 +9,8 @@ import { getId } from '@/utils/getId'
 const useStyles = makeStyles(theme => ({
   itemsList: {
     display: 'flex',
-    justifyContent: 'space-between',
     flexWrap: 'wrap',
+    gap: '23px',
   },
 }))
 
