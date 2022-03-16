@@ -1,8 +1,17 @@
-import { put, call, debounce } from 'redux-saga/effects'
+import { put, call, debounce, takeEvery } from 'redux-saga/effects'
 
-import { charactersResponse, charactersResponseFail } from '@/actions'
+import { charactersResponse, charactersResponseFail, charactersDetailsResponse, charactersDetailsResponseFail } from '@/actions'
 import { charactersAPI } from '@/api/api'
-import { CHARACTERS_REQUEST, SEARCHING_TIME_INTERVAL } from '@/constants'
+import { CHARACTERS_REQUEST, SEARCHING_TIME_INTERVAL, CHARACTERS_DETAILS_REQUEST } from '@/constants'
+
+function * loadCharactersDetails ({ payload }) {
+  try {
+    const charactersDetails = yield call(charactersAPI.getCharactersDetails, payload)
+    yield put(charactersDetailsResponse(charactersDetails))
+  } catch (error) {
+    yield put(charactersDetailsResponseFail(error))
+  }
+}
 
 function * charactersSagaWorker ({ payload }) {
   try {
@@ -15,4 +24,5 @@ function * charactersSagaWorker ({ payload }) {
 
 export function * charactersWorker () {
   yield debounce(SEARCHING_TIME_INTERVAL, CHARACTERS_REQUEST, charactersSagaWorker)
+  yield takeEvery(CHARACTERS_DETAILS_REQUEST, loadCharactersDetails)
 }

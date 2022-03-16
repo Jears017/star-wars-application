@@ -5,6 +5,7 @@ import charactersReducer from './characters'
 import starshipsReducer from './starships'
 import filmsReducer from './films'
 import planetsDetailsReducer from './planetsDetails'
+import charactersDetailsReducer from './charactersDetails'
 
 export default combineReducers({
   planets: planetsReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   starships: starshipsReducer,
   films: filmsReducer,
   planetsDetails: planetsDetailsReducer,
+  charactersDetails: charactersDetailsReducer,
 })
