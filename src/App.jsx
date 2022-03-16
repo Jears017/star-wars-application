@@ -10,6 +10,7 @@ import Main from '@/components/pages/Main'
 import PageNotFound from '@/components/pages/PageNotFound'
 import Starships from '@/components/pages/Starships'
 import Films from '@/components/pages/Films'
+import Planet from '@/components/pages/Planet'
 
 import {
   PLANETS_PAGE_PATH,
@@ -30,10 +31,13 @@ export default function App () {
       <Header />
       <Routes>
         <Route path={ROOT_PATH} element={<Main />} />
-        <Route path={PLANETS_PAGE_PATH} element={<Planets />} />
+        <Route exact path={PLANETS_PAGE_PATH}
+        element={<Planets />}
+        />
         <Route path={CHARACTERS_PAGE_PATH} element={<Characters />} />
         <Route path={STARSHIPS_PAGE_PATH} element={<Starships />} />
         <Route path={FILMS_PAGE_PATH} element={<Films />} />
+        <Route path={`${PLANETS_PAGE_PATH}/:id`} element={<Planet />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Box>

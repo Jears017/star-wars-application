@@ -18,6 +18,9 @@ export const planetsAPI = {
       .get(`${PLANETS_API_PATH}/?page=${page}&search=${search}`)
       .then(results => results.data)
   },
+  getPlanetsDetails (id) {
+    return instance.get(`${PLANETS_API_PATH}/${id}`).then(results => results.data)
+  },
 }
 
 export const charactersAPI = {

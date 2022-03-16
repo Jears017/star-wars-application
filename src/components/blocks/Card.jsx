@@ -4,7 +4,6 @@ import { makeStyles } from '@mui/styles'
 import { Link } from 'react-router-dom'
 
 import PropTypesOfCard from '@/prop-types/PropTypesOfCard'
-import { CARD_DETAILS_PAGE_PATH } from '@/constants'
 
 const useStyles = makeStyles(theme => ({
   cardWrapper: {
@@ -19,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Card ({ name, imageUrl, id, title }) {
+export default function Card ({ name, imageUrl, id, title, pathUrl }) {
   const classes = useStyles()
   return (
     <MuiCard className={classes.cardWrapper}>
@@ -30,7 +29,7 @@ export default function Card ({ name, imageUrl, id, title }) {
         alt={name}
       />
       <CardContent>
-        <Link className={classes.cardLink} to={`${CARD_DETAILS_PAGE_PATH}/${name || title}/${id}`}>
+        <Link className={classes.cardLink} to={`${pathUrl}/${id}`}>
           <Typography
             gutterBottom
             variant="h5"

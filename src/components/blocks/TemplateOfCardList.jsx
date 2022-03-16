@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function TemplateOfCardList ({ data, imageUrl }) {
+export default function TemplateOfCardList ({ data, imageUrl, pathUrl }) {
   const classes = useStyles()
   return (
     <Box className={classes.itemsList}>
@@ -26,6 +26,7 @@ export default function TemplateOfCardList ({ data, imageUrl }) {
             title={content.title}
             imageUrl={`${imageUrl}${getId(content.url)}.jpg`}
             id={getId(content.url)}
+            pathUrl={pathUrl}
           />
         )
       })}
@@ -36,4 +37,5 @@ export default function TemplateOfCardList ({ data, imageUrl }) {
 TemplateOfCardList.propTypes = {
   data: pt.array.isRequired,
   imageUrl: pt.string.isRequired,
+  pathUrl: pt.string.isRequired,
 }

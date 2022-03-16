@@ -1,8 +1,17 @@
-import { put, call, debounce } from 'redux-saga/effects'
+import { put, call, takeEvery, debounce } from 'redux-saga/effects'
 
-import { planetsResponse, planetsResponseFail } from '@/actions'
+import { planetsResponse, planetsResponseFail, planetsDetailsResponse, planetsDetailsResponseFail } from '@/actions'
 import { planetsAPI } from '@/api/api'
-import { PLANETS_REQUEST, SEARCHING_TIME_INTERVAL } from '@/constants'
+import { PLANETS_REQUEST, SEARCHING_TIME_INTERVAL, PLANETS_DETAILS_REQUEST } from '@/constants'
+
+function * loadPlanetsDetails ({ payload }) {
+  try {
+    const planetDetails = yield call(planetsAPI.getPlanetsDetails, payload)
+    yield put(planetsDetailsResponse(planetDetails))
+  } catch (error) {
+    yield put(planetsDetailsResponseFail(error))
+  }
+}
 
 function * planetsSagaWorker ({ payload }) {
   try {
@@ -19,4 +28,5 @@ function * planetsSagaWorker ({ payload }) {
 
 export function * planetsWorker () {
   yield debounce(SEARCHING_TIME_INTERVAL, PLANETS_REQUEST, planetsSagaWorker)
+  yield takeEvery(PLANETS_DETAILS_REQUEST, loadPlanetsDetails)
 }
