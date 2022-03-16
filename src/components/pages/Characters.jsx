@@ -5,7 +5,13 @@ import { makeStyles } from '@mui/styles'
 
 import TemplateOfCardList from '@/components/blocks/TemplateOfCardList'
 import { charactersRequest } from '@/actions'
-import { CHARACTERS_IMAGE_URL, LIMIT_CARDS_PER_PAGE } from '@/constants'
+
+import {
+  CHARACTERS_IMAGE_URL,
+  LIMIT_CARDS_PER_PAGE,
+  CHARACTERS_PAGE_PATH,
+} from '@/constants'
+
 import Pagination from '@/components/blocks/Pagination'
 import { getCountOfPages } from '@/utils/getCountOfPages'
 import { Search } from '@/components/controls/Search'
@@ -19,7 +25,9 @@ export default function Characters () {
   const classes = useStyles()
 
   const dispatch = useDispatch()
-  const { charactersList, page, count, search } = useSelector(store => store.characters)
+  const { charactersList, page, count, search } = useSelector(
+    store => store.characters,
+  )
 
   useEffect(() => {
     dispatch(charactersRequest(page, search))
@@ -36,9 +44,13 @@ export default function Characters () {
   return (
     <Box>
       <Box className={classes.search}>
-        <Search onSearchChange={onChange} value={search}/>
+        <Search onSearchChange={onChange} value={search} />
       </Box>
-      <TemplateOfCardList data={charactersList} imageUrl={CHARACTERS_IMAGE_URL} />
+      <TemplateOfCardList
+        pathUrl={CHARACTERS_PAGE_PATH}
+        data={charactersList}
+        imageUrl={CHARACTERS_IMAGE_URL}
+      />
       {count > LIMIT_CARDS_PER_PAGE && (
         <Box className={classes.pagination}>
           <Pagination

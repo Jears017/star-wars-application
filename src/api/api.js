@@ -29,6 +29,9 @@ export const charactersAPI = {
       .get(`${CHARACTERS_API_PATH}/?page=${page}&search=${search}`)
       .then(results => results.data)
   },
+  getCharactersDetails (id) {
+    return instance.get(`${CHARACTERS_API_PATH}/${id}`).then(results => results.data)
+  },
 }
 
 export const starshipsAPI = {
