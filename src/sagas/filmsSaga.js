@@ -1,8 +1,17 @@
 import { put, debounce, call, takeEvery } from 'redux-saga/effects'
 
-import { filmsResponse, filmsResponseFail, filmsDetailsResponse, filmsDetailsResponseFail } from '@/actions'
+import {
+  filmsResponse,
+  filmsResponseFail,
+  filmsDetailsResponse,
+  filmsDetailsResponseFail,
+} from '@/actions'
 import { filmsAPI } from '@/api/api'
-import { FILMS_REQUEST, SEARCHING_TIME_INTERVAL, FILMS_DETAILS_REQUEST } from '@/constants'
+import {
+  FILMS_REQUEST,
+  SEARCHING_TIME_INTERVAL,
+  FILMS_DETAILS_REQUEST,
+} from '@/constants'
 
 function * loadFilmsDetails ({ payload }) {
   try {
@@ -15,8 +24,17 @@ function * loadFilmsDetails ({ payload }) {
 
 function * filmsSagaWorker ({ payload }) {
   try {
-    const { results, count } = yield call(filmsAPI.getFilms, payload.page, payload.search)
-    yield put(filmsResponse({ results, count }))
+    const { results, count } = yield call(
+      filmsAPI.getFilms,
+      payload.page,
+      payload.search,
+    )
+    yield put(
+      filmsResponse({
+        results: results.sort((a, b) => (a.episode_id > b.episode_id ? 1 : -1)),
+        count,
+      }),
+    )
   } catch (error) {
     yield put(filmsResponseFail(error))
   }

@@ -46,9 +46,7 @@ export default function Films () {
       </Box>
       <TemplateOfCardList
         pathUrl={FILMS_PAGE_PATH}
-        data={filmsList.sort((a, b) =>
-          a.episode_id > b.episode_id ? 1 : -1,
-        )}
+        data={filmsList}
         imageUrl={FILMS_IMAGE_URL}
       />
       {count > LIMIT_CARDS_PER_PAGE && (
