@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
-
 import { charactersDetailsRequest } from '@/actions'
 import { CHARACTERS_IMAGE_URL } from '@/constants'
 
@@ -14,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   characterImage: { borderRadius: '5%', width: 400, height: 400 },
 }))
 
-export default function Planet () {
+export default function Character () {
   const classes = useStyles()
 
   const { id } = useParams()
