@@ -40,6 +40,9 @@ export const starshipsAPI = {
       .get(`${STARSHIPS_API_PATH}/?page=${page}&search=${search}`)
       .then(results => results.data)
   },
+  getStarshipsDetails (id) {
+    return instance.get(`${STARSHIPS_API_PATH}/${id}`).then(results => results.data)
+  },
 }
 
 export const filmsAPI = {
