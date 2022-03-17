@@ -1,8 +1,17 @@
-import { put, debounce, call } from 'redux-saga/effects'
+import { put, debounce, call, takeEvery } from 'redux-saga/effects'
 
-import { starshipsResponse, starshipsResponseFail } from '@/actions'
+import { starshipsResponse, starshipsResponseFail, starshipsDetailsResponse, starshipsDetailsResponseFail } from '@/actions'
 import { starshipsAPI } from '@/api/api'
-import { STARSHIPS_REQUEST, SEARCHING_TIME_INTERVAL } from '@/constants'
+import { STARSHIPS_REQUEST, SEARCHING_TIME_INTERVAL, STARSHIPS_DETAILS_REQUEST } from '@/constants'
+
+function * loadStarshipsDetails ({ payload }) {
+  try {
+    const starshipsDetails = yield call(starshipsAPI.getStarshipsDetails, payload)
+    yield put(starshipsDetailsResponse(starshipsDetails))
+  } catch (error) {
+    yield put(starshipsDetailsResponseFail(error))
+  }
+}
 
 function * starshipsSagaWorker ({ payload }) {
   try {
@@ -15,4 +24,5 @@ function * starshipsSagaWorker ({ payload }) {
 
 export function * starshipsWorker () {
   yield debounce(SEARCHING_TIME_INTERVAL, STARSHIPS_REQUEST, starshipsSagaWorker)
+  yield takeEvery(STARSHIPS_DETAILS_REQUEST, loadStarshipsDetails)
 }
