@@ -5,7 +5,13 @@ import { makeStyles } from '@mui/styles'
 
 import TemplateOfCardList from '@/components/blocks/TemplateOfCardList'
 import { filmsRequest } from '@/actions'
-import { FILMS_IMAGE_URL, LIMIT_CARDS_PER_PAGE } from '@/constants'
+
+import {
+  FILMS_IMAGE_URL,
+  LIMIT_CARDS_PER_PAGE,
+  FILMS_PAGE_PATH,
+} from '@/constants'
+
 import Pagination from '@/components/blocks/Pagination'
 import { getCountOfPages } from '@/utils/getCountOfPages'
 import { Search } from '@/components/controls/Search'
@@ -36,9 +42,13 @@ export default function Films () {
   return (
     <Box>
       <Box className={classes.search}>
-        <Search onSearchChange={onChange} value={search}/>
+        <Search onSearchChange={onChange} value={search} />
       </Box>
-      <TemplateOfCardList data={filmsList} imageUrl={FILMS_IMAGE_URL} />
+      <TemplateOfCardList
+        pathUrl={FILMS_PAGE_PATH}
+        data={filmsList}
+        imageUrl={FILMS_IMAGE_URL}
+      />
       {count > LIMIT_CARDS_PER_PAGE && (
         <Box className={classes.pagination}>
           <Pagination
