@@ -43,11 +43,6 @@ export default function Planets () {
       <Box className={classes.search}>
         <Search onSearchChange={onChange} value={search} />
       </Box>
-      <TemplateOfCardList
-        pathUrl={PLANETS_PAGE_PATH}
-        data={planetsList}
-        imageUrl={PLANETS_IMAGE_URL}
-      />
       {count > LIMIT_CARDS_PER_PAGE && (
         <Box className={classes.pagination}>
           <Pagination
@@ -56,6 +51,11 @@ export default function Planets () {
           />
         </Box>
       )}
+      <TemplateOfCardList
+        pathUrl={PLANETS_PAGE_PATH}
+        data={planetsList}
+        imageUrl={PLANETS_IMAGE_URL}
+      />
     </Box>
   )
 }

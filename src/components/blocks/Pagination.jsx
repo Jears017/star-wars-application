@@ -6,7 +6,6 @@ import pt from 'prop-types'
 const useStyles = makeStyles(theme => ({
   paginationContainer: {
     spacing: 2,
-    backgroundColor: theme.palette.common.black,
   },
 }))
 

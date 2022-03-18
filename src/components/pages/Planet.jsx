@@ -3,9 +3,16 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
-
+import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 import { planetsDetailsRequest } from '@/actions'
-import { PLANETS_IMAGE_URL } from '@/constants'
+
+import {
+  PLANETS_IMAGE_URL,
+  FILMS_PAGE_PATH,
+  CHARACTERS_PAGE_PATH,
+  CHARACTERS_IMAGE_URL,
+  FILMS_IMAGE_URL,
+} from '@/constants'
 
 const useStyles = makeStyles(theme => ({
   planetContainer: { display: 'flex', justifyContent: 'center' },
@@ -18,7 +25,7 @@ export default function Planet () {
   const classes = useStyles()
 
   const { id } = useParams()
-  const { data } = useSelector(state => state.planetsDetails)
+  const { data, films } = useSelector(state => state.planetsDetails)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -37,34 +44,36 @@ export default function Planet () {
             />
           </Box>
           <Box>
-            <Typography variant="h2">
-              {data.name}
-            </Typography>
-            <Typography variant="h6">
-              Population: {data.population}
-            </Typography>
+            <Typography variant="h2">{data.name}</Typography>
+            <Typography variant="h6">Population: {data.population}</Typography>
             <Typography variant="h6">
               Rotation Period: {data.rotation_period} days
             </Typography>
             <Typography variant="h6">
               Orbital Period: {data.orbital_period} days
             </Typography>
-            <Typography variant="h6">
-              Diameter: {data.diameter}km
-            </Typography>
-            <Typography variant="h6">
-              Gravity: {data.gravity}
-            </Typography>
-            <Typography variant="h6">
-              Terrain: {data.terrain}
-            </Typography>
+            <Typography variant="h6">Diameter: {data.diameter}km</Typography>
+            <Typography variant="h6">Gravity: {data.gravity}</Typography>
+            <Typography variant="h6">Terrain: {data.terrain}</Typography>
             <Typography variant="h6">
               Surface Water: {data.surface_water}%
             </Typography>
-            <Typography variant="h6">
-              Climate: {data.climate}
-            </Typography>
+            <Typography variant="h6">Climate: {data.climate}</Typography>
           </Box>
+        </Box>
+        <Box sx={{ display: 'flex', mt: 5, gap: 5 }}>
+            <AdditionalInfo
+              data={films}
+              path={FILMS_PAGE_PATH}
+              img={FILMS_IMAGE_URL}
+              title={'Related films:'}
+            />
+            <AdditionalInfo
+              data={films}
+              path={CHARACTERS_PAGE_PATH}
+              img={CHARACTERS_IMAGE_URL}
+              title={'Residents:'}
+            />
         </Box>
       </Box>
     </Box>
