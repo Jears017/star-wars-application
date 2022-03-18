@@ -25,7 +25,7 @@ export default function Planet () {
   const classes = useStyles()
 
   const { id } = useParams()
-  const { data, films } = useSelector(state => state.planetsDetails)
+  const { data, films, residents } = useSelector(state => state.planetsDetails)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function Planet () {
               title={'Related films:'}
             />
             <AdditionalInfo
-              data={films}
+              data={residents}
               path={CHARACTERS_PAGE_PATH}
               img={CHARACTERS_IMAGE_URL}
               title={'Residents:'}
