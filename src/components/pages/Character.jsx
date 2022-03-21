@@ -77,13 +77,13 @@ export default function Character () {
             data={films}
             path={FILMS_PAGE_PATH}
             img={FILMS_IMAGE_URL}
-            title={'Related films:'}
+            title="Related films:"
           />
           <AdditionalInfo
             data={starships}
             path={STARSHIPS_PAGE_PATH}
             img={STARSHIPS_IMAGE_URL}
-            title={'Starships:'}
+            title="Starships:"
           />
         </Box>
       </Box>

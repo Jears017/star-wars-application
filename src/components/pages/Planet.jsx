@@ -66,13 +66,13 @@ export default function Planet () {
               data={films}
               path={FILMS_PAGE_PATH}
               img={FILMS_IMAGE_URL}
-              title={'Related films:'}
+              title="Related films:"
             />
             <AdditionalInfo
               data={residents}
               path={CHARACTERS_PAGE_PATH}
               img={CHARACTERS_IMAGE_URL}
-              title={'Residents:'}
+              title="Residents:"
             />
         </Box>
       </Box>
