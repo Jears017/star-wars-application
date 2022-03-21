@@ -11,6 +11,8 @@ const initialState = {
   id: null,
   error: null,
   isInitialized: false,
+  films: [],
+  pilots: [],
 }
 
 export default function (state = initialState, { type, payload } = {}) {
@@ -27,6 +29,8 @@ export default function (state = initialState, { type, payload } = {}) {
         isLoading: false,
         isLoaded: true,
         data: { ...payload },
+        films: [...payload.films],
+        pilots: [...payload.pilots],
       }
     case STARSHIPS_DETAILS_RESPONSE_FAIL:
       return { ...state, isLoading: false, error: payload }

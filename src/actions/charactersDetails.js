@@ -8,8 +8,8 @@ export const charactersDetailsRequest = id => {
   return { type: CHARACTERS_DETAILS_REQUEST, payload: id }
 }
 
-export const charactersDetailsResponse = planets => {
-  return { type: CHARACTERS_DETAILS_RESPONSE, payload: planets }
+export const charactersDetailsResponse = characters => {
+  return { type: CHARACTERS_DETAILS_RESPONSE, payload: characters }
 }
 
 export const charactersDetailsResponseFail = error => {
