@@ -14,6 +14,7 @@ import {
 import { makeStyles } from '@mui/styles'
 import LanguageIcon from '@mui/icons-material/Language'
 import LightModeIcon from '@mui/icons-material/LightMode'
+import { useTranslation } from 'react-i18next'
 
 import { ROOT_PATH } from '@/constants'
 
@@ -36,6 +37,7 @@ const useStyles = makeStyles(theme => ({
 
 export function Header () {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <AppBar position="static">
@@ -55,7 +57,7 @@ export function Header () {
               <Link key={page} className={classes.navLink}
                 to={`/${page}`}
               >
-                <Button className={classes.navBarItem}>{page}</Button>
+                <Button className={classes.navBarItem}>{t(`header.${page}`)}</Button>
               </Link>
             ))}
           </Box>

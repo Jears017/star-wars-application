@@ -3,6 +3,8 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
+import { useTranslation } from 'react-i18next'
+
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 import { planetsDetailsRequest } from '@/actions'
 
@@ -24,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Planet () {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   const { id } = useParams()
   const { data, films, residents } = useSelector(state => state.planetsDetails)
@@ -46,35 +49,46 @@ export default function Planet () {
           </Box>
           <Box>
             <Typography variant="h2">{data.name}</Typography>
-            <Typography variant="h6">Population: {data.population}</Typography>
             <Typography variant="h6">
-              Rotation Period: {data.rotation_period} days
+              {t('planet.population')}: {data.population}
             </Typography>
             <Typography variant="h6">
-              Orbital Period: {data.orbital_period} days
+              {t('planet.rotation_period')}: {data.rotation_period} {t('common.days')}
             </Typography>
-            <Typography variant="h6">Diameter: {data.diameter}km</Typography>
-            <Typography variant="h6">Gravity: {data.gravity}</Typography>
-            <Typography variant="h6">Terrain: {data.terrain}</Typography>
             <Typography variant="h6">
-              Surface Water: {data.surface_water}%
+              {t('planet.orbital_period')}: {data.orbital_period} {t('common.days')}
             </Typography>
-            <Typography variant="h6">Climate: {data.climate}</Typography>
+            <Typography variant="h6">
+              {t('planet.diameter')}: {data.diameter}
+              {t('common.km')}
+            </Typography>
+            <Typography variant="h6">
+              {t('planet.gravity')}: {data.gravity}
+            </Typography>
+            <Typography variant="h6">
+              {t('planet.terrain')}: {data.terrain}
+            </Typography>
+            <Typography variant="h6">
+              {t('planet.surface_water')}: {data.surface_water}%
+            </Typography>
+            <Typography variant="h6">
+              {t('planet.climate')}: {data.climate}
+            </Typography>
           </Box>
         </Box>
         <Box className={classes.planetsAdditionalWrapper}>
-            <AdditionalInfo
-              data={films}
-              path={FILMS_PAGE_PATH}
-              img={FILMS_IMAGE_URL}
-              title="Related films:"
-            />
-            <AdditionalInfo
-              data={residents}
-              path={CHARACTERS_PAGE_PATH}
-              img={CHARACTERS_IMAGE_URL}
-              title="Residents:"
-            />
+          <AdditionalInfo
+            data={films}
+            path={FILMS_PAGE_PATH}
+            img={FILMS_IMAGE_URL}
+            title={t('common.related_films')}
+          />
+          <AdditionalInfo
+            data={residents}
+            path={CHARACTERS_PAGE_PATH}
+            img={CHARACTERS_IMAGE_URL}
+            title={t('common.residents')}
+          />
         </Box>
       </Box>
     </Box>
