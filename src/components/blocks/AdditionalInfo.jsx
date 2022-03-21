@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     border: `1px solid ${theme.palette.common.black}`,
     borderRadius: '5%',
   },
-  additionalIconContainer: { display: 'flex', gap: 24 },
+  additionalIconContainer: { display: 'flex', gap: 24, flexWrap: 'wrap' },
 }))
 
 export default function AdditionalInfo ({ data, path, img, title }) {
@@ -25,12 +25,7 @@ export default function AdditionalInfo ({ data, path, img, title }) {
       <Box className={classes.additionalIconContainer}>
         {data.map(res => (
           <Link key={res} to={`${path}/${getId(res)}`}>
-          <Avatar
-            alt="Remy Sharp"
-            src={`${img}${getId(
-              res,
-            )}.jpg`}
-          />
+            <Avatar alt="Remy Sharp" src={`${img}${getId(res)}.jpg`} />
           </Link>
         ))}
       </Box>

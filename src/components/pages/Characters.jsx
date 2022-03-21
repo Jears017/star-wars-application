@@ -46,11 +46,6 @@ export default function Characters () {
       <Box className={classes.search}>
         <Search onSearchChange={onChange} value={search} />
       </Box>
-      <TemplateOfCardList
-        pathUrl={CHARACTERS_PAGE_PATH}
-        data={charactersList}
-        imageUrl={CHARACTERS_IMAGE_URL}
-      />
       {count > LIMIT_CARDS_PER_PAGE && (
         <Box className={classes.pagination}>
           <Pagination
@@ -59,6 +54,11 @@ export default function Characters () {
           />
         </Box>
       )}
+      <TemplateOfCardList
+        pathUrl={CHARACTERS_PAGE_PATH}
+        data={charactersList}
+        imageUrl={CHARACTERS_IMAGE_URL}
+      />
     </Box>
   )
 }
