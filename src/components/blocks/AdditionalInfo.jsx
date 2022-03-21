@@ -8,8 +8,8 @@ import { getId } from '@/utils'
 
 const useStyles = makeStyles(theme => ({
   additionalContainer: {
-    width: 400,
-    height: 200,
+    width: 500,
+    minHeight: 200,
     border: `1px solid ${theme.palette.common.black}`,
     borderRadius: '5%',
   },
