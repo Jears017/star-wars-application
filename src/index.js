@@ -8,6 +8,8 @@ import App from '@/App'
 import { getStore } from '@/store'
 import theme from '@/theme/theme'
 
+import './i18n'
+
 ReactDOM.render(
   <Provider store={getStore()}>
     <BrowserRouter>
