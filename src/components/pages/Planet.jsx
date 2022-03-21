@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
   planetContent: { display: 'flex' },
   planetImageContainer: { marginRight: 25 },
   planetImage: { borderRadius: '5%', width: 400, height: 400 },
+  planetsAdditionalWrapper: { display: 'flex', mt: 5, gap: 5 },
 }))
 
 export default function Planet () {
@@ -61,7 +62,7 @@ export default function Planet () {
             <Typography variant="h6">Climate: {data.climate}</Typography>
           </Box>
         </Box>
-        <Box sx={{ display: 'flex', mt: 5, gap: 5 }}>
+        <Box className={classes.planetsAdditionalWrapper}>
             <AdditionalInfo
               data={films}
               path={FILMS_PAGE_PATH}

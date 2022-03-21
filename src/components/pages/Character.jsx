@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
   characterContent: { display: 'flex' },
   characterImageContainer: { marginRight: 25 },
   characterImage: { borderRadius: '5%', width: 400, height: 400 },
+  characterAdditionalWrapper: { display: 'flex', mt: 5, gap: 5 },
 }))
 
 export default function Character () {
@@ -72,7 +73,7 @@ export default function Character () {
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ display: 'flex', mt: 5, gap: 5 }}>
+        <Box className={classes.characterAdditionalWrapper}>
           <AdditionalInfo
             data={films}
             path={FILMS_PAGE_PATH}
