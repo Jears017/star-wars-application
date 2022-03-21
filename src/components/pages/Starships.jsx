@@ -46,11 +46,6 @@ export default function Starships () {
       <Box className={classes.search}>
         <Search onSearchChange={onChange} value={search} />
       </Box>
-      <TemplateOfCardList
-        pathUrl={STARSHIPS_PAGE_PATH}
-        data={starshipsList}
-        imageUrl={STARSHIPS_IMAGE_URL}
-      />
       {count > LIMIT_CARDS_PER_PAGE && (
         <Box className={classes.pagination}>
           <Pagination
@@ -59,6 +54,11 @@ export default function Starships () {
           />
         </Box>
       )}
+      <TemplateOfCardList
+        pathUrl={STARSHIPS_PAGE_PATH}
+        data={starshipsList}
+        imageUrl={STARSHIPS_IMAGE_URL}
+      />
     </Box>
   )
 }
