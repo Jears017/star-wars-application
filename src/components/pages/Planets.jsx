@@ -14,6 +14,7 @@ import { planetsRequest } from '@/actions/planets'
 import Pagination from '@/components/blocks/Pagination'
 import { getCountOfPages } from '@/utils/getCountOfPages'
 import { Search } from '@/components/controls/Search'
+import { useQueryParams } from '@/utils/useQueryParams'
 
 const useStyles = makeStyles(theme => ({
   pagination: { display: 'flex', justifyContent: 'flex-end' },
@@ -24,18 +25,14 @@ export default function Planets () {
   const classes = useStyles()
 
   const dispatch = useDispatch()
-  const { planetsList, page, count, search } = useSelector(store => store.planets)
+  const { planetsList, count, search } = useSelector(store => store.planets)
+
+  const query = useQueryParams()
+  const queryPage = query.get('page')
 
   useEffect(() => {
-    dispatch(planetsRequest(page, search))
-    return () => {
-      dispatch(planetsRequest(1, ''))
-    }
-  }, [])
-
-  const handleChange = (event, value) => {
-    dispatch(planetsRequest(value, search))
-  }
+    dispatch(planetsRequest(queryPage, search))
+  }, [queryPage])
 
   const onChange = event => {
     dispatch(planetsRequest(1, event.target.value))
@@ -50,7 +47,7 @@ export default function Planets () {
         <Box className={classes.pagination}>
           <Pagination
             count={getCountOfPages(count)}
-            handleChange={handleChange}
+            path={PLANETS_PAGE_PATH}
           />
         </Box>
       )}

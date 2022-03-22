@@ -34,7 +34,7 @@ export default function App () {
       <Header />
       <Routes>
         <Route path={ROOT_PATH} element={<Main />} />
-        <Route exact path={PLANETS_PAGE_PATH}
+        <Route path={PLANETS_PAGE_PATH}
         element={<Planets />}
         />
         <Route path={CHARACTERS_PAGE_PATH} element={<Characters />} />

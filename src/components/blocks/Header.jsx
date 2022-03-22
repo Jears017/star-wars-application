@@ -57,7 +57,7 @@ export function Header () {
           <Box className={classes.navBar}>
             {pages.map(page => (
               <Link key={page} className={classes.navLink}
-                to={`/${page}`}
+                to={`/${page}/?page=1&search=`}
               >
                 <Button className={classes.navBarItem}>{t(`header.${page}`)}</Button>
               </Link>
