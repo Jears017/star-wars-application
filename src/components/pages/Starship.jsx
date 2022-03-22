@@ -3,8 +3,10 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
+import { useTranslation } from 'react-i18next'
 
 import { starshipsDetailsRequest } from '@/actions'
+import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 
 import {
   STARSHIPS_IMAGE_URL,
@@ -13,8 +15,6 @@ import {
   CHARACTERS_IMAGE_URL,
   CHARACTERS_PAGE_PATH,
 } from '@/constants'
-
-import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 
 const useStyles = makeStyles(theme => ({
   starshipContainer: { display: 'flex', justifyContent: 'center' },
@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Planet () {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   const { id } = useParams()
   const { data, films, pilots } = useSelector(
@@ -50,27 +51,27 @@ export default function Planet () {
           </Box>
           <Box>
             <Typography variant="h2">{data.name}</Typography>
-            <Typography variant="h6">Model: {data.model}</Typography>
+            <Typography variant="h6">{t('starship.model')}: {data.model}</Typography>
             <Typography variant="h6">
-              Manufacturer: {data.manufacturer}
+            {t('starship.manufacturer')}: {data.manufacturer}
             </Typography>
-            <Typography variant="h6">Class: {data.starship_class}</Typography>
+            <Typography variant="h6">{t('starship.class')}: {data.starship_class}</Typography>
             <Typography variant="h6">
-              Cost: {data.cost_in_credits} credits
-            </Typography>
-            <Typography variant="h6">
-              Speed: {data.max_atmosphering_speed} km/h
+            {t('starship.cost')}: {data.cost_in_credits} {t('common.credits')}
             </Typography>
             <Typography variant="h6">
-              Hyperdrive Rating: {data.hyperdrive_rating}
+            {t('starship.speed')}: {data.max_atmosphering_speed} {t('common.kmH')}
             </Typography>
-            <Typography variant="h6">MGLT: {data.MGLT}%</Typography>
-            <Typography variant="h6">Length: {data.length}</Typography>
             <Typography variant="h6">
-              Cargo Capacity: {data.cargo_capacity}
+            {t('starship.hyperdrive_rating')}: {data.hyperdrive_rating}
             </Typography>
-            <Typography variant="h6">Mimimum Crew: {data.crew}</Typography>
-            <Typography variant="h6">Passengers: {data.passengers}</Typography>
+            <Typography variant="h6">{t('starship.MGLT')}: {data.MGLT}%</Typography>
+            <Typography variant="h6">{t('starship.length')}: {data.length} {t('common.m')}</Typography>
+            <Typography variant="h6">
+            {t('starship.cargo_capacity')}: {data.cargo_capacity} {t('common.kg')}
+            </Typography>
+            <Typography variant="h6">{t('starship.minimum_сrew')}: {data.crew}</Typography>
+            <Typography variant="h6">{t('starship.passengers')}: {data.passengers}</Typography>
           </Box>
         </Box>
         <Box className={classes.starshipAdditionalWrapper}>
@@ -78,13 +79,13 @@ export default function Planet () {
             data={films}
             path={FILMS_PAGE_PATH}
             img={FILMS_IMAGE_URL}
-            title="Related films:"
+            title={t('common.related_films')}
           />
           <AdditionalInfo
             data={pilots}
             path={CHARACTERS_PAGE_PATH}
             img={CHARACTERS_IMAGE_URL}
-            title="Pilots:"
+            title={t('common.pilots')}
           />
         </Box>
       </Box>

@@ -3,8 +3,10 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
+import { useTranslation } from 'react-i18next'
 
 import { filmsDetailsRequest } from '@/actions'
+import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 
 import {
   FILMS_IMAGE_URL,
@@ -13,8 +15,6 @@ import {
   PLANETS_PAGE_PATH,
   PLANETS_IMAGE_URL,
 } from '@/constants'
-
-import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 
 const useStyles = makeStyles(theme => ({
   filmContainer: { display: 'flex', justifyContent: 'center' },
@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Film () {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   const { id } = useParams()
   const { data, characters, planets } = useSelector(
@@ -50,18 +51,18 @@ export default function Film () {
             />
           </Box>
           <Box className={classes.filmContentDetails}>
-            <Typography variant="h2">{data.title || 'uknown'}</Typography>
+            <Typography variant="h2">{data.title}</Typography>
             <Typography variant="h6">
-              Date Created: {data.release_date || 'uknown'}
+              {t('film.date_created')}: {data.release_date}
             </Typography>
             <Typography variant="h6">
-              Director: {data.director || 'uknown'}
+            {t('film.director')}: {data.director}
             </Typography>
             <Typography variant="h6">
-              Producer(s): {data.producer || 'uknown'}cm
+            {t('film.producer')}: {data.producer}
             </Typography>
-            <Typography variant="h6">Opening Crawl:</Typography>
-            <Typography>{data.opening_crawl || 'uknown'}</Typography>
+            <Typography variant="h6">{t('film.opening_crawl')}:</Typography>
+            <Typography>{data.opening_crawl}</Typography>
           </Box>
         </Box>
         <Box className={classes.filmAdditionalWrapper}>
@@ -69,13 +70,13 @@ export default function Film () {
             data={characters}
             path={CHARACTERS_PAGE_PATH}
             img={CHARACTERS_IMAGE_URL}
-            title="Characters:"
+            title={t('common.characters')}
           />
           <AdditionalInfo
             data={planets}
             path={PLANETS_PAGE_PATH}
             img={PLANETS_IMAGE_URL}
-            title="Planets:"
+            title={t('common.planets')}
           />
         </Box>
       </Box>
