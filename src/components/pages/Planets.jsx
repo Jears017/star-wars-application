@@ -28,6 +28,9 @@ export default function Planets () {
 
   useEffect(() => {
     dispatch(planetsRequest(page, search))
+    return () => {
+      dispatch(planetsRequest(1, ''))
+    }
   }, [])
 
   const handleChange = (event, value) => {

@@ -3,7 +3,10 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
+import { useTranslation } from 'react-i18next'
+
 import { charactersDetailsRequest } from '@/actions'
+import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 
 import {
   CHARACTERS_IMAGE_URL,
@@ -12,8 +15,6 @@ import {
   STARSHIPS_IMAGE_URL,
   STARSHIPS_PAGE_PATH,
 } from '@/constants'
-
-import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 
 const useStyles = makeStyles(theme => ({
   characterContainer: { display: 'flex', justifyContent: 'center' },
@@ -25,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Character () {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   const { id } = useParams()
   const { data, films, starships } = useSelector(state => state.charactersDetails)
@@ -46,30 +48,30 @@ export default function Character () {
             />
           </Box>
           <Box>
-            <Typography variant="h2">{data.name || 'uknown'}</Typography>
+            <Typography variant="h2">{data.name }</Typography>
             <Typography variant="h6">
-              Birth Year: {data.birth_year || 'uknown'}
+              {t('character.birth_year')}: {data.birth_year}
             </Typography>
             <Typography variant="h6">
-              Species: {data.species || 'uknown'}
+            {t('character.species')}: {data.species}
             </Typography>
             <Typography variant="h6">
-              Height: {data.height || 'uknown'}cm
+            {t('character.height')}: {data.height}{t('common.cm')}
             </Typography>
             <Typography variant="h6">
-              Mass: {data.mass || 'uknown'}kg
+            {t('character.mass')}: {data.mass}{t('common.kg')}
             </Typography>
             <Typography variant="h6">
-              Gender: {data.gender || 'uknown'}
+            {t('character.gender')}: {data.gender}
             </Typography>
             <Typography variant="h6">
-              Hair Color: {data.hair_color || 'uknown'}
+            {t('character.hair_color')}: {data.hair_color}
             </Typography>
             <Typography variant="h6">
-              Skin Color: {data.skin_color || 'uknown'}
+            {t('character.skin_color')}: {data.skin_color}
             </Typography>
             <Typography variant="h6">
-              Homeworld: {data.homeworld || 'uknown'}
+            {t('character.homeworld')}: {data.homeworld}
             </Typography>
           </Box>
         </Box>
@@ -78,13 +80,13 @@ export default function Character () {
             data={films}
             path={FILMS_PAGE_PATH}
             img={FILMS_IMAGE_URL}
-            title="Related films:"
+            title={t('common.related_films')}
           />
           <AdditionalInfo
             data={starships}
             path={STARSHIPS_PAGE_PATH}
             img={STARSHIPS_IMAGE_URL}
-            title="Starships:"
+            title={t('common.starships')}
           />
         </Box>
       </Box>

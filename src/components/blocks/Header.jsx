@@ -1,5 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { makeStyles } from '@mui/styles'
+import LanguageIcon from '@mui/icons-material/Language'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import { useTranslation } from 'react-i18next'
 
 import {
   AppBar,
@@ -11,12 +15,7 @@ import {
   Button,
 } from '@mui/material'
 
-import { makeStyles } from '@mui/styles'
-import LanguageIcon from '@mui/icons-material/Language'
-import LightModeIcon from '@mui/icons-material/LightMode'
-import { useTranslation } from 'react-i18next'
-
-import { ROOT_PATH } from '@/constants'
+import { ROOT_PATH, ENGLISH, RUSSIAN } from '@/constants'
 
 const pages = ['planets', 'characters', 'starships', 'films']
 
@@ -37,8 +36,11 @@ const useStyles = makeStyles(theme => ({
 
 export function Header () {
   const classes = useStyles()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
+  const changeLanguageHandler = () => {
+    i18n.changeLanguage(i18n.language === ENGLISH ? RUSSIAN : ENGLISH)
+  }
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -66,7 +68,7 @@ export function Header () {
             <IconButton>
               <LightModeIcon />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={ changeLanguageHandler }>
               <LanguageIcon />
             </IconButton>
           </Box>
