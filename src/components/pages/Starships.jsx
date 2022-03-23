@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box } from '@mui/system'
 import { makeStyles } from '@mui/styles'
-
-import TemplateOfCardList from '@/components/blocks/TemplateOfCardList'
-import { starshipsRequest } from '@/actions'
+import { useNavigate } from 'react-router-dom'
 
 import {
   STARSHIPS_IMAGE_URL,
@@ -12,9 +10,12 @@ import {
   STARSHIPS_PAGE_PATH,
 } from '@/constants'
 
+import TemplateOfCardList from '@/components/blocks/TemplateOfCardList'
+import { starshipsRequest } from '@/actions'
 import Pagination from '@/components/blocks/Pagination'
 import { getCountOfPages } from '@/utils/getCountOfPages'
 import { Search } from '@/components/controls/Search'
+import { useQueryParams } from '@/utils/useQueryParams'
 
 const useStyles = makeStyles(theme => ({
   pagination: { display: 'flex', justifyContent: 'flex-end' },
@@ -23,22 +24,36 @@ const useStyles = makeStyles(theme => ({
 
 export default function Starships () {
   const classes = useStyles()
-
   const dispatch = useDispatch()
-  const { starshipsList, page, count, search } = useSelector(
-    store => store.starships,
-  )
+  const navigate = useNavigate()
+
+  const { starshipsList, count } = useSelector(store => store.starships)
+
+  const [search, setSearch] = useState('')
+  const [page, setPage] = useState(1)
+
+  const query = useQueryParams()
+  const queryPage = query.get('page')
+  const querySearch = query.get('search')
 
   useEffect(() => {
-    dispatch(starshipsRequest(page, search))
-  }, [])
+    navigate(`${STARSHIPS_PAGE_PATH}/?page=${page}&search=${search}`)
+  }, [page, search])
+
+  useEffect(() => {
+    if (querySearch) {
+      dispatch(starshipsRequest(1, querySearch))
+    } else {
+      dispatch(starshipsRequest(queryPage, querySearch))
+    }
+  }, [queryPage, querySearch])
 
   const handleChange = (event, value) => {
-    dispatch(starshipsRequest(value, search))
+    setPage(value)
   }
 
   const onChange = event => {
-    dispatch(starshipsRequest(1, event.target.value))
+    setSearch(event.target.value)
   }
 
   return (
