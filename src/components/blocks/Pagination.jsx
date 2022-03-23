@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  Pagination as MuiPagination,
-  Stack,
-  PaginationItem,
-} from '@mui/material'
-import { Link } from 'react-router-dom'
+import { Pagination as MuiPagination, Stack } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import pt from 'prop-types'
 
@@ -14,25 +9,19 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Pagination ({ path, count }) {
+export default function Pagination ({ handleChange, count }) {
   const classes = useStyles()
   return (
     <Stack className={classes.paginationContainer}>
       <MuiPagination
         count={count}
-        renderItem={item => (
-          <PaginationItem
-            component={Link}
-            to={`${path}/?page=${item.page}&search=`}
-            {...item}
-          />
-        )}
+        onChange={handleChange}
       />
     </Stack>
   )
 }
 
 Pagination.propTypes = {
-  path: pt.string.isRequired,
+  handleChange: pt.func.isRequired,
   count: pt.number.isRequired,
 }
