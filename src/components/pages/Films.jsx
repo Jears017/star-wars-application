@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box } from '@mui/system'
 import { makeStyles } from '@mui/styles'
-
-import TemplateOfCardList from '@/components/blocks/TemplateOfCardList'
-import { filmsRequest } from '@/actions'
+import { useNavigate } from 'react-router-dom'
 
 import {
   FILMS_IMAGE_URL,
@@ -12,9 +10,12 @@ import {
   FILMS_PAGE_PATH,
 } from '@/constants'
 
+import TemplateOfCardList from '@/components/blocks/TemplateOfCardList'
+import { filmsRequest } from '@/actions'
 import Pagination from '@/components/blocks/Pagination'
 import { getCountOfPages } from '@/utils/getCountOfPages'
 import { Search } from '@/components/controls/Search'
+import { useQueryParams } from '@/utils/useQueryParams'
 
 const useStyles = makeStyles(theme => ({
   pagination: { display: 'flex', justifyContent: 'flex-end' },
@@ -23,20 +24,36 @@ const useStyles = makeStyles(theme => ({
 
 export default function Films () {
   const classes = useStyles()
-
   const dispatch = useDispatch()
-  const { filmsList, page, count, search } = useSelector(store => store.films)
+  const navigate = useNavigate()
+
+  const { filmsList, count } = useSelector(store => store.films)
+
+  const [search, setSearch] = useState('')
+  const [page, setPage] = useState(1)
+
+  const query = useQueryParams()
+  const queryPage = query.get('page')
+  const querySearch = query.get('search')
 
   useEffect(() => {
-    dispatch(filmsRequest(page, search))
-  }, [])
+    navigate(`${FILMS_PAGE_PATH}/?page=${page}&search=${search}`)
+  }, [page, search])
+
+  useEffect(() => {
+    if (querySearch) {
+      dispatch(filmsRequest(1, querySearch))
+    } else {
+      dispatch(filmsRequest(queryPage, querySearch))
+    }
+  }, [queryPage, querySearch])
 
   const handleChange = (event, value) => {
-    dispatch(filmsRequest(value, search))
+    setPage(value)
   }
 
   const onChange = event => {
-    dispatch(filmsRequest(1, event.target.value))
+    setSearch(event.target.value)
   }
 
   return (
