@@ -54,7 +54,6 @@ export default function Characters () {
 
   const onChange = event => {
     setSearch(event.target.value)
-    dispatch(charactersRequest(1, event.target.value))
   }
 
   return (
