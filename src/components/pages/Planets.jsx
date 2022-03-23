@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box } from '@mui/system'
 import { makeStyles } from '@mui/styles'
+import { useNavigate } from 'react-router-dom'
 
 import {
   PLANETS_IMAGE_URL,
@@ -23,19 +24,32 @@ const useStyles = makeStyles(theme => ({
 
 export default function Planets () {
   const classes = useStyles()
-
   const dispatch = useDispatch()
-  const { planetsList, count, search } = useSelector(store => store.planets)
+  const navigate = useNavigate()
+
+  const [search, setSearch] = useState('')
+  const [page, setPage] = useState(1)
+
+  const { planetsList, count } = useSelector(store => store.planets)
 
   const query = useQueryParams()
   const queryPage = query.get('page')
+  const querySearch = query.get('search')
+
+  useEffect(() => {
+    navigate(`/planets/?page=${page}&search=${search}`)
+  }, [page, search])
 
   useEffect(() => {
     dispatch(planetsRequest(queryPage, search))
-  }, [queryPage])
+  }, [queryPage, querySearch])
+
+  const handleChange = (event, value) => {
+    setPage(value)
+  }
 
   const onChange = event => {
-    dispatch(planetsRequest(1, event.target.value))
+    setSearch(event.target.value)
   }
 
   return (
@@ -47,7 +61,7 @@ export default function Planets () {
         <Box className={classes.pagination}>
           <Pagination
             count={getCountOfPages(count)}
-            path={PLANETS_PAGE_PATH}
+            handleChange={handleChange}
           />
         </Box>
       )}
