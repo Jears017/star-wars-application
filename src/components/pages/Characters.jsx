@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box } from '@mui/system'
 import { makeStyles } from '@mui/styles'
-
-import TemplateOfCardList from '@/components/blocks/TemplateOfCardList'
-import { charactersRequest } from '@/actions'
+import { useNavigate } from 'react-router-dom'
 
 import {
   CHARACTERS_IMAGE_URL,
@@ -12,9 +10,12 @@ import {
   CHARACTERS_PAGE_PATH,
 } from '@/constants'
 
+import TemplateOfCardList from '@/components/blocks/TemplateOfCardList'
+import { charactersRequest } from '@/actions'
 import Pagination from '@/components/blocks/Pagination'
 import { getCountOfPages } from '@/utils/getCountOfPages'
 import { Search } from '@/components/controls/Search'
+import { useQueryParams } from '@/utils/useQueryParams'
 
 const useStyles = makeStyles(theme => ({
   pagination: { display: 'flex', justifyContent: 'flex-end' },
@@ -23,21 +24,36 @@ const useStyles = makeStyles(theme => ({
 
 export default function Characters () {
   const classes = useStyles()
-
   const dispatch = useDispatch()
-  const { charactersList, page, count, search } = useSelector(
-    store => store.characters,
-  )
+  const navigate = useNavigate()
+
+  const { charactersList, count } = useSelector(store => store.characters)
+
+  const [search, setSearch] = useState('')
+  const [page, setPage] = useState(1)
+
+  const query = useQueryParams()
+  const queryPage = query.get('page')
+  const querySearch = query.get('search')
 
   useEffect(() => {
-    dispatch(charactersRequest(page, search))
-  }, [])
+    navigate(`${CHARACTERS_PAGE_PATH}/?page=${page}&search=${search}`)
+  }, [page, search])
+
+  useEffect(() => {
+    if (querySearch) {
+      dispatch(charactersRequest(1, querySearch))
+    } else {
+      dispatch(charactersRequest(queryPage, querySearch))
+    }
+  }, [queryPage, querySearch])
 
   const handleChange = (event, value) => {
-    dispatch(charactersRequest(value, search))
+    setPage(value)
   }
 
   const onChange = event => {
+    setSearch(event.target.value)
     dispatch(charactersRequest(1, event.target.value))
   }
 

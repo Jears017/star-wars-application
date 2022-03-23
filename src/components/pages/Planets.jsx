@@ -37,11 +37,15 @@ export default function Planets () {
   const querySearch = query.get('search')
 
   useEffect(() => {
-    navigate(`/planets/?page=${page}&search=${search}`)
+    navigate(`${PLANETS_PAGE_PATH}/?page=${page}&search=${search}`)
   }, [page, search])
 
   useEffect(() => {
-    dispatch(planetsRequest(queryPage, search))
+    if (querySearch) {
+      dispatch(planetsRequest(1, querySearch))
+    } else {
+      dispatch(planetsRequest(queryPage, querySearch))
+    }
   }, [queryPage, querySearch])
 
   const handleChange = (event, value) => {
