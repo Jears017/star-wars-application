@@ -37,7 +37,8 @@ export default function App () {
     <Box className={classes.applicationWrapper}>
       <Header />
       <Grid container>
-        <Grid item
+        <Grid
+          item
           xs={12}
           sm={12}
         >
