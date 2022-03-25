@@ -1,6 +1,6 @@
 import React from 'react'
 import pt from 'prop-types'
-import { Box } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import Card from '@/components/blocks/Card'
@@ -11,6 +11,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     gap: '23px',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(3),
   },
 }))
 

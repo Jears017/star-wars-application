@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Box } from '@mui/system'
+import { Box } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { useNavigate } from 'react-router-dom'
 
@@ -18,8 +18,17 @@ import { Search } from '@/components/controls/Search'
 import { useQueryParams } from '@/utils/useQueryParams'
 
 const useStyles = makeStyles(theme => ({
-  pagination: { display: 'flex', justifyContent: 'flex-end' },
-  search: { display: 'flex', justifyContent: 'center' },
+  pagination: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    [theme.breakpoints.down('xl')]: {
+      justifyContent: 'center',
+    },
+  },
+  search: { display: 'flex', justifyContent: 'center', paddingBottom: theme.spacing(3) },
+  container: {
+    paddingTop: theme.spacing(12),
+  },
 }))
 
 export default function Characters () {
@@ -57,7 +66,7 @@ export default function Characters () {
   }
 
   return (
-    <Box>
+    <Box className={classes.container}>
       <Box className={classes.search}>
         <Search onSearchChange={onChange} value={search} />
       </Box>
@@ -69,11 +78,11 @@ export default function Characters () {
           />
         </Box>
       )}
-      <TemplateOfCardList
-        pathUrl={CHARACTERS_PAGE_PATH}
-        data={charactersList}
-        imageUrl={CHARACTERS_IMAGE_URL}
-      />
+        <TemplateOfCardList
+          pathUrl={CHARACTERS_PAGE_PATH}
+          data={charactersList}
+          imageUrl={CHARACTERS_IMAGE_URL}
+        />
     </Box>
   )
 }
