@@ -18,8 +18,17 @@ import { Search } from '@/components/controls/Search'
 import { useQueryParams } from '@/utils/useQueryParams'
 
 const useStyles = makeStyles(theme => ({
-  pagination: { display: 'flex', justifyContent: 'flex-end' },
-  search: { display: 'flex', justifyContent: 'center' },
+  pagination: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    [theme.breakpoints.down('md')]: {
+      justifyContent: 'center',
+    },
+  },
+  search: { display: 'flex', justifyContent: 'center', paddingBottom: theme.spacing(3) },
+  container: {
+    paddingTop: theme.spacing(12),
+  },
 }))
 
 export default function Films () {
@@ -57,7 +66,7 @@ export default function Films () {
   }
 
   return (
-    <Box>
+    <Box className={classes.container}>
       <Box className={classes.search}>
         <Search onSearchChange={onChange} value={search} />
       </Box>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { Routes, Route } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 
@@ -23,8 +23,12 @@ import {
   FILMS_PAGE_PATH,
 } from '@/constants'
 
+import './App.css'
+
 const useStyles = makeStyles(theme => ({
-  applicationWrapper: { backgroundColor: theme.palette.grey[700] },
+  applicationWrapper: {
+    backgroundColor: theme.palette.grey[700],
+  },
 }))
 
 export default function App () {
@@ -32,20 +36,29 @@ export default function App () {
   return (
     <Box className={classes.applicationWrapper}>
       <Header />
-      <Routes>
-        <Route path={ROOT_PATH} element={<Main />} />
-        <Route path={PLANETS_PAGE_PATH}
-        element={<Planets />}
-        />
-        <Route path={CHARACTERS_PAGE_PATH} element={<Characters />} />
-        <Route path={STARSHIPS_PAGE_PATH} element={<Starships />} />
-        <Route path={FILMS_PAGE_PATH} element={<Films />} />
-        <Route path={`${PLANETS_PAGE_PATH}/:id`} element={<Planet />} />
-        <Route path={`${CHARACTERS_PAGE_PATH}/:id`} element={<Character />} />
-        <Route path={`${STARSHIPS_PAGE_PATH}/:id`} element={<Starship />} />
-        <Route path={`${FILMS_PAGE_PATH}/:id`} element={<Film />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+      <Grid container>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+        >
+          <Routes>
+            <Route path={ROOT_PATH} element={<Main />} />
+            <Route path={PLANETS_PAGE_PATH} element={<Planets />} />
+            <Route path={CHARACTERS_PAGE_PATH} element={<Characters />} />
+            <Route path={STARSHIPS_PAGE_PATH} element={<Starships />} />
+            <Route path={FILMS_PAGE_PATH} element={<Films />} />
+            <Route path={`${PLANETS_PAGE_PATH}/:id`} element={<Planet />} />
+            <Route
+              path={`${CHARACTERS_PAGE_PATH}/:id`}
+              element={<Character />}
+            />
+            <Route path={`${STARSHIPS_PAGE_PATH}/:id`} element={<Starship />} />
+            <Route path={`${FILMS_PAGE_PATH}/:id`} element={<Film />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Grid>
+      </Grid>
     </Box>
   )
 }
