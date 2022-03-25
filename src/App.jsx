@@ -37,8 +37,9 @@ export default function App () {
     <Box className={classes.applicationWrapper}>
       <Header />
       <Grid container>
-        <Grid item xs={12}
-              sm={12}
+        <Grid item
+          xs={12}
+          sm={12}
         >
           <Routes>
             <Route path={ROOT_PATH} element={<Main />} />
@@ -47,7 +48,10 @@ export default function App () {
             <Route path={STARSHIPS_PAGE_PATH} element={<Starships />} />
             <Route path={FILMS_PAGE_PATH} element={<Films />} />
             <Route path={`${PLANETS_PAGE_PATH}/:id`} element={<Planet />} />
-            <Route path={`${CHARACTERS_PAGE_PATH}/:id`} element={<Character />}/>
+            <Route
+              path={`${CHARACTERS_PAGE_PATH}/:id`}
+              element={<Character />}
+            />
             <Route path={`${STARSHIPS_PAGE_PATH}/:id`} element={<Starship />} />
             <Route path={`${FILMS_PAGE_PATH}/:id`} element={<Film />} />
             <Route path="*" element={<PageNotFound />} />

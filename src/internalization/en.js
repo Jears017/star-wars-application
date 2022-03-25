@@ -13,6 +13,7 @@ export default {
     days: 'days',
     kg: 'kg',
     cm: 'cm',
+    search: 'Search...',
   },
   main: {
     welcome: 'Star Wars Application!',

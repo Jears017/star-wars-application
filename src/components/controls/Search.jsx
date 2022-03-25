@@ -3,6 +3,7 @@ import { InputAdornment, TextField } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import SearchIcon from '@mui/icons-material/Search'
 import pt from 'prop-types'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(theme => ({
   searchField: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 export function Search ({ onSearchChange, value }) {
   const classes = useStyles()
+  const { t } = useTranslation()
   return (
     <TextField
       size="small"
@@ -22,7 +24,7 @@ export function Search ({ onSearchChange, value }) {
       className={classes.searchField}
       value={value}
       onChange={onSearchChange}
-      placeholder={'Search...'}
+      placeholder={t('common.search')}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">

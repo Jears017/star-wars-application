@@ -145,8 +145,9 @@ export const Header = () => {
         </Box>
         <Box className={classes.navMenu}>
           {pages.map(page => (
-            <Link key={page} className={classes.navLink}
-                  to={`/${page}`}
+            <Link key={page}
+              className={classes.navLink}
+              to={`/${page}`}
             >
               <Button className={classes.navBarItem}>
                 {t(`header.${page}`)}

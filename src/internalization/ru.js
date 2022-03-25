@@ -13,6 +13,7 @@ export default {
     cm: 'см',
     m: 'м',
     kmH: 'км/ч',
+    search: 'Найти...',
   },
   main: {
     welcome: 'Приложение по Звездным Войнам!',
