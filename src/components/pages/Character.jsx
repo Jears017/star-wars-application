@@ -24,8 +24,9 @@ const useStyles = makeStyles(theme => ({
   },
   characterContent: {
     display: 'flex',
+    justifyContent: 'space-around',
     border: `1px solid ${theme.palette.common.black}`,
-    borderRadius: '10px',
+    borderRadius: theme.shape.borderRadius * 3,
     color: theme.palette.common.white,
     backgroundColor: theme.palette.background.paper,
     [theme.breakpoints.down('sm')]: {
@@ -39,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   characterImage: {
-    borderRadius: '5%',
+    borderRadius: theme.shape.borderRadius * 3,
     width: 345,
     [theme.breakpoints.down('sm')]: {
       width: 255,
