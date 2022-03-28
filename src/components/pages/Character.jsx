@@ -17,11 +17,42 @@ import {
 } from '@/constants'
 
 const useStyles = makeStyles(theme => ({
-  characterContainer: { display: 'flex', justifyContent: 'center' },
-  characterContent: { display: 'flex' },
-  characterImageContainer: { marginRight: 25 },
-  characterImage: { borderRadius: '5%', width: 400, height: 400 },
-  characterAdditionalWrapper: { display: 'flex', mt: 5, gap: 5 },
+  characterContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(12),
+  },
+  characterContent: {
+    display: 'flex',
+    border: `1px solid ${theme.palette.common.black}`,
+    borderRadius: '10px',
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.background.paper,
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+    },
+  },
+  characterImageContainer: {
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  },
+  characterImage: {
+    borderRadius: '5%',
+    width: 345,
+    [theme.breakpoints.down('sm')]: {
+      width: 255,
+    },
+  },
+  characterAdditionalWrapper: {
+    display: 'flex',
+    mt: 5,
+    gap: 20,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(2),
+  },
 }))
 
 export default function Character () {
@@ -29,7 +60,9 @@ export default function Character () {
   const { t } = useTranslation()
 
   const { id } = useParams()
-  const { data, films, starships } = useSelector(state => state.charactersDetails)
+  const { data, films, starships } = useSelector(
+    state => state.charactersDetails,
+  )
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -48,30 +81,32 @@ export default function Character () {
             />
           </Box>
           <Box>
-            <Typography variant="h2">{data.name }</Typography>
+            <Typography variant="h2">{data.name}</Typography>
             <Typography variant="h6">
               {t('character.birth_year')}: {data.birth_year}
             </Typography>
             <Typography variant="h6">
-            {t('character.species')}: {data.species}
+              {t('character.species')}: {data.species}
             </Typography>
             <Typography variant="h6">
-            {t('character.height')}: {data.height}{t('common.cm')}
+              {t('character.height')}: {data.height}
+              {t('common.cm')}
             </Typography>
             <Typography variant="h6">
-            {t('character.mass')}: {data.mass}{t('common.kg')}
+              {t('character.mass')}: {data.mass}
+              {t('common.kg')}
             </Typography>
             <Typography variant="h6">
-            {t('character.gender')}: {data.gender}
+              {t('character.gender')}: {data.gender}
             </Typography>
             <Typography variant="h6">
-            {t('character.hair_color')}: {data.hair_color}
+              {t('character.hair_color')}: {data.hair_color}
             </Typography>
             <Typography variant="h6">
-            {t('character.skin_color')}: {data.skin_color}
+              {t('character.skin_color')}: {data.skin_color}
             </Typography>
             <Typography variant="h6">
-            {t('character.homeworld')}: {data.homeworld}
+              {t('character.homeworld')}: {data.homeworld}
             </Typography>
           </Box>
         </Box>
