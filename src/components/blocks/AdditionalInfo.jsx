@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
       width: 320,
     },
     border: `1px solid ${theme.palette.common.black}`,
-    borderRadius: '5px',
+    borderRadius: theme.custom.threeBorderRadius,
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.common.white,
   },
