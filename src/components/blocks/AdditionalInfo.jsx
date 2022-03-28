@@ -8,10 +8,18 @@ import { getId } from '@/utils'
 
 const useStyles = makeStyles(theme => ({
   additionalContainer: {
-    width: 500,
+    width: 450,
     minHeight: 200,
+    [theme.breakpoints.down('md')]: {
+      width: 370,
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: 320,
+    },
     border: `1px solid ${theme.palette.common.black}`,
-    borderRadius: '5%',
+    borderRadius: '5px',
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.common.white,
   },
   additionalIconContainer: { display: 'flex', gap: 24, flexWrap: 'wrap' },
 }))

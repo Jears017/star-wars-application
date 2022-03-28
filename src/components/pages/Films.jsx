@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'center',
     },
   },
-  search: { display: 'flex', justifyContent: 'center', paddingBottom: theme.spacing(3) },
+  search: { display: 'flex', justifyContent: 'center', paddingBottom: theme.spacing(2) },
   container: {
     paddingTop: theme.spacing(12),
   },
