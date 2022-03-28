@@ -1,11 +1,12 @@
 import React from 'react'
+
 import {
   Card as MuiCard,
-  CardMedia as MediaCard,
   CardContent,
   Typography,
   Box,
 } from '@mui/material'
+
 import { makeStyles } from '@mui/styles'
 import { Link } from 'react-router-dom'
 
@@ -33,19 +34,15 @@ export default function Card ({ name, imageUrl, id, title, pathUrl }) {
   const classes = useStyles()
   return (
     <MuiCard className={classes.cardWrapper}>
-      {/* <MediaCard
-        className={classes.cardMediaContainer}
-        component="img"
-        image={imageUrl}
-        alt={name}
-  /> */}
       <Box className={classes.cardMediaContainer}>
         <img className={classes.cardImg} src={imageUrl} />
       </Box>
       <CardContent>
         <Link className={classes.cardLink} to={`${pathUrl}/${id}`}>
-          <Typography gutterBottom variant="h5"
-component="div"
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
           >
             {name || title}
           </Typography>

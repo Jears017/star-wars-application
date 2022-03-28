@@ -4,4 +4,7 @@ export default createTheme({
   palette: {
     mode: 'dark',
   },
+  custom: {
+    threeBorderRadius: 12,
+  },
 })

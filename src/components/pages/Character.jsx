@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-around',
     border: `1px solid ${theme.palette.common.black}`,
-    borderRadius: theme.shape.borderRadius * 3,
+    borderRadius: theme.custom.threeBorderRadius,
     color: theme.palette.common.white,
     backgroundColor: theme.palette.background.paper,
     [theme.breakpoints.down('sm')]: {
@@ -40,13 +40,13 @@ const useStyles = makeStyles(theme => ({
     },
   },
   characterImage: {
-    borderRadius: theme.shape.borderRadius * 3,
+    borderRadius: theme.custom.threeBorderRadius,
     width: 345,
     [theme.breakpoints.down('sm')]: {
       width: 255,
     },
   },
-  characterAdditionalWrapper: {
+  characterDetailsWrapper: {
     display: 'flex',
     mt: 5,
     gap: 20,
@@ -111,7 +111,7 @@ export default function Character () {
             </Typography>
           </Box>
         </Box>
-        <Box className={classes.characterAdditionalWrapper}>
+        <Box className={classes.characterDetailsWrapper}>
           <AdditionalInfo
             data={films}
             path={FILMS_PAGE_PATH}

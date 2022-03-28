@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-around',
     border: `1px solid ${theme.palette.common.black}`,
-    borderRadius: theme.shape.borderRadius * 3,
+    borderRadius: theme.custom.threeBorderRadius,
     color: theme.palette.common.white,
     backgroundColor: theme.palette.background.paper,
     [theme.breakpoints.down('sm')]: {
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
       width: 255,
     },
   },
-  starshipAdditionalWrapper: {
+  starshipDetailsWrapper: {
     display: 'flex',
     mt: 5,
     gap: 20,
@@ -106,7 +106,7 @@ export default function Starship () {
             <Typography variant="h6">{t('starship.passengers')}: {data.passengers}</Typography>
           </Box>
         </Box>
-        <Box className={classes.starshipAdditionalWrapper}>
+        <Box className={classes.starshipDetailsWrapper}>
           <AdditionalInfo
             data={films}
             path={FILMS_PAGE_PATH}
