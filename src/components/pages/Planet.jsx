@@ -17,11 +17,54 @@ import {
 } from '@/constants'
 
 const useStyles = makeStyles(theme => ({
-  planetContainer: { display: 'flex', justifyContent: 'center' },
-  planetContent: { display: 'flex' },
-  planetImageContainer: { marginRight: 25 },
-  planetImage: { borderRadius: '5%', width: 400, height: 400 },
-  planetsAdditionalWrapper: { display: 'flex', mt: 5, gap: 5 },
+  planetContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(12),
+  },
+  planetContent: {
+    display: 'flex',
+    border: `1px solid ${theme.palette.common.black}`,
+    borderRadius: '10px',
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.background.paper,
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+    },
+  },
+  planetImageContainer: {
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  },
+  planetImage: {
+    borderRadius: '5%',
+    width: 345,
+    [theme.breakpoints.down('sm')]: {
+      width: 255,
+    },
+  },
+  planetsAdditionalWrapper: {
+    display: 'flex',
+    mt: 5,
+    gap: 20,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(2),
+  },
+  planetsTitle: {
+    fontSize: 60,
+    color: '#1111111111',
+    [theme.breakpoints.down('md')]: {
+      fontSize: 50,
+    },
+  },
+  planetDescription: {
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: theme.spacing(1),
+    },
+  },
 }))
 
 export default function Planet () {
@@ -47,33 +90,37 @@ export default function Planet () {
               className={classes.planetImage}
             />
           </Box>
-          <Box>
-            <Typography variant="h2">{data.name}</Typography>
-            <Typography variant="h6">
-              {t('planet.population')}: {data.population}
-            </Typography>
-            <Typography variant="h6">
-              {t('planet.rotation_period')}: {data.rotation_period} {t('common.days')}
-            </Typography>
-            <Typography variant="h6">
-              {t('planet.orbital_period')}: {data.orbital_period} {t('common.days')}
-            </Typography>
-            <Typography variant="h6">
-              {t('planet.diameter')}: {data.diameter}
-              {t('common.km')}
-            </Typography>
-            <Typography variant="h6">
-              {t('planet.gravity')}: {data.gravity}
-            </Typography>
-            <Typography variant="h6">
-              {t('planet.terrain')}: {data.terrain}
-            </Typography>
-            <Typography variant="h6">
-              {t('planet.surface_water')}: {data.surface_water}%
-            </Typography>
-            <Typography variant="h6">
-              {t('planet.climate')}: {data.climate}
-            </Typography>
+          <Box className={classes.planetDescription}>
+            <Box>
+              <Typography variant="h3" className={classes.planetsTitle}>{data.name}</Typography>
+              <Typography variant="h6">
+                {t('planet.population')}: {data.population}
+              </Typography>
+              <Typography variant="h6">
+                {t('planet.rotation_period')}: {data.rotation_period}{' '}
+                {t('common.days')}
+              </Typography>
+              <Typography variant="h6">
+                {t('planet.orbital_period')}: {data.orbital_period}{' '}
+                {t('common.days')}
+              </Typography>
+              <Typography variant="h6">
+                {t('planet.diameter')}: {data.diameter}
+                {t('common.km')}
+              </Typography>
+              <Typography variant="h6">
+                {t('planet.gravity')}: {data.gravity}
+              </Typography>
+              <Typography variant="h6">
+                {t('planet.terrain')}: {data.terrain}
+              </Typography>
+              <Typography variant="h6">
+                {t('planet.surface_water')}: {data.surface_water}%
+              </Typography>
+              <Typography variant="h6">
+                {t('planet.climate')}: {data.climate}
+              </Typography>
+            </Box>
           </Box>
         </Box>
         <Box className={classes.planetsAdditionalWrapper}>
