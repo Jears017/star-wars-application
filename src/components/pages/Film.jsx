@@ -17,12 +17,44 @@ import {
 } from '@/constants'
 
 const useStyles = makeStyles(theme => ({
-  filmContainer: { display: 'flex', justifyContent: 'center' },
-  filmContent: { display: 'flex' },
+  filmContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(12),
+  },
+  filmContent: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    border: `1px solid ${theme.palette.common.black}`,
+    borderRadius: theme.shape.borderRadius * 3,
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.background.paper,
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+    },
+  },
   filmContentDetails: { maxWidth: 600 },
-  filmImageContainer: { marginRight: 25 },
-  filmImage: { borderRadius: '5%', width: 400, height: 400 },
-  filmAdditionalWrapper: { display: 'flex', mt: 5, gap: 5 },
+  filmImageContainer: {
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  },
+  filmImage: {
+    borderRadius: theme.shape.borderRadius * 3,
+    width: 345,
+    [theme.breakpoints.down('sm')]: {
+      width: 255,
+    },
+  },
+  filmAdditionalWrapper: {
+    display: 'flex',
+    mt: 5,
+    gap: 20,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(2),
+  },
 }))
 
 export default function Film () {
