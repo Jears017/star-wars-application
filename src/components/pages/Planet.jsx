@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
   planetContent: {
     display: 'flex',
+    justifyContent: 'space-around',
     border: `1px solid ${theme.palette.common.black}`,
     borderRadius: '10px',
     color: theme.palette.common.white,

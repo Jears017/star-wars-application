@@ -17,14 +17,46 @@ import {
 } from '@/constants'
 
 const useStyles = makeStyles(theme => ({
-  starshipContainer: { display: 'flex', justifyContent: 'center' },
-  starshipContent: { display: 'flex' },
-  starshipImageContainer: { marginRight: 25 },
-  starshipImage: { borderRadius: '5%', width: 400, height: 400 },
-  starshipAdditionalWrapper: { display: 'flex', mt: 5, gap: 5 },
+  starshipContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(12),
+  },
+  starshipContent: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    border: `1px solid ${theme.palette.common.black}`,
+    borderRadius: '10px',
+    color: theme.palette.common.white,
+    backgroundColor: theme.palette.background.paper,
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+    },
+  },
+  starshipImageContainer: {
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  },
+  starshipImage: {
+    borderRadius: '5%',
+    width: 345,
+    [theme.breakpoints.down('sm')]: {
+      width: 255,
+    },
+  },
+  starshipAdditionalWrapper: {
+    display: 'flex',
+    mt: 5,
+    gap: 20,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(2),
+  },
 }))
 
-export default function Planet () {
+export default function Starship () {
   const classes = useStyles()
   const { t } = useTranslation()
 
