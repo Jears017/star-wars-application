@@ -1,9 +1,12 @@
-import { Box, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import { Box, Typography, IconButton } from '@mui/material'
+import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
+import ReactToPrint from 'react-to-print'
+import PrintIcon from '@mui/icons-material/Print'
+import WestIcon from '@mui/icons-material/West'
 
 import { charactersDetailsRequest } from '@/actions'
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
@@ -20,7 +23,15 @@ const useStyles = makeStyles(theme => ({
   characterContainer: {
     display: 'flex',
     justifyContent: 'center',
+    paddingTop: theme.spacing(4),
+  },
+  character: {
     paddingTop: theme.spacing(12),
+  },
+  characterPrintButtonContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   characterContent: {
     display: 'flex',
@@ -70,60 +81,82 @@ export default function Character () {
     dispatch(charactersDetailsRequest(id))
   }, [])
 
+  let componentRef = useRef(null)
+
   return (
-    <Box className={classes.characterContainer}>
-      <Box>
-        <Box className={classes.characterContent}>
-          <Box className={classes.characterImageContainer}>
-            <img
-              src={`${CHARACTERS_IMAGE_URL}${id}.jpg`}
-              alt={data.name}
-              className={classes.characterImage}
-            />
-          </Box>
-          <Box>
-            <Typography variant="h2">{data.name}</Typography>
-            <Typography variant="h6">
-              {t('character.birth_year')}: {data.birth_year}
-            </Typography>
-            <Typography variant="h6">
-              {t('character.species')}: {data.species}
-            </Typography>
-            <Typography variant="h6">
-              {t('character.height')}: {data.height}
-              {t('common.cm')}
-            </Typography>
-            <Typography variant="h6">
-              {t('character.mass')}: {data.mass}
-              {t('common.kg')}
-            </Typography>
-            <Typography variant="h6">
-              {t('character.gender')}: {data.gender}
-            </Typography>
-            <Typography variant="h6">
-              {t('character.hair_color')}: {data.hair_color}
-            </Typography>
-            <Typography variant="h6">
-              {t('character.skin_color')}: {data.skin_color}
-            </Typography>
-            <Typography variant="h6">
-              {t('character.homeworld')}: {data.homeworld}
-            </Typography>
-          </Box>
+    <Box className={classes.character}>
+      <Box className={classes.characterPrintButtonContainer}>
+        <Box>
+          <WestIcon />
         </Box>
-        <Box className={classes.characterDetailsWrapper}>
-          <AdditionalInfo
-            data={films}
-            path={FILMS_PAGE_PATH}
-            img={FILMS_IMAGE_URL}
-            title={t('common.related_films')}
-          />
-          <AdditionalInfo
-            data={starships}
-            path={STARSHIPS_PAGE_PATH}
-            img={STARSHIPS_IMAGE_URL}
-            title={t('common.starships')}
-          />
+        <ReactToPrint
+          trigger={() => (
+            <IconButton>
+              <PrintIcon />
+            </IconButton>
+          )}
+          content={() => componentRef}
+        />
+      </Box>
+      <Box
+        ref={el => (componentRef = el)}
+        className={classes.characterContainer}
+      >
+        <Box>
+          <Box>
+            <Box className={classes.characterContent}>
+              <Box className={classes.characterImageContainer}>
+                <img
+                  src={`${CHARACTERS_IMAGE_URL}${id}.jpg`}
+                  alt={data.name}
+                  className={classes.characterImage}
+                />
+              </Box>
+              <Box>
+                <Typography variant="h2">{data.name}</Typography>
+                <Typography variant="h6">
+                  {t('character.birth_year')}: {data.birth_year}
+                </Typography>
+                <Typography variant="h6">
+                  {t('character.species')}: {data.species}
+                </Typography>
+                <Typography variant="h6">
+                  {t('character.height')}: {data.height}
+                  {t('common.cm')}
+                </Typography>
+                <Typography variant="h6">
+                  {t('character.mass')}: {data.mass}
+                  {t('common.kg')}
+                </Typography>
+                <Typography variant="h6">
+                  {t('character.gender')}: {data.gender}
+                </Typography>
+                <Typography variant="h6">
+                  {t('character.hair_color')}: {data.hair_color}
+                </Typography>
+                <Typography variant="h6">
+                  {t('character.skin_color')}: {data.skin_color}
+                </Typography>
+                <Typography variant="h6">
+                  {t('character.homeworld')}: {data.homeworld}
+                </Typography>
+              </Box>
+            </Box>
+            <Box className={classes.characterDetailsWrapper}>
+              <AdditionalInfo
+                data={films}
+                path={FILMS_PAGE_PATH}
+                img={FILMS_IMAGE_URL}
+                title={t('common.related_films')}
+              />
+              <AdditionalInfo
+                data={starships}
+                path={STARSHIPS_PAGE_PATH}
+                img={STARSHIPS_IMAGE_URL}
+                title={t('common.starships')}
+              />
+            </Box>
+          </Box>
         </Box>
       </Box>
     </Box>
