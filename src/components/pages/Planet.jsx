@@ -1,9 +1,12 @@
-import { Box, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import { Box, Typography, IconButton } from '@mui/material'
+import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
+import ReactToPrint from 'react-to-print'
+import PrintIcon from '@mui/icons-material/Print'
+import WestIcon from '@mui/icons-material/West'
 
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 import { planetsDetailsRequest } from '@/actions'
@@ -20,7 +23,15 @@ const useStyles = makeStyles(theme => ({
   planetContainer: {
     display: 'flex',
     justifyContent: 'center',
+    paddingTop: theme.spacing(4),
+  },
+  planet: {
     paddingTop: theme.spacing(12),
+  },
+  planetPrintButtonContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   planetContent: {
     display: 'flex',
@@ -80,63 +91,85 @@ export default function Planet () {
     dispatch(planetsDetailsRequest(id))
   }, [])
 
+  let componentRef = useRef(null)
+
   return (
-    <Box className={classes.planetContainer}>
-      <Box>
-        <Box className={classes.planetContent}>
-          <Box className={classes.planetImageContainer}>
-            <img
-              src={`${PLANETS_IMAGE_URL}${id}.jpg`}
-              alt={data.name}
-              className={classes.planetImage}
-            />
-          </Box>
-          <Box className={classes.planetDescription}>
-            <Box>
-              <Typography variant="h3" className={classes.planetsTitle}>{data.name}</Typography>
-              <Typography variant="h6">
-                {t('planet.population')}: {data.population}
-              </Typography>
-              <Typography variant="h6">
-                {t('planet.rotation_period')}: {data.rotation_period}{' '}
-                {t('common.days')}
-              </Typography>
-              <Typography variant="h6">
-                {t('planet.orbital_period')}: {data.orbital_period}{' '}
-                {t('common.days')}
-              </Typography>
-              <Typography variant="h6">
-                {t('planet.diameter')}: {data.diameter}
-                {t('common.km')}
-              </Typography>
-              <Typography variant="h6">
-                {t('planet.gravity')}: {data.gravity}
-              </Typography>
-              <Typography variant="h6">
-                {t('planet.terrain')}: {data.terrain}
-              </Typography>
-              <Typography variant="h6">
-                {t('planet.surface_water')}: {data.surface_water}%
-              </Typography>
-              <Typography variant="h6">
-                {t('planet.climate')}: {data.climate}
-              </Typography>
+    <Box className={classes.planet}>
+      <Box className={classes.planetPrintButtonContainer}>
+        <Box><WestIcon/></Box>
+        <ReactToPrint
+          trigger={() => (
+            <IconButton>
+              <PrintIcon />
+            </IconButton>
+          )}
+          content={() => componentRef}
+        />
+      </Box>
+      <Box
+        ref={el => (componentRef = el)}
+        className={classes.planetContainer}
+      >
+        <Box>
+          <Box>
+            <Box className={classes.planetContent}>
+              <Box className={classes.planetImageContainer}>
+                <img
+                  src={`${PLANETS_IMAGE_URL}${id}.jpg`}
+                  alt={data.name}
+                  className={classes.planetImage}
+                />
+              </Box>
+              <Box className={classes.planetDescription}>
+                <Box>
+                  <Typography variant="h3" className={classes.planetsTitle}>
+                    {data.name}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('planet.population')}: {data.population}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('planet.rotation_period')}: {data.rotation_period}{' '}
+                    {t('common.days')}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('planet.orbital_period')}: {data.orbital_period}{' '}
+                    {t('common.days')}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('planet.diameter')}: {data.diameter}
+                    {t('common.km')}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('planet.gravity')}: {data.gravity}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('planet.terrain')}: {data.terrain}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('planet.surface_water')}: {data.surface_water}%
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('planet.climate')}: {data.climate}
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+            <Box className={classes.planetsDetailsWrapper}>
+              <AdditionalInfo
+                data={films}
+                path={FILMS_PAGE_PATH}
+                img={FILMS_IMAGE_URL}
+                title={t('common.related_films')}
+              />
+              <AdditionalInfo
+                data={residents}
+                path={CHARACTERS_PAGE_PATH}
+                img={CHARACTERS_IMAGE_URL}
+                title={t('common.residents')}
+              />
             </Box>
           </Box>
-        </Box>
-        <Box className={classes.planetsDetailsWrapper}>
-          <AdditionalInfo
-            data={films}
-            path={FILMS_PAGE_PATH}
-            img={FILMS_IMAGE_URL}
-            title={t('common.related_films')}
-          />
-          <AdditionalInfo
-            data={residents}
-            path={CHARACTERS_PAGE_PATH}
-            img={CHARACTERS_IMAGE_URL}
-            title={t('common.residents')}
-          />
         </Box>
       </Box>
     </Box>
