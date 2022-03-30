@@ -96,7 +96,9 @@ export default function Planet () {
   return (
     <Box className={classes.planet}>
       <Box className={classes.planetPrintButtonContainer}>
-        <Box><WestIcon/></Box>
+        <Box>
+          <WestIcon />
+        </Box>
         <ReactToPrint
           trigger={() => (
             <IconButton>
