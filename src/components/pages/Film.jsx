@@ -74,84 +74,78 @@ export default function Film () {
   const { t } = useTranslation()
 
   const { id } = useParams()
-  const { data, characters, planets, isLoading } = useSelector(state => state.filmsDetails)
+  const { data, characters, planets, isLoading } = useSelector(
+    state => state.filmsDetails,
+  )
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(filmsDetailsRequest(id))
   }, [])
 
-  let componentRef = useRef(null)
+  let filmComponentRef = useRef(null)
 
   if (isLoading) {
-    return (
-      <Spinner />
-    )
-  } else {
-    return (
-      <Box className={classes.film}>
-        <Box className={classes.filmPrintButtonContainer}>
-          <Box>
-            <WestIcon />
-          </Box>
-          <ReactToPrint
-            trigger={() => (
-              <IconButton>
-                <PrintIcon />
-              </IconButton>
-            )}
-            content={() => componentRef}
-          />
+    return <Spinner />
+  }
+  return (
+    <Box className={classes.film}>
+      <Box className={classes.filmPrintButtonContainer}>
+        <Box>
+          <WestIcon />
         </Box>
-        <Box
-          ref={el => (componentRef = el)}
-          className={classes.filmContainer}
-        >
+        <ReactToPrint
+          trigger={() => (
+            <IconButton>
+              <PrintIcon />
+            </IconButton>
+          )}
+          content={() => filmComponentRef}
+        />
+      </Box>
+      <Box ref={el => (filmComponentRef = el)} className={classes.filmContainer}>
+        <Box>
           <Box>
-            <Box>
-              <Box className={classes.filmContent}>
-                <Box className={classes.filmImageContainer}>
-                  <img
-                    src={`${FILMS_IMAGE_URL}${id}.jpg`}
-                    alt={data.name}
-                    className={classes.filmImage}
-                  />
-                </Box>
-                <Box className={classes.filmContentDetails}>
-                  <Typography variant="h2">{data.title}</Typography>
-                  <Typography variant="h6">
-                    {t('film.date_created')}: {data.release_date}
-                  </Typography>
-                  <Typography variant="h6">
-                    {t('film.director')}: {data.director}
-                  </Typography>
-                  <Typography variant="h6">
-                    {t('film.producer')}: {data.producer}
-                  </Typography>
-                  <Typography variant="h6">
-                    {t('film.opening_crawl')}:
-                  </Typography>
-                  <Typography>{data.opening_crawl}</Typography>
-                </Box>
-              </Box>
-              <Box className={classes.filmDetailsWrapper}>
-                <AdditionalInfo
-                  data={characters}
-                  path={CHARACTERS_PAGE_PATH}
-                  img={CHARACTERS_IMAGE_URL}
-                  title={t('common.characters')}
-                />
-                <AdditionalInfo
-                  data={planets}
-                  path={PLANETS_PAGE_PATH}
-                  img={PLANETS_IMAGE_URL}
-                  title={t('common.planets')}
+            <Box className={classes.filmContent}>
+              <Box className={classes.filmImageContainer}>
+                <img
+                  src={`${FILMS_IMAGE_URL}${id}.jpg`}
+                  alt={data.name}
+                  className={classes.filmImage}
                 />
               </Box>
+              <Box className={classes.filmContentDetails}>
+                <Typography variant="h2">{data.title}</Typography>
+                <Typography variant="h6">
+                  {t('film.date_created')}: {data.release_date}
+                </Typography>
+                <Typography variant="h6">
+                  {t('film.director')}: {data.director}
+                </Typography>
+                <Typography variant="h6">
+                  {t('film.producer')}: {data.producer}
+                </Typography>
+                <Typography variant="h6">{t('film.opening_crawl')}:</Typography>
+                <Typography>{data.opening_crawl}</Typography>
+              </Box>
+            </Box>
+            <Box className={classes.filmDetailsWrapper}>
+              <AdditionalInfo
+                data={characters}
+                path={CHARACTERS_PAGE_PATH}
+                img={CHARACTERS_IMAGE_URL}
+                title={t('common.characters')}
+              />
+              <AdditionalInfo
+                data={planets}
+                path={PLANETS_PAGE_PATH}
+                img={PLANETS_IMAGE_URL}
+                title={t('common.planets')}
+              />
             </Box>
           </Box>
         </Box>
       </Box>
-    )
-  }
+    </Box>
+  )
 }

@@ -71,29 +71,26 @@ export default function Films () {
   }
 
   if (isLoading) {
-    return (
-      <Spinner />
-    )
-  } else {
-    return (
-      <Box className={classes.container}>
-        <Box className={classes.search}>
-          <Search onSearchChange={onChange} value={search} />
-        </Box>
-        <TemplateOfCardList
-          pathUrl={FILMS_PAGE_PATH}
-          data={filmsList}
-          imageUrl={FILMS_IMAGE_URL}
-        />
-        {count > LIMIT_CARDS_PER_PAGE && (
-          <Box className={classes.pagination}>
-            <Pagination
-              count={getCountOfPages(count)}
-              handleChange={handleChange}
-            />
-          </Box>
-        )}
-      </Box>
-    )
+    return <Spinner />
   }
+  return (
+    <Box className={classes.container}>
+      <Box className={classes.search}>
+        <Search onSearchChange={onChange} value={search} />
+      </Box>
+      <TemplateOfCardList
+        pathUrl={FILMS_PAGE_PATH}
+        data={filmsList}
+        imageUrl={FILMS_IMAGE_URL}
+      />
+      {count > LIMIT_CARDS_PER_PAGE && (
+        <Box className={classes.pagination}>
+          <Pagination
+            count={getCountOfPages(count)}
+            handleChange={handleChange}
+          />
+        </Box>
+      )}
+    </Box>
+  )
 }

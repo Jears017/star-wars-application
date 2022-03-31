@@ -71,29 +71,26 @@ export default function Starships () {
   }
 
   if (isLoading) {
-    return (
-      <Spinner />
-    )
-  } else {
-    return (
-      <Box className={classes.container}>
-        <Box className={classes.search}>
-          <Search onSearchChange={onChange} value={search} />
-        </Box>
-        {count > LIMIT_CARDS_PER_PAGE && (
-          <Box className={classes.pagination}>
-            <Pagination
-              count={getCountOfPages(count)}
-              handleChange={handleChange}
-            />
-          </Box>
-        )}
-        <TemplateOfCardList
-          pathUrl={STARSHIPS_PAGE_PATH}
-          data={starshipsList}
-          imageUrl={STARSHIPS_IMAGE_URL}
-        />
-      </Box>
-    )
+    return <Spinner />
   }
+  return (
+    <Box className={classes.container}>
+      <Box className={classes.search}>
+        <Search onSearchChange={onChange} value={search} />
+      </Box>
+      {count > LIMIT_CARDS_PER_PAGE && (
+        <Box className={classes.pagination}>
+          <Pagination
+            count={getCountOfPages(count)}
+            handleChange={handleChange}
+          />
+        </Box>
+      )}
+      <TemplateOfCardList
+        pathUrl={STARSHIPS_PAGE_PATH}
+        data={starshipsList}
+        imageUrl={STARSHIPS_IMAGE_URL}
+      />
+    </Box>
+  )
 }

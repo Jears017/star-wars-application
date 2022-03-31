@@ -41,7 +41,9 @@ export default function Characters () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { charactersList, count, isLoading } = useSelector(store => store.characters)
+  const { charactersList, count, isLoading } = useSelector(
+    store => store.characters,
+  )
 
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
@@ -71,29 +73,26 @@ export default function Characters () {
   }
 
   if (isLoading) {
-    return (
-      <Spinner />
-    )
-  } else {
-    return (
-      <Box className={classes.container}>
-        <Box className={classes.search}>
-          <Search onSearchChange={onChange} value={search} />
-        </Box>
-        {count > LIMIT_CARDS_PER_PAGE && (
-          <Box className={classes.pagination}>
-            <Pagination
-              count={getCountOfPages(count)}
-              handleChange={handleChange}
-            />
-          </Box>
-        )}
-        <TemplateOfCardList
-          pathUrl={CHARACTERS_PAGE_PATH}
-          data={charactersList}
-          imageUrl={CHARACTERS_IMAGE_URL}
-        />
-      </Box>
-    )
+    return <Spinner />
   }
+  return (
+    <Box className={classes.container}>
+      <Box className={classes.search}>
+        <Search onSearchChange={onChange} value={search} />
+      </Box>
+      {count > LIMIT_CARDS_PER_PAGE && (
+        <Box className={classes.pagination}>
+          <Pagination
+            count={getCountOfPages(count)}
+            handleChange={handleChange}
+          />
+        </Box>
+      )}
+      <TemplateOfCardList
+        pathUrl={CHARACTERS_PAGE_PATH}
+        data={charactersList}
+        imageUrl={CHARACTERS_IMAGE_URL}
+      />
+    </Box>
+  )
 }
