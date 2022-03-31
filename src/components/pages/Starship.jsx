@@ -19,6 +19,8 @@ import {
   CHARACTERS_PAGE_PATH,
 } from '@/constants'
 
+import { Spinner } from '@/components/blocks/Preloader'
+
 const useStyles = makeStyles(theme => ({
   starshipContainer: {
     display: 'flex',
@@ -72,9 +74,7 @@ export default function Starship () {
   const { t } = useTranslation()
 
   const { id } = useParams()
-  const { data, films, pilots } = useSelector(
-    state => state.starshipsDetails,
-  )
+  const { data, films, pilots, isLoading } = useSelector(state => state.starshipsDetails)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -83,92 +83,98 @@ export default function Starship () {
 
   let componentRef = useRef(null)
 
-  return (
-    <Box className={classes.starship}>
-      <Box className={classes.starshipPrintButtonContainer}>
-        <Box>
-          <WestIcon />
-        </Box>
-        <ReactToPrint
-          trigger={() => (
-            <IconButton>
-              <PrintIcon />
-            </IconButton>
-          )}
-          content={() => componentRef}
-        />
-      </Box>
-      <Box
-        ref={el => (componentRef = el)}
-        className={classes.starshipContainer}
-      >
-        <Box>
+  if (isLoading) {
+    return (
+      <Spinner />
+    )
+  } else {
+    return (
+      <Box className={classes.starship}>
+        <Box className={classes.starshipPrintButtonContainer}>
           <Box>
-            <Box className={classes.starshipContent}>
-              <Box className={classes.starshipImageContainer}>
-                <img
-                  src={`${STARSHIPS_IMAGE_URL}${id}.jpg`}
-                  alt={data.name}
-                  className={classes.starshipImage}
+            <WestIcon />
+          </Box>
+          <ReactToPrint
+            trigger={() => (
+              <IconButton>
+                <PrintIcon />
+              </IconButton>
+            )}
+            content={() => componentRef}
+          />
+        </Box>
+        <Box
+          ref={el => (componentRef = el)}
+          className={classes.starshipContainer}
+        >
+          <Box>
+            <Box>
+              <Box className={classes.starshipContent}>
+                <Box className={classes.starshipImageContainer}>
+                  <img
+                    src={`${STARSHIPS_IMAGE_URL}${id}.jpg`}
+                    alt={data.name}
+                    className={classes.starshipImage}
+                  />
+                </Box>
+                <Box>
+                  <Typography variant="h2">{data.name}</Typography>
+                  <Typography variant="h6">
+                    {t('starship.model')}: {data.model}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('starship.manufacturer')}: {data.manufacturer}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('starship.class')}: {data.starship_class}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('starship.cost')}: {data.cost_in_credits}{' '}
+                    {t('common.credits')}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('starship.speed')}: {data.max_atmosphering_speed}{' '}
+                    {t('common.kmH')}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('starship.hyperdrive_rating')}: {data.hyperdrive_rating}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('starship.MGLT')}: {data.MGLT}%
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('starship.length')}: {data.length} {t('common.m')}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('starship.cargo_capacity')}: {data.cargo_capacity}{' '}
+                    {t('common.kg')}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('starship.minimum_сrew')}: {data.crew}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('starship.passengers')}: {data.passengers}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box className={classes.starshipDetailsWrapper}>
+                <AdditionalInfo
+                  data={films}
+                  path={FILMS_PAGE_PATH}
+                  img={FILMS_IMAGE_URL}
+                  title={t('common.related_films')}
+                />
+                <AdditionalInfo
+                  data={pilots}
+                  path={CHARACTERS_PAGE_PATH}
+                  img={CHARACTERS_IMAGE_URL}
+                  title={t('common.pilots')}
                 />
               </Box>
-              <Box>
-                <Typography variant="h2">{data.name}</Typography>
-                <Typography variant="h6">
-                  {t('starship.model')}: {data.model}
-                </Typography>
-                <Typography variant="h6">
-                  {t('starship.manufacturer')}: {data.manufacturer}
-                </Typography>
-                <Typography variant="h6">
-                  {t('starship.class')}: {data.starship_class}
-                </Typography>
-                <Typography variant="h6">
-                  {t('starship.cost')}: {data.cost_in_credits}{' '}
-                  {t('common.credits')}
-                </Typography>
-                <Typography variant="h6">
-                  {t('starship.speed')}: {data.max_atmosphering_speed}{' '}
-                  {t('common.kmH')}
-                </Typography>
-                <Typography variant="h6">
-                  {t('starship.hyperdrive_rating')}: {data.hyperdrive_rating}
-                </Typography>
-                <Typography variant="h6">
-                  {t('starship.MGLT')}: {data.MGLT}%
-                </Typography>
-                <Typography variant="h6">
-                  {t('starship.length')}: {data.length} {t('common.m')}
-                </Typography>
-                <Typography variant="h6">
-                  {t('starship.cargo_capacity')}: {data.cargo_capacity}{' '}
-                  {t('common.kg')}
-                </Typography>
-                <Typography variant="h6">
-                  {t('starship.minimum_сrew')}: {data.crew}
-                </Typography>
-                <Typography variant="h6">
-                  {t('starship.passengers')}: {data.passengers}
-                </Typography>
-              </Box>
-            </Box>
-            <Box className={classes.starshipDetailsWrapper}>
-              <AdditionalInfo
-                data={films}
-                path={FILMS_PAGE_PATH}
-                img={FILMS_IMAGE_URL}
-                title={t('common.related_films')}
-              />
-              <AdditionalInfo
-                data={pilots}
-                path={CHARACTERS_PAGE_PATH}
-                img={CHARACTERS_IMAGE_URL}
-                title={t('common.pilots')}
-              />
             </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
-  )
+    )
+  }
 }

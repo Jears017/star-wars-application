@@ -10,6 +10,7 @@ import WestIcon from '@mui/icons-material/West'
 
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 import { planetsDetailsRequest } from '@/actions'
+import { Spinner } from '@/components/blocks/Preloader'
 
 import {
   PLANETS_IMAGE_URL,
@@ -84,7 +85,7 @@ export default function Planet () {
   const { t } = useTranslation()
 
   const { id } = useParams()
-  const { data, films, residents } = useSelector(state => state.planetsDetails)
+  const { data, films, residents, isLoading } = useSelector(state => state.planetsDetails)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -93,87 +94,95 @@ export default function Planet () {
 
   let componentRef = useRef(null)
 
-  return (
-    <Box className={classes.planet}>
-      <Box className={classes.planetPrintButtonContainer}>
-        <Box>
-          <WestIcon />
-        </Box>
-        <ReactToPrint
-          trigger={() => (
-            <IconButton>
-              <PrintIcon />
-            </IconButton>
-          )}
-          content={() => componentRef}
-        />
+  if (isLoading) {
+    return (
+      <Box className={classes.planet}>
+        <Spinner />
       </Box>
-      <Box
-        ref={el => (componentRef = el)}
-        className={classes.planetContainer}
-      >
-        <Box>
+    )
+  } else {
+    return (
+      <Box className={classes.planet}>
+        <Box className={classes.planetPrintButtonContainer}>
           <Box>
-            <Box className={classes.planetContent}>
-              <Box className={classes.planetImageContainer}>
-                <img
-                  src={`${PLANETS_IMAGE_URL}${id}.jpg`}
-                  alt={data.name}
-                  className={classes.planetImage}
-                />
-              </Box>
-              <Box className={classes.planetDescription}>
-                <Box>
-                  <Typography variant="h3" className={classes.planetsTitle}>
-                    {data.name}
-                  </Typography>
-                  <Typography variant="h6">
-                    {t('planet.population')}: {data.population}
-                  </Typography>
-                  <Typography variant="h6">
-                    {t('planet.rotation_period')}: {data.rotation_period}{' '}
-                    {t('common.days')}
-                  </Typography>
-                  <Typography variant="h6">
-                    {t('planet.orbital_period')}: {data.orbital_period}{' '}
-                    {t('common.days')}
-                  </Typography>
-                  <Typography variant="h6">
-                    {t('planet.diameter')}: {data.diameter}
-                    {t('common.km')}
-                  </Typography>
-                  <Typography variant="h6">
-                    {t('planet.gravity')}: {data.gravity}
-                  </Typography>
-                  <Typography variant="h6">
-                    {t('planet.terrain')}: {data.terrain}
-                  </Typography>
-                  <Typography variant="h6">
-                    {t('planet.surface_water')}: {data.surface_water}%
-                  </Typography>
-                  <Typography variant="h6">
-                    {t('planet.climate')}: {data.climate}
-                  </Typography>
+            <WestIcon />
+          </Box>
+          <ReactToPrint
+            trigger={() => (
+              <IconButton>
+                <PrintIcon />
+              </IconButton>
+            )}
+            content={() => componentRef}
+          />
+        </Box>
+        <Box
+          ref={el => (componentRef = el)}
+          className={classes.planetContainer}
+        >
+          <Box>
+            <Box>
+              <Box className={classes.planetContent}>
+                <Box className={classes.planetImageContainer}>
+                  <img
+                    src={`${PLANETS_IMAGE_URL}${id}.jpg`}
+                    alt={data.name}
+                    className={classes.planetImage}
+                  />
+                </Box>
+                <Box className={classes.planetDescription}>
+                  <Box>
+                    <Typography variant="h3" className={classes.planetsTitle}>
+                      {data.name}
+                    </Typography>
+                    <Typography variant="h6">
+                      {t('planet.population')}: {data.population}
+                    </Typography>
+                    <Typography variant="h6">
+                      {t('planet.rotation_period')}: {data.rotation_period}{' '}
+                      {t('common.days')}
+                    </Typography>
+                    <Typography variant="h6">
+                      {t('planet.orbital_period')}: {data.orbital_period}{' '}
+                      {t('common.days')}
+                    </Typography>
+                    <Typography variant="h6">
+                      {t('planet.diameter')}: {data.diameter}
+                      {t('common.km')}
+                    </Typography>
+                    <Typography variant="h6">
+                      {t('planet.gravity')}: {data.gravity}
+                    </Typography>
+                    <Typography variant="h6">
+                      {t('planet.terrain')}: {data.terrain}
+                    </Typography>
+                    <Typography variant="h6">
+                      {t('planet.surface_water')}: {data.surface_water}%
+                    </Typography>
+                    <Typography variant="h6">
+                      {t('planet.climate')}: {data.climate}
+                    </Typography>
+                  </Box>
                 </Box>
               </Box>
-            </Box>
-            <Box className={classes.planetsDetailsWrapper}>
-              <AdditionalInfo
-                data={films}
-                path={FILMS_PAGE_PATH}
-                img={FILMS_IMAGE_URL}
-                title={t('common.related_films')}
-              />
-              <AdditionalInfo
-                data={residents}
-                path={CHARACTERS_PAGE_PATH}
-                img={CHARACTERS_IMAGE_URL}
-                title={t('common.residents')}
-              />
+              <Box className={classes.planetsDetailsWrapper}>
+                <AdditionalInfo
+                  data={films}
+                  path={FILMS_PAGE_PATH}
+                  img={FILMS_IMAGE_URL}
+                  title={t('common.related_films')}
+                />
+                <AdditionalInfo
+                  data={residents}
+                  path={CHARACTERS_PAGE_PATH}
+                  img={CHARACTERS_IMAGE_URL}
+                  title={t('common.residents')}
+                />
+              </Box>
             </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
-  )
+    )
+  }
 }

@@ -10,6 +10,7 @@ import WestIcon from '@mui/icons-material/West'
 
 import { charactersDetailsRequest } from '@/actions'
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
+import { Spinner } from '@/components/blocks/Preloader'
 
 import {
   CHARACTERS_IMAGE_URL,
@@ -72,9 +73,8 @@ export default function Character () {
   const { t } = useTranslation()
 
   const { id } = useParams()
-  const { data, films, starships } = useSelector(
-    state => state.charactersDetails,
-  )
+  const { data, films, starships, isLoading } = useSelector(state => state.charactersDetails)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -83,82 +83,88 @@ export default function Character () {
 
   let componentRef = useRef(null)
 
-  return (
-    <Box className={classes.character}>
-      <Box className={classes.characterPrintButtonContainer}>
-        <Box>
-          <WestIcon />
-        </Box>
-        <ReactToPrint
-          trigger={() => (
-            <IconButton>
-              <PrintIcon />
-            </IconButton>
-          )}
-          content={() => componentRef}
-        />
-      </Box>
-      <Box
-        ref={el => (componentRef = el)}
-        className={classes.characterContainer}
-      >
-        <Box>
+  if (isLoading) {
+    return (
+      <Spinner />
+    )
+  } else {
+    return (
+      <Box className={classes.character}>
+        <Box className={classes.characterPrintButtonContainer}>
           <Box>
-            <Box className={classes.characterContent}>
-              <Box className={classes.characterImageContainer}>
-                <img
-                  src={`${CHARACTERS_IMAGE_URL}${id}.jpg`}
-                  alt={data.name}
-                  className={classes.characterImage}
+            <WestIcon />
+          </Box>
+          <ReactToPrint
+            trigger={() => (
+              <IconButton>
+                <PrintIcon />
+              </IconButton>
+            )}
+            content={() => componentRef}
+          />
+        </Box>
+        <Box
+          ref={el => (componentRef = el)}
+          className={classes.characterContainer}
+        >
+          <Box>
+            <Box>
+              <Box className={classes.characterContent}>
+                <Box className={classes.characterImageContainer}>
+                  <img
+                    src={`${CHARACTERS_IMAGE_URL}${id}.jpg`}
+                    alt={data.name}
+                    className={classes.characterImage}
+                  />
+                </Box>
+                <Box>
+                  <Typography variant="h2">{data.name}</Typography>
+                  <Typography variant="h6">
+                    {t('character.birth_year')}: {data.birth_year}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('character.species')}: {data.species}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('character.height')}: {data.height}
+                    {t('common.cm')}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('character.mass')}: {data.mass}
+                    {t('common.kg')}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('character.gender')}: {data.gender}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('character.hair_color')}: {data.hair_color}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('character.skin_color')}: {data.skin_color}
+                  </Typography>
+                  <Typography variant="h6">
+                    {t('character.homeworld')}: {data.homeworld}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box className={classes.characterDetailsWrapper}>
+                <AdditionalInfo
+                  data={films}
+                  path={FILMS_PAGE_PATH}
+                  img={FILMS_IMAGE_URL}
+                  title={t('common.related_films')}
+                />
+                <AdditionalInfo
+                  data={starships}
+                  path={STARSHIPS_PAGE_PATH}
+                  img={STARSHIPS_IMAGE_URL}
+                  title={t('common.starships')}
                 />
               </Box>
-              <Box>
-                <Typography variant="h2">{data.name}</Typography>
-                <Typography variant="h6">
-                  {t('character.birth_year')}: {data.birth_year}
-                </Typography>
-                <Typography variant="h6">
-                  {t('character.species')}: {data.species}
-                </Typography>
-                <Typography variant="h6">
-                  {t('character.height')}: {data.height}
-                  {t('common.cm')}
-                </Typography>
-                <Typography variant="h6">
-                  {t('character.mass')}: {data.mass}
-                  {t('common.kg')}
-                </Typography>
-                <Typography variant="h6">
-                  {t('character.gender')}: {data.gender}
-                </Typography>
-                <Typography variant="h6">
-                  {t('character.hair_color')}: {data.hair_color}
-                </Typography>
-                <Typography variant="h6">
-                  {t('character.skin_color')}: {data.skin_color}
-                </Typography>
-                <Typography variant="h6">
-                  {t('character.homeworld')}: {data.homeworld}
-                </Typography>
-              </Box>
-            </Box>
-            <Box className={classes.characterDetailsWrapper}>
-              <AdditionalInfo
-                data={films}
-                path={FILMS_PAGE_PATH}
-                img={FILMS_IMAGE_URL}
-                title={t('common.related_films')}
-              />
-              <AdditionalInfo
-                data={starships}
-                path={STARSHIPS_PAGE_PATH}
-                img={STARSHIPS_IMAGE_URL}
-                title={t('common.starships')}
-              />
             </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
-  )
+    )
+  }
 }

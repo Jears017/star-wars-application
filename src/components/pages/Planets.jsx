@@ -16,6 +16,7 @@ import Pagination from '@/components/blocks/Pagination'
 import { getCountOfPages } from '@/utils/getCountOfPages'
 import { Search } from '@/components/controls/Search'
 import { useQueryParams } from '@/utils/useQueryParams'
+import { Spinner } from '@/components/blocks/Preloader'
 
 const useStyles = makeStyles(theme => ({
   pagination: {
@@ -25,7 +26,11 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'center',
     },
   },
-  search: { display: 'flex', justifyContent: 'center', paddingBottom: theme.spacing(2) },
+  search: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingBottom: theme.spacing(2),
+  },
   container: {
     paddingTop: theme.spacing(12),
   },
@@ -39,7 +44,7 @@ export default function Planets () {
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
 
-  const { planetsList, count } = useSelector(store => store.planets)
+  const { planetsList, count, isLoading } = useSelector(store => store.planets)
 
   const query = useQueryParams()
   const queryPage = query.get('page')
@@ -65,24 +70,30 @@ export default function Planets () {
     setSearch(event.target.value)
   }
 
-  return (
-    <Box className={classes.container}>
-      <Box className={classes.search}>
-        <Search onSearchChange={onChange} value={search} />
-      </Box>
-      {count > LIMIT_CARDS_PER_PAGE && (
-        <Box className={classes.pagination}>
-          <Pagination
-            count={getCountOfPages(count)}
-            handleChange={handleChange}
-          />
+  if (isLoading) {
+    return (
+      <Spinner />
+    )
+  } else {
+    return (
+      <Box className={classes.container}>
+        <Box className={classes.search}>
+          <Search onSearchChange={onChange} value={search} />
         </Box>
-      )}
-      <TemplateOfCardList
-        pathUrl={PLANETS_PAGE_PATH}
-        data={planetsList}
-        imageUrl={PLANETS_IMAGE_URL}
-      />
-    </Box>
-  )
+        {count > LIMIT_CARDS_PER_PAGE && (
+          <Box className={classes.pagination}>
+            <Pagination
+              count={getCountOfPages(count)}
+              handleChange={handleChange}
+            />
+          </Box>
+        )}
+        <TemplateOfCardList
+          pathUrl={PLANETS_PAGE_PATH}
+          data={planetsList}
+          imageUrl={PLANETS_IMAGE_URL}
+        />
+      </Box>
+    )
+  }
 }
