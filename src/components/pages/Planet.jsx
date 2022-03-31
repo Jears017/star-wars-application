@@ -1,7 +1,7 @@
 import { Box, Typography, IconButton } from '@mui/material'
 import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
@@ -78,11 +78,23 @@ const useStyles = makeStyles(theme => ({
       paddingTop: theme.spacing(1),
     },
   },
+  planetGoBackButton: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    color: theme.palette.common.white,
+  },
+  planetGoBackText: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
 }))
 
 export default function Planet () {
   const classes = useStyles()
   const { t } = useTranslation()
+  const navigate = useNavigate()
 
   const { id } = useParams()
   const { data, films, residents, isLoading } = useSelector(
@@ -97,13 +109,17 @@ export default function Planet () {
   let planetComponentRef = useRef(null)
 
   if (isLoading) {
-    return (<Spinner />)
+    return <Spinner />
   }
   return (
     <Box className={classes.planet}>
       <Box className={classes.planetPrintButtonContainer}>
-        <Box>
+        <Box
+          onClick={() => navigate(-1)}
+          className={classes.planetGoBackButton}
+        >
           <WestIcon />
+          <Typography className={classes.planetGoBackText}>Go back</Typography>
         </Box>
         <ReactToPrint
           trigger={() => (
