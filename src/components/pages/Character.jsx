@@ -10,6 +10,7 @@ import WestIcon from '@mui/icons-material/West'
 
 import { charactersDetailsRequest } from '@/actions'
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
+import { Spinner } from '@/components/blocks/Preloader'
 
 import {
   CHARACTERS_IMAGE_URL,
@@ -72,17 +73,21 @@ export default function Character () {
   const { t } = useTranslation()
 
   const { id } = useParams()
-  const { data, films, starships } = useSelector(
+  const { data, films, starships, isLoading } = useSelector(
     state => state.charactersDetails,
   )
+
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(charactersDetailsRequest(id))
   }, [])
 
-  let componentRef = useRef(null)
+  let characterComponentRef = useRef(null)
 
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <Box className={classes.character}>
       <Box className={classes.characterPrintButtonContainer}>
@@ -95,11 +100,11 @@ export default function Character () {
               <PrintIcon />
             </IconButton>
           )}
-          content={() => componentRef}
+          content={() => characterComponentRef}
         />
       </Box>
       <Box
-        ref={el => (componentRef = el)}
+        ref={el => (characterComponentRef = el)}
         className={classes.characterContainer}
       >
         <Box>

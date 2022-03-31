@@ -16,6 +16,7 @@ import Pagination from '@/components/blocks/Pagination'
 import { getCountOfPages } from '@/utils/getCountOfPages'
 import { Search } from '@/components/controls/Search'
 import { useQueryParams } from '@/utils/useQueryParams'
+import { Spinner } from '@/components/blocks/Preloader'
 
 const useStyles = makeStyles(theme => ({
   pagination: {
@@ -25,7 +26,11 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'center',
     },
   },
-  search: { display: 'flex', justifyContent: 'center', paddingBottom: theme.spacing(2) },
+  search: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingBottom: theme.spacing(2),
+  },
   container: {
     paddingTop: theme.spacing(12),
   },
@@ -36,7 +41,9 @@ export default function Characters () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { charactersList, count } = useSelector(store => store.characters)
+  const { charactersList, count, isLoading } = useSelector(
+    store => store.characters,
+  )
 
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
@@ -65,6 +72,9 @@ export default function Characters () {
     setSearch(event.target.value)
   }
 
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <Box className={classes.container}>
       <Box className={classes.search}>
@@ -78,11 +88,11 @@ export default function Characters () {
           />
         </Box>
       )}
-        <TemplateOfCardList
-          pathUrl={CHARACTERS_PAGE_PATH}
-          data={charactersList}
-          imageUrl={CHARACTERS_IMAGE_URL}
-        />
+      <TemplateOfCardList
+        pathUrl={CHARACTERS_PAGE_PATH}
+        data={charactersList}
+        imageUrl={CHARACTERS_IMAGE_URL}
+      />
     </Box>
   )
 }

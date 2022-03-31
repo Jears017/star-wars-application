@@ -10,6 +10,7 @@ import WestIcon from '@mui/icons-material/West'
 
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 import { planetsDetailsRequest } from '@/actions'
+import { Spinner } from '@/components/blocks/Preloader'
 
 import {
   PLANETS_IMAGE_URL,
@@ -84,15 +85,20 @@ export default function Planet () {
   const { t } = useTranslation()
 
   const { id } = useParams()
-  const { data, films, residents } = useSelector(state => state.planetsDetails)
+  const { data, films, residents, isLoading } = useSelector(
+    state => state.planetsDetails,
+  )
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(planetsDetailsRequest(id))
   }, [])
 
-  let componentRef = useRef(null)
+  let planetComponentRef = useRef(null)
 
+  if (isLoading) {
+    return (<Spinner />)
+  }
   return (
     <Box className={classes.planet}>
       <Box className={classes.planetPrintButtonContainer}>
@@ -105,11 +111,11 @@ export default function Planet () {
               <PrintIcon />
             </IconButton>
           )}
-          content={() => componentRef}
+          content={() => planetComponentRef}
         />
       </Box>
       <Box
-        ref={el => (componentRef = el)}
+        ref={el => (planetComponentRef = el)}
         className={classes.planetContainer}
       >
         <Box>

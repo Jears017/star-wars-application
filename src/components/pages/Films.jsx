@@ -16,6 +16,7 @@ import Pagination from '@/components/blocks/Pagination'
 import { getCountOfPages } from '@/utils/getCountOfPages'
 import { Search } from '@/components/controls/Search'
 import { useQueryParams } from '@/utils/useQueryParams'
+import { Spinner } from '@/components/blocks/Preloader'
 
 const useStyles = makeStyles(theme => ({
   pagination: {
@@ -25,7 +26,11 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'center',
     },
   },
-  search: { display: 'flex', justifyContent: 'center', paddingBottom: theme.spacing(2) },
+  search: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingBottom: theme.spacing(2),
+  },
   container: {
     paddingTop: theme.spacing(12),
   },
@@ -36,7 +41,7 @@ export default function Films () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { filmsList, count } = useSelector(store => store.films)
+  const { filmsList, count, isLoading } = useSelector(store => store.films)
 
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
@@ -65,6 +70,9 @@ export default function Films () {
     setSearch(event.target.value)
   }
 
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <Box className={classes.container}>
       <Box className={classes.search}>

@@ -19,6 +19,8 @@ import {
   CHARACTERS_PAGE_PATH,
 } from '@/constants'
 
+import { Spinner } from '@/components/blocks/Preloader'
+
 const useStyles = makeStyles(theme => ({
   starshipContainer: {
     display: 'flex',
@@ -72,7 +74,7 @@ export default function Starship () {
   const { t } = useTranslation()
 
   const { id } = useParams()
-  const { data, films, pilots } = useSelector(
+  const { data, films, pilots, isLoading } = useSelector(
     state => state.starshipsDetails,
   )
   const dispatch = useDispatch()
@@ -81,8 +83,11 @@ export default function Starship () {
     dispatch(starshipsDetailsRequest(id))
   }, [])
 
-  let componentRef = useRef(null)
+  let starshipComponentRef = useRef(null)
 
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <Box className={classes.starship}>
       <Box className={classes.starshipPrintButtonContainer}>
@@ -95,11 +100,11 @@ export default function Starship () {
               <PrintIcon />
             </IconButton>
           )}
-          content={() => componentRef}
+          content={() => starshipComponentRef}
         />
       </Box>
       <Box
-        ref={el => (componentRef = el)}
+        ref={el => (starshipComponentRef = el)}
         className={classes.starshipContainer}
       >
         <Box>

@@ -10,6 +10,7 @@ import WestIcon from '@mui/icons-material/West'
 
 import { filmsDetailsRequest } from '@/actions'
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
+import { Spinner } from '@/components/blocks/Preloader'
 
 import {
   FILMS_IMAGE_URL,
@@ -73,7 +74,7 @@ export default function Film () {
   const { t } = useTranslation()
 
   const { id } = useParams()
-  const { data, characters, planets } = useSelector(
+  const { data, characters, planets, isLoading } = useSelector(
     state => state.filmsDetails,
   )
   const dispatch = useDispatch()
@@ -82,8 +83,11 @@ export default function Film () {
     dispatch(filmsDetailsRequest(id))
   }, [])
 
-  let componentRef = useRef(null)
+  let filmComponentRef = useRef(null)
 
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <Box className={classes.film}>
       <Box className={classes.filmPrintButtonContainer}>
@@ -96,10 +100,10 @@ export default function Film () {
               <PrintIcon />
             </IconButton>
           )}
-          content={() => componentRef}
+          content={() => filmComponentRef}
         />
       </Box>
-      <Box ref={el => (componentRef = el)} className={classes.filmContainer}>
+      <Box ref={el => (filmComponentRef = el)} className={classes.filmContainer}>
         <Box>
           <Box>
             <Box className={classes.filmContent}>
