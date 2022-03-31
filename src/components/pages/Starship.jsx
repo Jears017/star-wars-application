@@ -1,7 +1,7 @@
 import { Box, Typography, IconButton } from '@mui/material'
 import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
@@ -67,11 +67,23 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     paddingTop: theme.spacing(2),
   },
+  planetGoBackButton: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    color: theme.palette.common.white,
+  },
+  planetGoBackText: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
 }))
 
 export default function Starship () {
   const classes = useStyles()
   const { t } = useTranslation()
+  const navigate = useNavigate()
 
   const { id } = useParams()
   const { data, films, pilots, isLoading } = useSelector(
@@ -91,8 +103,12 @@ export default function Starship () {
   return (
     <Box className={classes.starship}>
       <Box className={classes.starshipPrintButtonContainer}>
-        <Box>
+        <Box
+          onClick={() => navigate(-1)}
+          className={classes.planetGoBackButton}
+        >
           <WestIcon />
+          <Typography className={classes.planetGoBackText}>Go back</Typography>
         </Box>
         <ReactToPrint
           trigger={() => (
