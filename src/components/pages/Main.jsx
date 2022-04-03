@@ -20,6 +20,9 @@ const useStyles = makeStyles(theme => ({
     textDecoration: 'none',
     fontSize: 37,
   },
+  mainTitle: {
+    color: theme.palette.text.default,
+  },
 }))
 
 export default function Main () {
@@ -29,7 +32,7 @@ export default function Main () {
   return (
       <Box className={classes.mainContainer}>
         <Box>
-          <Typography variant="h1">{t('main.welcome')}</Typography>
+          <Typography className={classes.mainTitle} variant="h1">{t('main.welcome')}</Typography>
           <Box className={classes.mainContent}>
             <Link className={classes.mainLink} to={PLANETS_PAGE_PATH}>
               <Button variant="contained" size="large">

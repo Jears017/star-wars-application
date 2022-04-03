@@ -1,7 +1,8 @@
 import React from 'react'
-import { Box, Grid } from '@mui/material'
+import { Grid, Paper } from '@mui/material'
 import { Routes, Route } from 'react-router-dom'
-import { makeStyles } from '@mui/styles'
+import { ThemeProvider } from '@mui/material/styles'
+import { useSelector } from 'react-redux'
 
 import { Header } from '@/components/blocks/Header'
 import Characters from '@/components/pages/Characters'
@@ -14,6 +15,7 @@ import Planet from '@/components/pages/Planet'
 import Character from '@/components/pages/Character'
 import Starship from '@/components/pages/Starship'
 import Film from '@/components/pages/Film'
+import { darkTheme, lightTheme } from '@/theme/theme'
 
 import {
   PLANETS_PAGE_PATH,
@@ -25,40 +27,40 @@ import {
 
 import './App.css'
 
-const useStyles = makeStyles(theme => ({
-  applicationWrapper: {
-    backgroundColor: theme.palette.grey[700],
-  },
-}))
-
 export default function App () {
-  const classes = useStyles()
+  const { dark } = useSelector(state => state.theme)
+
   return (
-    <Box className={classes.applicationWrapper}>
-      <Header />
-      <Grid container>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-        >
-          <Routes>
-            <Route path={ROOT_PATH} element={<Main />} />
-            <Route path={PLANETS_PAGE_PATH} element={<Planets />} />
-            <Route path={CHARACTERS_PAGE_PATH} element={<Characters />} />
-            <Route path={STARSHIPS_PAGE_PATH} element={<Starships />} />
-            <Route path={FILMS_PAGE_PATH} element={<Films />} />
-            <Route path={`${PLANETS_PAGE_PATH}/:id`} element={<Planet />} />
-            <Route
-              path={`${CHARACTERS_PAGE_PATH}/:id`}
-              element={<Character />}
-            />
-            <Route path={`${STARSHIPS_PAGE_PATH}/:id`} element={<Starship />} />
-            <Route path={`${FILMS_PAGE_PATH}/:id`} element={<Film />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
+    <ThemeProvider theme={ dark ? darkTheme : lightTheme }>
+      <Paper>
+        <Header />
+        <Grid container>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+          >
+            <Routes>
+              <Route path={ROOT_PATH} element={<Main />} />
+              <Route path={PLANETS_PAGE_PATH} element={<Planets />} />
+              <Route path={CHARACTERS_PAGE_PATH} element={<Characters />} />
+              <Route path={STARSHIPS_PAGE_PATH} element={<Starships />} />
+              <Route path={FILMS_PAGE_PATH} element={<Films />} />
+              <Route path={`${PLANETS_PAGE_PATH}/:id`} element={<Planet />} />
+              <Route
+                path={`${CHARACTERS_PAGE_PATH}/:id`}
+                element={<Character />}
+              />
+              <Route
+                path={`${STARSHIPS_PAGE_PATH}/:id`}
+                element={<Starship />}
+              />
+              <Route path={`${FILMS_PAGE_PATH}/:id`} element={<Film />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </Grid>
         </Grid>
-      </Grid>
-    </Box>
+      </Paper>
+    </ThemeProvider>
   )
 }

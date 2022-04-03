@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { makeStyles } from '@mui/styles'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useSelector, useDispatch } from 'react-redux'
 
 import {
   Box,
   IconButton,
   Menu,
   MenuItem,
-  Button,
   AppBar,
   Toolbar,
   Typography,
@@ -21,6 +21,7 @@ import {
 } from '@mui/icons-material/'
 
 import { ROOT_PATH, ENGLISH, RUSSIAN } from '@/constants'
+import { setTheme } from '@/actions'
 
 const pages = ['planets', 'characters', 'starships', 'films']
 const useStyles = makeStyles(theme => ({
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
       display: 'block',
     },
     textDecoration: 'none',
-    color: theme.palette.common.white,
+    color: theme.palette.text.primary,
   },
   logoSm: {
     display: 'block',
@@ -46,14 +47,13 @@ const useStyles = makeStyles(theme => ({
       display: 'none',
     },
     textDecoration: 'none',
-    color: theme.palette.common.white,
+    color: theme.palette.text.primary,
   },
   icons: {
     alignItems: 'center',
     display: 'flex',
   },
   navMenu: {
-    display: 'block',
     [theme.breakpoints.down('md')]: {
       display: 'none',
     },
@@ -65,11 +65,15 @@ const useStyles = makeStyles(theme => ({
     },
   },
   menuItemResponsive: {
-    color: theme.palette.common.white,
+    color: theme.palette.text.primary,
     textDecoration: 'none',
   },
   navLink: {
     marginRight: theme.spacing(10),
+    color: theme.palette.text.primary,
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    fontFamily: theme.typography.fontFamily,
   },
 }))
 
@@ -77,10 +81,17 @@ export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null)
   const classes = useStyles({ open })
 
+  const dispatch = useDispatch()
+  const { dark } = useSelector(state => state.theme)
+
   const { t, i18n } = useTranslation()
 
   const changeLanguageHandler = () => {
     i18n.changeLanguage(i18n.language === ENGLISH ? RUSSIAN : ENGLISH)
+  }
+
+  const changeThemeHandler = () => {
+    dispatch(setTheme(!dark))
   }
 
   const handleOpenNavMenu = event => {
@@ -149,14 +160,12 @@ export const Header = () => {
               className={classes.navLink}
               to={`/${page}`}
             >
-              <Button className={classes.navBarItem}>
-                {t(`header.${page}`)}
-              </Button>
+              {t(`header.${page}`)}
             </Link>
           ))}
         </Box>
         <Box className={classes.icons}>
-          <IconButton>
+          <IconButton onClick={changeThemeHandler}>
             <LightModeIcon />
           </IconButton>
           <IconButton onClick={changeLanguageHandler}>
