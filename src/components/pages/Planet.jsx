@@ -119,7 +119,7 @@ export default function Planet () {
           className={classes.planetGoBackButton}
         >
           <WestIcon />
-          <Typography className={classes.planetGoBackText}>Go back</Typography>
+          <Typography className={classes.planetGoBackText}>{t('common.goBack')}</Typography>
         </Box>
         <ReactToPrint
           trigger={() => (

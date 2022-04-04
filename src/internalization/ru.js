@@ -14,6 +14,7 @@ export default {
     m: 'м',
     kmH: 'км/ч',
     search: 'Найти...',
+    goBack: 'Вернуться',
   },
   main: {
     welcome: 'Приложение по Звездным Войнам!',
