@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     border: `1px solid ${theme.palette.common.black}`,
     borderRadius: theme.custom.threeBorderRadius,
     backgroundColor: theme.palette.background.paper,
-    color: theme.palette.common.white,
+    color: theme.palette.text.primary,
   },
   additionalIconContainer: { display: 'flex', gap: 24, flexWrap: 'wrap' },
 }))

@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-around',
     border: `1px solid ${theme.palette.common.black}`,
     borderRadius: theme.custom.threeBorderRadius,
-    color: theme.palette.common.white,
+    color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.paper,
     [theme.breakpoints.down('sm')]: {
       display: 'block',
@@ -70,7 +70,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
-    color: theme.palette.common.white,
+    color: theme.palette.text.primary,
   },
   planetGoBackText: {
     [theme.breakpoints.down('sm')]: {

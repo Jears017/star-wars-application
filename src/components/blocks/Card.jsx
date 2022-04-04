@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
   cardLink: {
     textDecoration: 'none',
-    color: theme.palette.common.white,
+    color: theme.palette.text.primary,
   },
   cardImg: {
     width: '100%',
