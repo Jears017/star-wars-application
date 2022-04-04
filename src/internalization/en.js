@@ -14,6 +14,7 @@ export default {
     kg: 'kg',
     cm: 'cm',
     search: 'Search...',
+    goBack: 'Go back',
   },
   main: {
     welcome: 'Star Wars Application!',

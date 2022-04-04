@@ -4,12 +4,12 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
 import App from '@/App'
-import { getStore } from '@/store'
+import { store } from '@/store'
 
 import './i18n'
 
 ReactDOM.render(
-  <Provider store={getStore()}>
+  <Provider store={store}>
     <BrowserRouter>
         <App />
     </BrowserRouter>
