@@ -65,4 +65,10 @@ export default {
     producer: 'Producer(s)',
     opening_crawl: 'Opening Crawl',
   },
+  auth: {
+    sign_up: 'Sign up',
+    log_in: 'Log in',
+    email: 'Email',
+    password: 'Password',
+  },
 }

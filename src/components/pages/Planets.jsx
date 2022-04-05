@@ -17,6 +17,7 @@ import { getCountOfPages } from '@/utils/getCountOfPages'
 import { Search } from '@/components/controls/Search'
 import { useQueryParams } from '@/utils/useQueryParams'
 import { Spinner } from '@/components/blocks/Preloader'
+import { useAuth } from '@/hooks/useAuth'
 
 const useStyles = makeStyles(theme => ({
   pagination: {
@@ -41,6 +42,8 @@ export default function Planets () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const { isAuth } = useAuth()
+
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
 
@@ -53,8 +56,8 @@ export default function Planets () {
   const querySearch = query.get('search')
 
   useEffect(() => {
-    navigate(`${PLANETS_PAGE_PATH}/?page=${page}&search=${search}`)
-  }, [page, search])
+    !isAuth ? navigate('/login') : navigate(`${PLANETS_PAGE_PATH}/?page=${page}&search=${search}`)
+  }, [page, search, isAuth])
 
   useEffect(() => {
     if (querySearch) {

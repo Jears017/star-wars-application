@@ -10,6 +10,7 @@ import WestIcon from '@mui/icons-material/West'
 
 import { starshipsDetailsRequest } from '@/actions'
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
+import { useAuth } from '@/hooks/useAuth'
 
 import {
   STARSHIPS_IMAGE_URL,
@@ -85,11 +86,19 @@ export default function Starship () {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
+  const { isAuth } = useAuth()
+
   const { id } = useParams()
   const { data, films, pilots, isLoading } = useSelector(
     state => state.starshipsDetails,
   )
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigate('/login')
+    }
+  }, [isAuth])
 
   useEffect(() => {
     dispatch(starshipsDetailsRequest(id))

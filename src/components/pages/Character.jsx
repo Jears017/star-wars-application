@@ -11,6 +11,7 @@ import WestIcon from '@mui/icons-material/West'
 import { charactersDetailsRequest } from '@/actions'
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 import { Spinner } from '@/components/blocks/Preloader'
+import { useAuth } from '@/hooks/useAuth'
 
 import {
   CHARACTERS_IMAGE_URL,
@@ -84,12 +85,20 @@ export default function Character () {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
+  const { isAuth } = useAuth()
+
   const { id } = useParams()
   const { data, films, starships, isLoading } = useSelector(
     state => state.charactersDetails,
   )
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigate('/login')
+    }
+  }, [isAuth])
 
   useEffect(() => {
     dispatch(charactersDetailsRequest(id))

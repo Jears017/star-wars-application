@@ -11,6 +11,7 @@ import WestIcon from '@mui/icons-material/West'
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 import { planetsDetailsRequest } from '@/actions'
 import { Spinner } from '@/components/blocks/Preloader'
+import { useAuth } from '@/hooks/useAuth'
 
 import {
   PLANETS_IMAGE_URL,
@@ -96,11 +97,19 @@ export default function Planet () {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
+  const { isAuth } = useAuth()
+
   const { id } = useParams()
   const { data, films, residents, isLoading } = useSelector(
     state => state.planetsDetails,
   )
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigate('/login')
+    }
+  }, [isAuth])
 
   useEffect(() => {
     dispatch(planetsDetailsRequest(id))

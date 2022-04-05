@@ -65,4 +65,10 @@ export default {
     producer: 'Продюссер(ы)',
     opening_crawl: 'Вступительно слово',
   },
+  auth: {
+    sign_up: 'Регистрация',
+    log_in: 'Вход',
+    email: 'Электронный адрес',
+    password: 'Пароль',
+  },
 }

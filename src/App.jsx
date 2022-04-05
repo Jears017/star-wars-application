@@ -16,6 +16,8 @@ import Character from '@/components/pages/Character'
 import Starship from '@/components/pages/Starship'
 import Film from '@/components/pages/Film'
 import { darkTheme, lightTheme } from '@/theme/theme'
+import { LoginPage } from '@/components/pages/LoginPage'
+import { RegisterPage } from '@/components/pages/RegisterPage'
 
 import {
   PLANETS_PAGE_PATH,
@@ -23,6 +25,8 @@ import {
   ROOT_PATH,
   STARSHIPS_PAGE_PATH,
   FILMS_PAGE_PATH,
+  LOGIN_PAGE_PATH,
+  REGISTER_PAGE_PATH,
 } from '@/constants'
 
 import './App.css'
@@ -57,6 +61,8 @@ export default function App () {
               />
               <Route path={`${FILMS_PAGE_PATH}/:id`} element={<Film />} />
               <Route path="*" element={<PageNotFound />} />
+              <Route path={LOGIN_PAGE_PATH} element={<LoginPage/>}/>
+              <Route path={REGISTER_PAGE_PATH} element={<RegisterPage/>}/>
             </Routes>
           </Grid>
         </Grid>

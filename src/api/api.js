@@ -1,5 +1,11 @@
 import * as axios from 'axios'
 import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth'
+
+import {
   SWAPI_URL,
   PLANETS_API_PATH,
   CHARACTERS_API_PATH,
@@ -16,7 +22,9 @@ export const planetsAPI = {
       .then(results => results.data)
   },
   getPlanetsDetails (id) {
-    return instance.get(`${PLANETS_API_PATH}/${id}`).then(results => results.data)
+    return instance
+      .get(`${PLANETS_API_PATH}/${id}`)
+      .then(results => results.data)
   },
 }
 export const charactersAPI = {
@@ -26,7 +34,9 @@ export const charactersAPI = {
       .then(results => results.data)
   },
   getCharactersDetails (id) {
-    return instance.get(`${CHARACTERS_API_PATH}/${id}`).then(results => results.data)
+    return instance
+      .get(`${CHARACTERS_API_PATH}/${id}`)
+      .then(results => results.data)
   },
 }
 export const starshipsAPI = {
@@ -36,7 +46,9 @@ export const starshipsAPI = {
       .then(results => results.data)
   },
   getStarshipsDetails (id) {
-    return instance.get(`${STARSHIPS_API_PATH}/${id}`).then(results => results.data)
+    return instance
+      .get(`${STARSHIPS_API_PATH}/${id}`)
+      .then(results => results.data)
   },
 }
 export const filmsAPI = {
@@ -46,6 +58,23 @@ export const filmsAPI = {
       .then(results => results.data)
   },
   getFilmsDetails (id) {
-    return instance.get(`${FILMS_API_PATH}/${id}`).then(results => results.data)
+    return instance
+      .get(`${FILMS_API_PATH}/${id}`)
+      .then(results => results.data)
+  },
+}
+
+export const userAPI = {
+  registerUser (email, password) {
+    const auth = getAuth()
+    return createUserWithEmailAndPassword(auth, email, password).then(
+      results => results.user,
+    )
+  },
+  signInUser (email, password) {
+    const auth = getAuth()
+    return signInWithEmailAndPassword(auth, email, password).then(
+      results => results.user,
+    )
   },
 }

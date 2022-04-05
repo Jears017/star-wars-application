@@ -11,6 +11,7 @@ import WestIcon from '@mui/icons-material/West'
 import { filmsDetailsRequest } from '@/actions'
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 import { Spinner } from '@/components/blocks/Preloader'
+import { useAuth } from '@/hooks/useAuth'
 
 import {
   FILMS_IMAGE_URL,
@@ -85,11 +86,19 @@ export default function Film () {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
+  const { isAuth } = useAuth()
+
   const { id } = useParams()
   const { data, characters, planets, isLoading } = useSelector(
     state => state.filmsDetails,
   )
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigate('/login')
+    }
+  }, [isAuth])
 
   useEffect(() => {
     dispatch(filmsDetailsRequest(id))
