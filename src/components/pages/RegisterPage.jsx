@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 import { useAuthState } from 'react-firebase-hooks/auth'
@@ -29,7 +29,7 @@ export const RegisterPage = () => {
   const classes = useStyles()
   const { t } = useTranslation()
 
-  const navigate = useNavigate()
+  const navigate = useHistory()
 
   const [user] = useAuthState(auth)
 
@@ -38,7 +38,7 @@ export const RegisterPage = () => {
   }
 
   if (user) {
-    navigate(ROOT_PATH)
+    navigate.push(ROOT_PATH)
   }
   return (
     <Box className={classes.registerWrapper}>

@@ -1,7 +1,7 @@
 import { Box, Typography, IconButton } from '@mui/material'
 import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
@@ -83,7 +83,7 @@ const useStyles = makeStyles(theme => ({
 export default function Starship () {
   const classes = useStyles()
   const { t } = useTranslation()
-  const navigate = useNavigate()
+  const navigate = useHistory()
 
   const { id } = useParams()
   const { data, films, pilots, isLoading } = useSelector(
@@ -104,7 +104,7 @@ export default function Starship () {
     <Box className={classes.starship}>
       <Box className={classes.starshipPrintButtonContainer}>
         <Box
-          onClick={() => navigate(-1)}
+          onClick={() => navigate.goBack()}
           className={classes.planetGoBackButton}
         >
           <WestIcon />

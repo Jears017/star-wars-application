@@ -1,15 +1,28 @@
 import React from 'react'
-import { Outlet, Navigate } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 import auth from '@/firebase'
-import { LOGIN_PAGE_PATH, NOT_FOUND_PATH } from '@/constants'
+import { NOT_AUTHORIZED_PATH, NOT_FOUND_PATH } from '@/constants'
 
-export const PrivateRoute = () => {
+export const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
   try {
     const [user] = useAuthState(auth)
-    return user ? <Outlet/> : <Navigate to={LOGIN_PAGE_PATH}/>
+    return (
+      <Route
+        {...rest}
+        render={routeProps =>
+          user
+            ? (
+            <RouteComponent {...routeProps} />
+              )
+            : (
+            <Redirect to={NOT_AUTHORIZED_PATH} />
+              )
+        }
+      />
+    )
   } catch (e) {
-    return <Navigate to={NOT_FOUND_PATH}/>
+    return <Redirect to={NOT_FOUND_PATH} />
   }
 }
