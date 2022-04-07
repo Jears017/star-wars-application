@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Paper } from '@mui/material'
-import { Routes, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import { useSelector } from 'react-redux'
 
@@ -16,6 +16,11 @@ import Character from '@/components/pages/Character'
 import Starship from '@/components/pages/Starship'
 import Film from '@/components/pages/Film'
 import { darkTheme, lightTheme } from '@/theme/theme'
+import { LoginPage } from '@/components/pages/LoginPage'
+import { RegisterPage } from '@/components/pages/RegisterPage'
+import { PrivateRoute } from '@/components/blocks/PrivateRoute'
+import { FirebaseError } from '@/components/pages/FirebaseError'
+import { PageNotAuthorized } from '@/components/pages/PageNotAuthorized'
 
 import {
   PLANETS_PAGE_PATH,
@@ -23,6 +28,10 @@ import {
   ROOT_PATH,
   STARSHIPS_PAGE_PATH,
   FILMS_PAGE_PATH,
+  LOGIN_PAGE_PATH,
+  REGISTER_PAGE_PATH,
+  FATAL_ERROR_PAGE_PATH,
+  NOT_AUTHORIZED_PATH,
 } from '@/constants'
 
 import './App.css'
@@ -31,7 +40,7 @@ export default function App () {
   const { dark } = useSelector(state => state.theme)
 
   return (
-    <ThemeProvider theme={ dark ? darkTheme : lightTheme }>
+    <ThemeProvider theme={dark ? darkTheme : lightTheme}>
       <Paper>
         <Header />
         <Grid container>
@@ -40,24 +49,77 @@ export default function App () {
             xs={12}
             sm={12}
           >
-            <Routes>
-              <Route path={ROOT_PATH} element={<Main />} />
-              <Route path={PLANETS_PAGE_PATH} element={<Planets />} />
-              <Route path={CHARACTERS_PAGE_PATH} element={<Characters />} />
-              <Route path={STARSHIPS_PAGE_PATH} element={<Starships />} />
-              <Route path={FILMS_PAGE_PATH} element={<Films />} />
-              <Route path={`${PLANETS_PAGE_PATH}/:id`} element={<Planet />} />
+            <Switch>
               <Route
+                exact
+                path={LOGIN_PAGE_PATH}
+                component={LoginPage}
+              />
+              <PrivateRoute
+                exact
+                path={ROOT_PATH}
+                component={Main}
+              />
+              <PrivateRoute
+                exact
+                path={PLANETS_PAGE_PATH}
+                component={Planets}
+              />
+              <PrivateRoute
+                exact
+                path={CHARACTERS_PAGE_PATH}
+                component={Characters}
+              />
+              <PrivateRoute
+                exact
+                path={STARSHIPS_PAGE_PATH}
+                component={Starships}
+              />
+              <PrivateRoute
+                exact
+                path={FILMS_PAGE_PATH}
+                component={Films}
+              />
+              <PrivateRoute
+                exact
+                path={`${PLANETS_PAGE_PATH}/:id`}
+                component={Planet}
+              />
+              <PrivateRoute
+                exact
                 path={`${CHARACTERS_PAGE_PATH}/:id`}
-                element={<Character />}
+                component={Character}
+              />
+              <PrivateRoute
+                exact
+                path={`${STARSHIPS_PAGE_PATH}/:id`}
+                component={Starship}
+              />
+              <PrivateRoute
+                exact
+                path={`${FILMS_PAGE_PATH}/:id`}
+                component={Film}
               />
               <Route
-                path={`${STARSHIPS_PAGE_PATH}/:id`}
-                element={<Starship />}
+                exact
+                path={FATAL_ERROR_PAGE_PATH}
+                component={FirebaseError}
               />
-              <Route path={`${FILMS_PAGE_PATH}/:id`} element={<Film />} />
-              <Route path="*" element={<PageNotFound />} />
-            </Routes>
+              <Route
+                exact
+                path={REGISTER_PAGE_PATH}
+                component={RegisterPage}
+              />
+              <Route
+                exact
+                path={NOT_AUTHORIZED_PATH}
+                component={PageNotAuthorized}
+              />
+              <Route
+                path="*"
+                component={PageNotFound}
+              />
+            </Switch>
           </Grid>
         </Grid>
       </Paper>

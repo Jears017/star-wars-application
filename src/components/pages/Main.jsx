@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { PLANETS_PAGE_PATH } from '@/constants'
+import { logout } from '@/firebase'
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
@@ -30,17 +31,20 @@ export default function Main () {
   const { t } = useTranslation()
 
   return (
-      <Box className={classes.mainContainer}>
-        <Box>
-          <Typography className={classes.mainTitle} variant="h1">{t('main.welcome')}</Typography>
-          <Box className={classes.mainContent}>
-            <Link className={classes.mainLink} to={PLANETS_PAGE_PATH}>
-              <Button variant="contained" size="large">
-                {t('main.nameOfButton')}
-              </Button>
-            </Link>
-          </Box>
+    <Box className={classes.mainContainer}>
+      <Box>
+        <Typography className={classes.mainTitle} variant="h1">
+          {t('main.welcome')}
+        </Typography>
+        <Box className={classes.mainContent}>
+          <Link className={classes.mainLink} to={PLANETS_PAGE_PATH}>
+            <Button variant="contained" size="large">
+              {t('main.get_started')}
+            </Button>
+            <Button onClick={logout}>Log out</Button>
+          </Link>
         </Box>
       </Box>
+    </Box>
   )
 }

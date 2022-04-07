@@ -18,7 +18,7 @@ export default {
   },
   main: {
     welcome: 'Приложение по Звездным Войнам!',
-    nameOfButton: 'Начать работу',
+    get_started: 'Начать работу',
   },
   header: {
     planets: 'планеты',
@@ -64,5 +64,11 @@ export default {
     director: 'Режиссёр',
     producer: 'Продюссер(ы)',
     opening_crawl: 'Вступительно слово',
+  },
+  auth: {
+    sign_up: 'Регистрация',
+    log_in: 'Вход',
+    email: 'Электронный адрес',
+    password: 'Пароль',
   },
 }

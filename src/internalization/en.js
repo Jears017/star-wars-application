@@ -18,7 +18,7 @@ export default {
   },
   main: {
     welcome: 'Star Wars Application!',
-    nameOfButton: 'Get Started',
+    get_started: 'Get Started',
   },
   header: {
     planets: 'planets',
@@ -64,5 +64,11 @@ export default {
     director: 'Director',
     producer: 'Producer(s)',
     opening_crawl: 'Opening Crawl',
+  },
+  auth: {
+    sign_up: 'Sign up',
+    log_in: 'Log in',
+    email: 'Email',
+    password: 'Password',
   },
 }

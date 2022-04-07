@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { useNavigate } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import {
   STARSHIPS_IMAGE_URL,
@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 export default function Starships () {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const navigate = useHistory()
 
   const { starshipsList, count, isLoading } = useSelector(store => store.starships)
 
@@ -51,7 +51,7 @@ export default function Starships () {
   const querySearch = query.get('search')
 
   useEffect(() => {
-    navigate(`${STARSHIPS_PAGE_PATH}/?page=${page}&search=${search}`)
+    navigate.push(`${STARSHIPS_PAGE_PATH}/?page=${page}&search=${search}`)
   }, [page, search])
 
   useEffect(() => {

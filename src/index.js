@@ -7,6 +7,7 @@ import App from '@/App'
 import { store } from '@/store'
 
 import './i18n'
+import './firebase'
 
 ReactDOM.render(
   <Provider store={store}>

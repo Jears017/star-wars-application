@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { useNavigate } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import {
   CHARACTERS_IMAGE_URL,
@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 export default function Characters () {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const navigate = useHistory()
 
   const { charactersList, count, isLoading } = useSelector(
     store => store.characters,
@@ -53,7 +53,7 @@ export default function Characters () {
   const querySearch = query.get('search')
 
   useEffect(() => {
-    navigate(`${CHARACTERS_PAGE_PATH}/?page=${page}&search=${search}`)
+    navigate.push(`${CHARACTERS_PAGE_PATH}/?page=${page}&search=${search}`)
   }, [page, search])
 
   useEffect(() => {

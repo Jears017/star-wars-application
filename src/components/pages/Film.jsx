@@ -1,7 +1,7 @@
 import { Box, Typography, IconButton } from '@mui/material'
 import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
 import ReactToPrint from 'react-to-print'
@@ -83,7 +83,7 @@ const useStyles = makeStyles(theme => ({
 export default function Film () {
   const classes = useStyles()
   const { t } = useTranslation()
-  const navigate = useNavigate()
+  const navigate = useHistory()
 
   const { id } = useParams()
   const { data, characters, planets, isLoading } = useSelector(
@@ -104,7 +104,7 @@ export default function Film () {
     <Box className={classes.film}>
       <Box className={classes.filmPrintButtonContainer}>
         <Box
-          onClick={() => navigate(-1)}
+          onClick={() => navigate.push(-1)}
           className={classes.planetGoBackButton}
         >
           <WestIcon />
