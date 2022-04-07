@@ -18,7 +18,7 @@ export default {
   },
   main: {
     welcome: 'Приложение по Звездным Войнам!',
-    nameOfButton: 'Начать работу',
+    get_started: 'Начать работу',
   },
   header: {
     planets: 'планеты',

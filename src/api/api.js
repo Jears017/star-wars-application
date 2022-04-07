@@ -1,9 +1,4 @@
 import * as axios from 'axios'
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from 'firebase/auth'
 
 import {
   SWAPI_URL,
@@ -12,6 +7,7 @@ import {
   STARSHIPS_API_PATH,
   FILMS_API_PATH,
 } from '@/constants'
+
 const instance = axios.create({
   baseURL: SWAPI_URL,
 })
@@ -61,20 +57,5 @@ export const filmsAPI = {
     return instance
       .get(`${FILMS_API_PATH}/${id}`)
       .then(results => results.data)
-  },
-}
-
-export const userAPI = {
-  registerUser (email, password) {
-    const auth = getAuth()
-    return createUserWithEmailAndPassword(auth, email, password).then(
-      results => results.user,
-    )
-  },
-  signInUser (email, password) {
-    const auth = getAuth()
-    return signInWithEmailAndPassword(auth, email, password).then(
-      results => results.user,
-    )
   },
 }

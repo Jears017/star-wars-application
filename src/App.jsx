@@ -27,42 +27,73 @@ import {
   FILMS_PAGE_PATH,
   LOGIN_PAGE_PATH,
   REGISTER_PAGE_PATH,
+  NOT_FOUND_PATH,
 } from '@/constants'
 
 import './App.css'
+import { PrivateRoute } from './components/blocks/PrivateRoute'
+import { FirebaseError } from './components/pages/FirebaseError'
 
 export default function App () {
   const { dark } = useSelector(state => state.theme)
 
   return (
-    <ThemeProvider theme={ dark ? darkTheme : lightTheme }>
+    <ThemeProvider theme={dark ? darkTheme : lightTheme}>
       <Paper>
         <Header />
         <Grid container>
           <Grid
-            item
-            xs={12}
-            sm={12}
+          item
+          xs={12}
+          sm={12}
           >
             <Routes>
-              <Route path={ROOT_PATH} element={<Main />} />
-              <Route path={PLANETS_PAGE_PATH} element={<Planets />} />
-              <Route path={CHARACTERS_PAGE_PATH} element={<Characters />} />
-              <Route path={STARSHIPS_PAGE_PATH} element={<Starships />} />
-              <Route path={FILMS_PAGE_PATH} element={<Films />} />
-              <Route path={`${PLANETS_PAGE_PATH}/:id`} element={<Planet />} />
+              <Route path={ROOT_PATH} element={<PrivateRoute />}>
+                <Route path={ROOT_PATH} element={<Main />} />
+              </Route>
+              <Route path={PLANETS_PAGE_PATH} element={<PrivateRoute />}>
+                <Route path={PLANETS_PAGE_PATH} element={<Planets />} />
+              </Route>
+              <Route path={CHARACTERS_PAGE_PATH} element={<PrivateRoute />}>
+                <Route path={CHARACTERS_PAGE_PATH} element={<Characters />} />
+              </Route>
+              <Route path={STARSHIPS_PAGE_PATH} element={<PrivateRoute />}>
+                <Route path={STARSHIPS_PAGE_PATH} element={<Starships />} />
+              </Route>
+              <Route path={FILMS_PAGE_PATH} element={<PrivateRoute />}>
+                <Route path={FILMS_PAGE_PATH} element={<Films />} />
+              </Route>
+              <Route
+                path={`${PLANETS_PAGE_PATH}/:id`}
+                element={<PrivateRoute />}
+              >
+                <Route path={`${PLANETS_PAGE_PATH}/:id`} element={<Planet />} />
+              </Route>
               <Route
                 path={`${CHARACTERS_PAGE_PATH}/:id`}
-                element={<Character />}
-              />
+                element={<PrivateRoute />}
+              >
+                <Route
+                  path={`${CHARACTERS_PAGE_PATH}/:id`}
+                  element={<Character />}
+                />
+              </Route>
               <Route
                 path={`${STARSHIPS_PAGE_PATH}/:id`}
-                element={<Starship />}
-              />
-              <Route path={`${FILMS_PAGE_PATH}/:id`} element={<Film />} />
+                element={<PrivateRoute />}
+              >
+                <Route
+                  path={`${STARSHIPS_PAGE_PATH}/:id`}
+                  element={<Starship />}
+                />
+              </Route>
+              <Route path={`${FILMS_PAGE_PATH}/:id`} element={<PrivateRoute />}>
+                <Route path={`${FILMS_PAGE_PATH}/:id`} element={<Film />} />
+              </Route>
               <Route path="*" element={<PageNotFound />} />
-              <Route path={LOGIN_PAGE_PATH} element={<LoginPage/>}/>
-              <Route path={REGISTER_PAGE_PATH} element={<RegisterPage/>}/>
+              <Route path={NOT_FOUND_PATH} element={<FirebaseError />} />
+              <Route path={LOGIN_PAGE_PATH} element={<LoginPage />} />
+              <Route path={REGISTER_PAGE_PATH} element={<RegisterPage />} />
             </Routes>
           </Grid>
         </Grid>

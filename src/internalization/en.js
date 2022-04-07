@@ -18,7 +18,7 @@ export default {
   },
   main: {
     welcome: 'Star Wars Application!',
-    nameOfButton: 'Get Started',
+    get_started: 'Get Started',
   },
   header: {
     planets: 'planets',

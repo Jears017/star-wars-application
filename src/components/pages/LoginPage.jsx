@@ -1,14 +1,13 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
-import { REGISTER_PAGE_PATH } from '@/constants/paths'
-import { Form } from '@/components/forms/Form'
-import { userLogInRequest } from '@/actions'
-import { useAuth } from '@/hooks/useAuth'
+import { REGISTER_PAGE_PATH, ROOT_PATH } from '@/constants'
+import { AuthForm } from '@/components/forms/AuthForm'
+import auth, { logInWithEmailAndPassword } from '@/firebase'
 
 const useStyles = makeStyles(theme => ({
   logInWrapper: {
@@ -29,24 +28,23 @@ const useStyles = makeStyles(theme => ({
 export const LoginPage = () => {
   const classes = useStyles()
   const { t } = useTranslation()
-  const dispatch = useDispatch()
+
+  const [user] = useAuthState(auth)
 
   const navigate = useNavigate()
 
   const handleLogin = (email, password) => {
-    dispatch(userLogInRequest(email, password))
+    logInWithEmailAndPassword(email, password)
   }
 
-  const { token } = useAuth()
-
-  if (token) {
-    navigate('/')
+  if (user) {
+    navigate(ROOT_PATH)
   }
   return (
     <Box className={classes.logInWrapper}>
       <Box className={classes.logInContent}>
         <Typography variant="h3">{t('auth.log_in')}</Typography>
-        <Form title={t('auth.log_in')} handleClick={handleLogin} />
+        <AuthForm title={t('auth.log_in')} handleClick={handleLogin} />
         <Link to={REGISTER_PAGE_PATH}>{t('auth.sign_up')}</Link>
       </Box>
     </Box>

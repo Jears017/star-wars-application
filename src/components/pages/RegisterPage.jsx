@@ -1,13 +1,13 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'react-i18next'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
-import { LOGIN_PAGE_PATH } from '@/constants'
-import { Form } from '@/components/forms/Form'
-import { userSignUpRequest } from '@/actions'
+import { LOGIN_PAGE_PATH, ROOT_PATH } from '@/constants'
+import { AuthForm } from '@/components/forms/AuthForm'
+import auth, { registerWithEmailAndPassword } from '@/firebase'
 
 const useStyles = makeStyles(theme => ({
   registerWrapper: {
@@ -29,19 +29,22 @@ export const RegisterPage = () => {
   const classes = useStyles()
   const { t } = useTranslation()
 
-  const dispatch = useDispatch()
-
   const navigate = useNavigate()
 
+  const [user] = useAuthState(auth)
+
   const handleRegister = (email, password) => {
-    dispatch(userSignUpRequest(email, password))
-    navigate(LOGIN_PAGE_PATH)
+    registerWithEmailAndPassword(email, password)
+  }
+
+  if (user) {
+    navigate(ROOT_PATH)
   }
   return (
     <Box className={classes.registerWrapper}>
       <Box className={classes.registerContent}>
         <Typography variant="h3">{t('auth.sign_up')}</Typography>
-        <Form title={t('auth.sign_up')} handleClick={handleRegister} />
+        <AuthForm title={t('auth.sign_up')} handleClick={handleRegister} />
         <Link to={LOGIN_PAGE_PATH}>{t('auth.log_in')}</Link>
       </Box>
     </Box>

@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export const Form = ({ title, handleClick }) => {
+export const AuthForm = ({ title, handleClick }) => {
   const classes = useStyles()
   const { t } = useTranslation()
 
@@ -64,7 +64,7 @@ export const Form = ({ title, handleClick }) => {
   )
 }
 
-Form.propTypes = {
+AuthForm.propTypes = {
   title: pt.string.isRequired,
   handleClick: pt.func.isRequired,
 }

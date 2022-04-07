@@ -17,7 +17,6 @@ import { getCountOfPages } from '@/utils/getCountOfPages'
 import { Search } from '@/components/controls/Search'
 import { useQueryParams } from '@/utils/useQueryParams'
 import { Spinner } from '@/components/blocks/Preloader'
-import { useAuth } from '@/hooks/useAuth'
 
 const useStyles = makeStyles(theme => ({
   pagination: {
@@ -42,8 +41,6 @@ export default function Characters () {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { isAuth } = useAuth()
-
   const { charactersList, count, isLoading } = useSelector(
     store => store.characters,
   )
@@ -56,10 +53,8 @@ export default function Characters () {
   const querySearch = query.get('search')
 
   useEffect(() => {
-    !isAuth
-      ? navigate('/login')
-      : navigate(`${CHARACTERS_PAGE_PATH}/?page=${page}&search=${search}`)
-  }, [page, search, isAuth])
+    navigate(`${CHARACTERS_PAGE_PATH}/?page=${page}&search=${search}`)
+  }, [page, search])
 
   useEffect(() => {
     if (querySearch) {
