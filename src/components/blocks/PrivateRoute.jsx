@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 import auth from '@/firebase'
-import { NOT_AUTHORIZED_PATH, NOT_FOUND_PATH } from '@/constants'
+import { NOT_AUTHORIZED_PATH, FATAL_ERROR_PAGE_PATH } from '@/constants'
 
 export const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
   try {
@@ -23,6 +23,6 @@ export const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
       />
     )
   } catch (e) {
-    return <Redirect to={NOT_FOUND_PATH} />
+    return <Redirect to={FATAL_ERROR_PAGE_PATH} />
   }
 }

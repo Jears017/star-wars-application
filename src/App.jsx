@@ -30,7 +30,7 @@ import {
   FILMS_PAGE_PATH,
   LOGIN_PAGE_PATH,
   REGISTER_PAGE_PATH,
-  NOT_FOUND_PATH,
+  FATAL_ERROR_PAGE_PATH,
   NOT_AUTHORIZED_PATH,
 } from '@/constants'
 
@@ -49,67 +49,77 @@ export default function App () {
             xs={12}
             sm={12}
           >
-            <Route path={LOGIN_PAGE_PATH} component={LoginPage} />
-            <PrivateRoute
-              exact
-              path={ROOT_PATH}
-              component={Main}
-            />
-            <PrivateRoute
-              exact
-              path={PLANETS_PAGE_PATH}
-              component={Planets}
-            />
-            <PrivateRoute
-              exact
-              path={CHARACTERS_PAGE_PATH}
-              component={Characters}
-            />
-            <PrivateRoute
-              exact
-              path={STARSHIPS_PAGE_PATH}
-              component={Starships}
-            />
-            <PrivateRoute
-              exact
-              path={FILMS_PAGE_PATH}
-              component={Films}
-            />
-            <PrivateRoute
-              exact
-              path={`${PLANETS_PAGE_PATH}/:id`}
-              component={Planet}
-            />
-            <PrivateRoute
-              exact
-              path={`${CHARACTERS_PAGE_PATH}/:id`}
-              component={Character}
-            />
-            <PrivateRoute
-              exact
-              path={`${STARSHIPS_PAGE_PATH}/:id`}
-              component={Starship}
-            />
-            <PrivateRoute
-              exact
-              path={`${FILMS_PAGE_PATH}/:id`}
-              component={Film}
-            />
-            <Route
-              exact
-              path={NOT_FOUND_PATH}
-              component={FirebaseError}
-            />
-            <Route
-              exact
-              path={REGISTER_PAGE_PATH}
-              component={RegisterPage}
-            />
-            <Route
-              exact
-              path={NOT_AUTHORIZED_PATH}
-              component={PageNotAuthorized}
-            />
+            <Switch>
+              <Route
+                exact
+                path={LOGIN_PAGE_PATH}
+                component={LoginPage}
+              />
+              <PrivateRoute
+                exact
+                path={ROOT_PATH}
+                component={Main}
+              />
+              <PrivateRoute
+                exact
+                path={PLANETS_PAGE_PATH}
+                component={Planets}
+              />
+              <PrivateRoute
+                exact
+                path={CHARACTERS_PAGE_PATH}
+                component={Characters}
+              />
+              <PrivateRoute
+                exact
+                path={STARSHIPS_PAGE_PATH}
+                component={Starships}
+              />
+              <PrivateRoute
+                exact
+                path={FILMS_PAGE_PATH}
+                component={Films}
+              />
+              <PrivateRoute
+                exact
+                path={`${PLANETS_PAGE_PATH}/:id`}
+                component={Planet}
+              />
+              <PrivateRoute
+                exact
+                path={`${CHARACTERS_PAGE_PATH}/:id`}
+                component={Character}
+              />
+              <PrivateRoute
+                exact
+                path={`${STARSHIPS_PAGE_PATH}/:id`}
+                component={Starship}
+              />
+              <PrivateRoute
+                exact
+                path={`${FILMS_PAGE_PATH}/:id`}
+                component={Film}
+              />
+              <Route
+                exact
+                path={FATAL_ERROR_PAGE_PATH}
+                component={FirebaseError}
+              />
+              <Route
+                exact
+                path={REGISTER_PAGE_PATH}
+                component={RegisterPage}
+              />
+              <Route
+                exact
+                path={NOT_AUTHORIZED_PATH}
+                component={PageNotAuthorized}
+              />
+              <Route
+                path="*"
+                component={PageNotFound}
+              />
+            </Switch>
           </Grid>
         </Grid>
       </Paper>
