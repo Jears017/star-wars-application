@@ -34,10 +34,12 @@ import {
   NOT_AUTHORIZED_PATH,
 } from '@/constants'
 
+import { useInternalizationConnector } from './hooks/useInternalizationConnector'
 import './App.css'
 
 export default function App () {
   const { dark } = useSelector(state => state.theme)
+  useInternalizationConnector()
 
   return (
     <ThemeProvider theme={dark ? darkTheme : lightTheme}>
