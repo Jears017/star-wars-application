@@ -91,7 +91,6 @@ export const Header = () => {
   const [anchorElUser, setAnchorElUser] = useState(null)
   const [user] = useAuthState(auth)
   const classes = useStyles({ open })
-  console.log(user)
 
   const dispatch = useDispatch()
   const { dark } = useSelector(state => state.theme)
