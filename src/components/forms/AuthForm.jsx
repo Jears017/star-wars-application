@@ -23,42 +23,51 @@ export const AuthForm = ({ title, handleClick }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const onSubmitHandler = e => {
+    e.preventDefault()
+    handleClick(email, password)
+  }
+
   return (
     <Box>
       <Box>
-        <Box className={classes.textFieldContainer}>
-          <TextField
-            id="filled-password-input"
-            label={t('auth.email')}
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            autoComplete="current-password"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="standard"
-            className={classes.textField}
-          />
-        </Box>
-        <Box className={classes.textFieldContainer}>
-          <TextField
-            id="filled-password-input"
-            label={t('auth.password')}
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            autoComplete="current-password"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="standard"
-            className={classes.textField}
-          />
-        </Box>
-        <Box className={classes.button}>
-          <Button onClick={() => handleClick(email, password)}>{title}</Button>
-        </Box>
+        <form onSubmit={onSubmitHandler}>
+          <Box className={classes.textFieldContainer}>
+            <TextField
+              id="filled-password-input"
+              label={t('auth.email')}
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              autoComplete="current-password"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              className={classes.textField}
+            />
+          </Box>
+          <Box className={classes.textFieldContainer}>
+            <TextField
+              id="filled-password-input"
+              label={t('auth.password')}
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              autoComplete="current-password"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              className={classes.textField}
+            />
+          </Box>
+          <Box className={classes.button}>
+            <Button type="submit">
+              {title}
+            </Button>
+          </Box>
+        </form>
       </Box>
     </Box>
   )

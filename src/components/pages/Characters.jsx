@@ -72,27 +72,35 @@ export default function Characters () {
     setSearch(event.target.value)
   }
 
-  if (isLoading) {
-    return <Spinner />
-  }
   return (
     <Box className={classes.container}>
       <Box className={classes.search}>
-        <Search onSearchChange={onChange} value={search} />
+        <Search
+          onSearchChange={onChange}
+          value={search}
+        />
       </Box>
-      {count > LIMIT_CARDS_PER_PAGE && (
-        <Box className={classes.pagination}>
-          <Pagination
-            count={getCountOfPages(count)}
-            handleChange={handleChange}
+      {isLoading
+        ? (
+        <Spinner />
+          )
+        : (
+        <Box>
+          {count > LIMIT_CARDS_PER_PAGE && (
+            <Box className={classes.pagination}>
+              <Pagination
+                count={getCountOfPages(count)}
+                handleChange={handleChange}
+              />
+            </Box>
+          )}
+          <TemplateOfCardList
+            pathUrl={CHARACTERS_PAGE_PATH}
+            data={charactersList}
+            imageUrl={CHARACTERS_IMAGE_URL}
           />
         </Box>
-      )}
-      <TemplateOfCardList
-        pathUrl={CHARACTERS_PAGE_PATH}
-        data={charactersList}
-        imageUrl={CHARACTERS_IMAGE_URL}
-      />
+          )}
     </Box>
   )
 }
