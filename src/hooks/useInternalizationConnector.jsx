@@ -14,18 +14,18 @@ export const useInternalizationConnector = () => {
   const ruFirebaseCollection = collection(db, 'ru')
 
   useEffect(() => {
-    const getEn = async () => {
+    const setEnFromFirebase = async () => {
       const data = await getDocs(enFirebaseCollection)
       setEn(data.docs.map(doc => ({ ...doc.data() }))[0])
     }
 
-    const getRu = async () => {
+    const setRuFromFirebase = async () => {
       const data = await getDocs(ruFirebaseCollection)
       setRu(data.docs.map(doc => ({ ...doc.data() }))[0])
     }
 
-    getEn()
-    getRu()
+    setEnFromFirebase()
+    setRuFromFirebase()
   }, [])
 
   return i18n.use(initReactI18next).init({
