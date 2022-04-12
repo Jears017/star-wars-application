@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 import {
   Box,
@@ -12,16 +13,20 @@ import {
   AppBar,
   Toolbar,
   Typography,
+  Tooltip,
 } from '@mui/material'
 
 import {
   Language as LanguageIcon,
   LightMode as LightModeIcon,
   Menu as MenuIcon,
+  AccountCircle as AccountCircleIcon,
+  Login as LoginIcon,
 } from '@mui/icons-material/'
 
-import { ROOT_PATH, ENGLISH, RUSSIAN } from '@/constants'
+import { ROOT_PATH, ENGLISH, RUSSIAN, LOGIN_PAGE_PATH } from '@/constants'
 import { setTheme } from '@/actions'
+import auth, { logout } from '@/firebase'
 
 const pages = ['planets', 'characters', 'starships', 'films']
 const useStyles = makeStyles(theme => ({
@@ -75,11 +80,18 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'uppercase',
     fontFamily: theme.typography.fontFamily,
   },
+  loginLink: {
+    display: 'flex',
+    color: theme.palette.text.primary,
+  },
 }))
 
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null)
+  const [anchorElUser, setAnchorElUser] = useState(null)
+  const [user] = useAuthState(auth)
   const classes = useStyles({ open })
+  console.log(user)
 
   const dispatch = useDispatch()
   const { dark } = useSelector(state => state.theme)
@@ -96,6 +108,14 @@ export const Header = () => {
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget)
+  }
+
+  const handleOpenUserMenu = event => {
+    setAnchorElUser(event.currentTarget)
+  }
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null)
   }
 
   const handleCloseNavMenu = () => {
@@ -171,6 +191,45 @@ export const Header = () => {
           <IconButton onClick={changeLanguageHandler}>
             <LanguageIcon />
           </IconButton>
+          {user
+            ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu}>
+                  <AccountCircleIcon />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography onClick={logout} textAlign="center">
+                    Logout
+                  </Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+              )
+            : (
+            <IconButton>
+              <Link className={classes.loginLink} to={LOGIN_PAGE_PATH}>
+                <LoginIcon />
+              </Link>
+            </IconButton>
+              )}
         </Box>
       </Toolbar>
     </AppBar>

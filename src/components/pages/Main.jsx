@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import { PLANETS_PAGE_PATH } from '@/constants'
-import { logout } from '@/firebase'
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
@@ -41,7 +40,6 @@ export default function Main () {
             <Button variant="contained" size="large">
               {t('main.get_started')}
             </Button>
-            <Button onClick={logout}>Log out</Button>
           </Link>
         </Box>
       </Box>
