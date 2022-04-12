@@ -70,27 +70,32 @@ export default function Films () {
     setSearch(event.target.value)
   }
 
-  if (isLoading) {
-    return <Spinner />
-  }
   return (
     <Box className={classes.container}>
       <Box className={classes.search}>
         <Search onSearchChange={onChange} value={search} />
       </Box>
-      <TemplateOfCardList
-        pathUrl={FILMS_PAGE_PATH}
-        data={filmsList}
-        imageUrl={FILMS_IMAGE_URL}
-      />
-      {count > LIMIT_CARDS_PER_PAGE && (
-        <Box className={classes.pagination}>
-          <Pagination
-            count={getCountOfPages(count)}
-            handleChange={handleChange}
+      {isLoading
+        ? (
+        <Spinner />
+          )
+        : (
+        <Box>
+          <TemplateOfCardList
+            pathUrl={FILMS_PAGE_PATH}
+            data={filmsList}
+            imageUrl={FILMS_IMAGE_URL}
           />
+          {count > LIMIT_CARDS_PER_PAGE && (
+            <Box className={classes.pagination}>
+              <Pagination
+                count={getCountOfPages(count)}
+                handleChange={handleChange}
+              />
+            </Box>
+          )}
         </Box>
-      )}
+          )}
     </Box>
   )
 }

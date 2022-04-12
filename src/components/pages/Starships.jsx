@@ -41,7 +41,9 @@ export default function Starships () {
   const dispatch = useDispatch()
   const navigate = useHistory()
 
-  const { starshipsList, count, isLoading } = useSelector(store => store.starships)
+  const { starshipsList, count, isLoading } = useSelector(
+    store => store.starships,
+  )
 
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
@@ -70,27 +72,32 @@ export default function Starships () {
     setSearch(event.target.value)
   }
 
-  if (isLoading) {
-    return <Spinner />
-  }
   return (
     <Box className={classes.container}>
       <Box className={classes.search}>
         <Search onSearchChange={onChange} value={search} />
       </Box>
-      {count > LIMIT_CARDS_PER_PAGE && (
-        <Box className={classes.pagination}>
-          <Pagination
-            count={getCountOfPages(count)}
-            handleChange={handleChange}
+      {isLoading
+        ? (
+        <Spinner />
+          )
+        : (
+        <Box>
+          {count > LIMIT_CARDS_PER_PAGE && (
+            <Box className={classes.pagination}>
+              <Pagination
+                count={getCountOfPages(count)}
+                handleChange={handleChange}
+              />
+            </Box>
+          )}
+          <TemplateOfCardList
+            pathUrl={STARSHIPS_PAGE_PATH}
+            data={starshipsList}
+            imageUrl={STARSHIPS_IMAGE_URL}
           />
         </Box>
-      )}
-      <TemplateOfCardList
-        pathUrl={STARSHIPS_PAGE_PATH}
-        data={starshipsList}
-        imageUrl={STARSHIPS_IMAGE_URL}
-      />
+          )}
     </Box>
   )
 }
