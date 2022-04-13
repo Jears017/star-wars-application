@@ -43,8 +43,8 @@ export const PageNotAuthorized = () => {
             <CancelIcon className={classes.image} />
           </Box>
           <Box className={classes.pageNotAuthorizedTextContainer}>
-            <Typography variant="h5">You are not authorized!</Typography>
-            <Typography>
+            <Typography variant="h3">You are not authorized!</Typography>
+            <Typography variant="body1">
               If you want to work with application, you should{' '}
               <Link className={classes.link} to={LOGIN_PAGE_PATH}>authorize</Link>
             </Typography>

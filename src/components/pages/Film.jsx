@@ -104,7 +104,7 @@ export default function Film () {
     <Box className={classes.film}>
       <Box className={classes.filmPrintButtonContainer}>
         <Box
-          onClick={() => navigate.push(-1)}
+          onClick={() => navigate.goBack()}
           className={classes.planetGoBackButton}
         >
           <WestIcon />

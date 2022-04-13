@@ -23,6 +23,10 @@ const useStyles = makeStyles(theme => ({
       height: '150px',
     },
   },
+  description: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }))
 
 export const FirebaseError = () => {
@@ -34,8 +38,13 @@ export const FirebaseError = () => {
           <Box className={classes.imageContainer}>
             <CableIcon className={classes.image} />
           </Box>
-          <Typography variant="h5">Firebase is not available!</Typography>
-          <Typography>Check your connection</Typography>
+          <Typography variant="h3">Firebase is not available!</Typography>
+          <Typography
+            className={classes.description}
+            variant="body2"
+          >
+            Check your connection
+          </Typography>
         </Box>
       </Box>
     </Box>
