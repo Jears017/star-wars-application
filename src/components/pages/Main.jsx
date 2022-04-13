@@ -10,6 +10,9 @@ const useStyles = makeStyles(theme => ({
   mainContainer: {
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
+    width: '100vw',
+    height: '100vh',
     paddingTop: theme.spacing(12),
   },
   mainContent: {
@@ -22,7 +25,9 @@ const useStyles = makeStyles(theme => ({
   },
   mainTitle: {
     color: theme.palette.text.default,
+    paddingBottom: theme.spacing(4),
   },
+  btn: { width: 300, height: 60, backgroundColor: theme.palette.primary },
 }))
 
 export default function Main () {
@@ -37,7 +42,11 @@ export default function Main () {
         </Typography>
         <Box className={classes.mainContent}>
           <Link className={classes.mainLink} to={PLANETS_PAGE_PATH}>
-            <Button variant="contained" size="large">
+            <Button
+              className={classes.btn}
+              variant="contained"
+              size="large"
+            >
               {t('main.get_started')}
             </Button>
           </Link>
