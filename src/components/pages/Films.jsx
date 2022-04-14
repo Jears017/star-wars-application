@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   search: {
     display: 'flex',
     justifyContent: 'center',
-    paddingBottom: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
   },
   container: {
     paddingTop: theme.spacing(12),
@@ -52,6 +52,10 @@ export default function Films () {
 
   useEffect(() => {
     navigate.push(`${FILMS_PAGE_PATH}/?page=${page}&search=${search}`)
+  }, [page, search])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
   }, [page, search])
 
   useEffect(() => {

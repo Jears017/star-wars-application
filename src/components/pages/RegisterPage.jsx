@@ -20,8 +20,18 @@ const useStyles = makeStyles(theme => ({
   },
   registerContent: {
     border: `1px solid ${theme.palette.text.primary}`,
-    padding: theme.spacing(10),
+    padding: '70px 20px',
+    [theme.breakpoints.down('lg')]: {
+      padding: '60px 20px',
+    },
     borderRadius: theme.custom.threeBorderRadius,
+    [theme.breakpoints.down('md')]: {
+      padding: '40px 20px',
+    },
+    boxShadow: '-moz-initial,',
+  },
+  link: {
+    paddingTop: theme.spacing(3),
   },
 }))
 
@@ -45,7 +55,7 @@ export const RegisterPage = () => {
       <Box className={classes.registerContent}>
         <Typography variant="h3">{t('auth.sign_up')}</Typography>
         <AuthForm title={t('auth.sign_up')} handleClick={handleRegister} />
-        <Link to={LOGIN_PAGE_PATH}>{t('auth.log_in')}</Link>
+        <Typography className={classes.link}>{t('auth.have_account')} <Link to={LOGIN_PAGE_PATH}>{t('auth.log_in')}</Link></Typography>
       </Box>
     </Box>
   )
