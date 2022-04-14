@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
   pagination: {
     display: 'flex',
     justifyContent: 'flex-end',
+    paddingTop: theme.spacing(6),
     [theme.breakpoints.down('xl')]: {
       justifyContent: 'center',
     },
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   search: {
     display: 'flex',
     justifyContent: 'center',
-    paddingBottom: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
   },
   container: {
     paddingTop: theme.spacing(12),
@@ -54,6 +55,10 @@ export default function Planets () {
 
   useEffect(() => {
     navigate.push(`${PLANETS_PAGE_PATH}/?page=${page}&search=${search}`)
+  }, [page, search])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
   }, [page, search])
 
   useEffect(() => {
@@ -83,19 +88,21 @@ export default function Planets () {
           )
         : (
         <Box>
-          {count > LIMIT_CARDS_PER_PAGE && (
-            <Box className={classes.pagination}>
-              <Pagination
-                count={getCountOfPages(count)}
-                handleChange={handleChange}
-              />
-            </Box>
-          )}
           <TemplateOfCardList
             pathUrl={PLANETS_PAGE_PATH}
             data={planetsList}
             imageUrl={PLANETS_IMAGE_URL}
           />
+          <Box className={classes.paginationContainer}>
+            {count > LIMIT_CARDS_PER_PAGE && (
+              <Box className={classes.pagination}>
+                <Pagination
+                  count={getCountOfPages(count)}
+                  handleChange={handleChange}
+                />
+              </Box>
+            )}
+          </Box>
         </Box>
           )}
     </Box>

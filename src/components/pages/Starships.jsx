@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
   pagination: {
     display: 'flex',
     justifyContent: 'flex-end',
+    paddingTop: theme.spacing(6),
     [theme.breakpoints.down('md')]: {
       justifyContent: 'center',
     },
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   search: {
     display: 'flex',
     justifyContent: 'center',
-    paddingBottom: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
   },
   container: {
     paddingTop: theme.spacing(12),
@@ -64,6 +65,10 @@ export default function Starships () {
     }
   }, [queryPage, querySearch])
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [page, search])
+
   const handleChange = (event, value) => {
     setPage(value)
   }
@@ -83,6 +88,11 @@ export default function Starships () {
           )
         : (
         <Box>
+          <TemplateOfCardList
+            pathUrl={STARSHIPS_PAGE_PATH}
+            data={starshipsList}
+            imageUrl={STARSHIPS_IMAGE_URL}
+          />
           {count > LIMIT_CARDS_PER_PAGE && (
             <Box className={classes.pagination}>
               <Pagination
@@ -91,11 +101,6 @@ export default function Starships () {
               />
             </Box>
           )}
-          <TemplateOfCardList
-            pathUrl={STARSHIPS_PAGE_PATH}
-            data={starshipsList}
-            imageUrl={STARSHIPS_IMAGE_URL}
-          />
         </Box>
           )}
     </Box>

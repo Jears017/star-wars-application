@@ -6,13 +6,28 @@ import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(theme => ({
   textFieldContainer: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(6),
   },
   textField: {
     minWidth: '400px',
+    [theme.breakpoints.down('lg')]: {
+      minWidth: '350px',
+    },
+    [theme.breakpoints.down('sm')]: {
+      minWidth: '250px',
+    },
   },
   button: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(6),
+  },
+  btn: {
+    minWidth: '400px',
+    [theme.breakpoints.down('lg')]: {
+      minWidth: '350px',
+    },
+    [theme.breakpoints.down('sm')]: {
+      minWidth: '250px',
+    },
   },
 }))
 
@@ -63,7 +78,11 @@ export const AuthForm = ({ title, handleClick }) => {
             />
           </Box>
           <Box className={classes.button}>
-            <Button type="submit">
+            <Button
+              className={classes.btn}
+              variant="contained"
+              type="submit"
+            >
               {title}
             </Button>
           </Box>

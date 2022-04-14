@@ -158,7 +158,7 @@ export const Header = () => {
                   key={page}
                 >
                   <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">
+                    <Typography variant="body2" textAlign="center">
                       {t(`header.${page}`)}
                     </Typography>
                   </MenuItem>

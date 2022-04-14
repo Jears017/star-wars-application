@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
   pagination: {
     display: 'flex',
     justifyContent: 'flex-end',
+    paddingTop: theme.spacing(6),
     [theme.breakpoints.down('xl')]: {
       justifyContent: 'center',
     },
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   search: {
     display: 'flex',
     justifyContent: 'center',
-    paddingBottom: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
   },
   container: {
     paddingTop: theme.spacing(12),
@@ -64,6 +65,10 @@ export default function Characters () {
     }
   }, [queryPage, querySearch])
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [page, search])
+
   const handleChange = (event, value) => {
     setPage(value)
   }
@@ -75,10 +80,7 @@ export default function Characters () {
   return (
     <Box className={classes.container}>
       <Box className={classes.search}>
-        <Search
-          onSearchChange={onChange}
-          value={search}
-        />
+        <Search onSearchChange={onChange} value={search} />
       </Box>
       {isLoading
         ? (
@@ -86,6 +88,11 @@ export default function Characters () {
           )
         : (
         <Box>
+          <TemplateOfCardList
+            pathUrl={CHARACTERS_PAGE_PATH}
+            data={charactersList}
+            imageUrl={CHARACTERS_IMAGE_URL}
+          />
           {count > LIMIT_CARDS_PER_PAGE && (
             <Box className={classes.pagination}>
               <Pagination
@@ -94,11 +101,6 @@ export default function Characters () {
               />
             </Box>
           )}
-          <TemplateOfCardList
-            pathUrl={CHARACTERS_PAGE_PATH}
-            data={charactersList}
-            imageUrl={CHARACTERS_IMAGE_URL}
-          />
         </Box>
           )}
     </Box>
