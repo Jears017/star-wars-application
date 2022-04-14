@@ -28,7 +28,6 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('md')]: {
       padding: '40px 20px',
     },
-    boxShadow: '-moz-initial,',
   },
   link: {
     paddingTop: theme.spacing(3),
