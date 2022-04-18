@@ -3,6 +3,8 @@ import { Box, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import CancelIcon from '@mui/icons-material/Cancel'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+
 import { LOGIN_PAGE_PATH } from '@/constants/paths'
 
 const useStyles = makeStyles(theme => ({
@@ -35,6 +37,8 @@ const useStyles = makeStyles(theme => ({
 
 export const PageNotAuthorized = () => {
   const classes = useStyles()
+  const { t } = useTranslation()
+
   return (
     <Box className={classes.mainContainer}>
       <Box className={classes.mainContent}>
@@ -43,10 +47,10 @@ export const PageNotAuthorized = () => {
             <CancelIcon className={classes.image} />
           </Box>
           <Box className={classes.pageNotAuthorizedTextContainer}>
-            <Typography variant="h3">You are not authorized!</Typography>
+            <Typography variant="h3">{t('auth.not_authorized')}</Typography>
             <Typography variant="body1">
-              If you want to work with application, you should{' '}
-              <Link className={classes.link} to={LOGIN_PAGE_PATH}>authorize</Link>
+              {t('auth.not_auth_description')}{' '}
+              <Link className={classes.link} to={LOGIN_PAGE_PATH}>{t('auth.authorized')}</Link>
             </Typography>
           </Box>
         </Box>

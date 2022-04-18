@@ -9,13 +9,14 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Pagination ({ handleChange, count }) {
+export default function Pagination ({ handleChange, count, disabledValue }) {
   const classes = useStyles()
   return (
     <Stack className={classes.paginationContainer}>
       <MuiPagination
         count={count}
         onChange={handleChange}
+        disabled={disabledValue}
       />
     </Stack>
   )
@@ -24,4 +25,5 @@ export default function Pagination ({ handleChange, count }) {
 Pagination.propTypes = {
   handleChange: pt.func.isRequired,
   count: pt.number.isRequired,
+  disabledValue: pt.bool.isRequired,
 }

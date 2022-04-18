@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   pagination: {
     display: 'flex',
     justifyContent: 'flex-end',
-    paddingTop: theme.spacing(6),
+    paddingTop: theme.spacing(1),
     [theme.breakpoints.down('md')]: {
       justifyContent: 'center',
     },
@@ -82,6 +82,15 @@ export default function Starships () {
       <Box className={classes.search}>
         <Search onSearchChange={onChange} value={search} />
       </Box>
+      {count > LIMIT_CARDS_PER_PAGE && (
+        <Box className={classes.pagination}>
+          <Pagination
+            count={getCountOfPages(count)}
+            handleChange={handleChange}
+            disabledValue={isLoading}
+          />
+        </Box>
+      )}
       {isLoading
         ? (
         <Spinner />
@@ -93,14 +102,6 @@ export default function Starships () {
             data={starshipsList}
             imageUrl={STARSHIPS_IMAGE_URL}
           />
-          {count > LIMIT_CARDS_PER_PAGE && (
-            <Box className={classes.pagination}>
-              <Pagination
-                count={getCountOfPages(count)}
-                handleChange={handleChange}
-              />
-            </Box>
-          )}
         </Box>
           )}
     </Box>

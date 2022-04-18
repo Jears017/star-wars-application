@@ -43,7 +43,7 @@ export default function App () {
 
   return (
     <ThemeProvider theme={dark ? darkTheme : lightTheme}>
-      <Paper>
+      <Paper className="main">
         <Header />
         <Grid container>
           <Grid

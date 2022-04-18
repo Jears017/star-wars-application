@@ -37,10 +37,9 @@ const useStyles = makeStyles(theme => ({
   planetContent: {
     display: 'flex',
     justifyContent: 'space-around',
-    border: `1px solid ${theme.palette.common.black}`,
     borderRadius: theme.custom.threeBorderRadius,
     color: theme.palette.text.primary,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.custom.bgOfAdditionalInfoBlock,
     [theme.breakpoints.down('sm')]: {
       display: 'block',
     },
@@ -54,6 +53,7 @@ const useStyles = makeStyles(theme => ({
   planetImage: {
     borderRadius: theme.custom.threeBorderRadius,
     width: 345,
+    height: '100%',
     [theme.breakpoints.down('sm')]: {
       width: 255,
     },
@@ -64,7 +64,6 @@ const useStyles = makeStyles(theme => ({
     gap: 20,
     flexWrap: 'wrap',
     justifyContent: 'center',
-    paddingTop: theme.spacing(2),
   },
   planetsTitle: {
     fontSize: 60,

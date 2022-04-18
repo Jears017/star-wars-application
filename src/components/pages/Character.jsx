@@ -11,6 +11,7 @@ import WestIcon from '@mui/icons-material/West'
 import { charactersDetailsRequest } from '@/actions'
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 import { Spinner } from '@/components/blocks/Preloader'
+import { useNameFromApi } from '@/hooks/useNameFromApi'
 
 import {
   CHARACTERS_IMAGE_URL,
@@ -37,10 +38,9 @@ const useStyles = makeStyles(theme => ({
   characterContent: {
     display: 'flex',
     justifyContent: 'space-around',
-    border: `1px solid ${theme.palette.common.black}`,
     borderRadius: theme.custom.threeBorderRadius,
     color: theme.palette.text.primary,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.custom.bgOfAdditionalInfoBlock,
     [theme.breakpoints.down('sm')]: {
       display: 'block',
     },
@@ -54,6 +54,7 @@ const useStyles = makeStyles(theme => ({
   characterImage: {
     borderRadius: theme.custom.threeBorderRadius,
     width: 345,
+    height: '100%',
     [theme.breakpoints.down('sm')]: {
       width: 255,
     },
@@ -64,7 +65,6 @@ const useStyles = makeStyles(theme => ({
     gap: 20,
     flexWrap: 'wrap',
     justifyContent: 'center',
-    paddingTop: theme.spacing(2),
   },
   planetGoBackButton: {
     display: 'flex',
@@ -89,6 +89,9 @@ export default function Character () {
     state => state.charactersDetails,
   )
 
+  const homeWorld = useNameFromApi(data.homeworld)
+  const species = useNameFromApi(data.species)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -108,7 +111,9 @@ export default function Character () {
           className={classes.planetGoBackButton}
         >
           <WestIcon />
-          <Typography className={classes.planetGoBackText}>{t('common.goBack')}</Typography>
+          <Typography className={classes.planetGoBackText}>
+            {t('common.goBack')}
+          </Typography>
         </Box>
         <ReactToPrint
           trigger={() => (
@@ -139,7 +144,8 @@ export default function Character () {
                   {t('character.birth_year')}: {data.birth_year}
                 </Typography>
                 <Typography variant="h6">
-                  {t('character.species')}: {data.species}
+                  {t('character.species')}:{' '}
+                  {species}
                 </Typography>
                 <Typography variant="h6">
                   {t('character.height')}: {data.height}
@@ -159,7 +165,7 @@ export default function Character () {
                   {t('character.skin_color')}: {data.skin_color}
                 </Typography>
                 <Typography variant="h6">
-                  {t('character.homeworld')}: {data.homeworld}
+                  {t('character.homeworld')}: {homeWorld}
                 </Typography>
               </Box>
             </Box>

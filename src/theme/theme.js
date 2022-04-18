@@ -6,6 +6,7 @@ export const darkTheme = createTheme({
   },
   custom: {
     threeBorderRadius: 12,
+    bgOfAdditionalInfoBlock: '#121212',
   },
   typography: {
     h1: {
@@ -49,6 +50,7 @@ export const lightTheme = createTheme({
   },
   custom: {
     threeBorderRadius: 12,
+    bgOfAdditionalInfoBlock: '#eeeeee',
   },
   typography: {
     h1: {

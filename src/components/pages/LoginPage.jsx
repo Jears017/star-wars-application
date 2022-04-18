@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   logInContent: {
-    border: `1px solid ${theme.palette.text.primary}`,
+    backgroundColor: theme.custom.bgOfAdditionalInfoBlock,
     padding: '70px 20px',
     borderRadius: theme.custom.threeBorderRadius,
     [theme.breakpoints.down('lg')]: {
@@ -29,8 +29,11 @@ const useStyles = makeStyles(theme => ({
       padding: '40px 20px',
     },
   },
-  link: {
+  linkText: {
     paddingTop: theme.spacing(3),
+  },
+  link: {
+    color: theme.palette.text.primary,
   },
 }))
 
@@ -54,7 +57,7 @@ export const LoginPage = () => {
       <Box className={classes.logInContent}>
         <Typography variant="h3">{t('auth.log_in')}</Typography>
         <AuthForm title={t('auth.log_in')} handleClick={handleLogin} />
-        <Typography className={classes.link}>{t('auth.dont_have_account')} <Link to={REGISTER_PAGE_PATH}>{t('auth.sign_up')}</Link></Typography>
+        <Typography className={classes.linkText}>{t('auth.dont_have_account')} <Link className={classes.link} to={REGISTER_PAGE_PATH}>{t('auth.sign_up')}</Link></Typography>
       </Box>
     </Box>
   )

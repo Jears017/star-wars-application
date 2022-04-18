@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import CableIcon from '@mui/icons-material/Cable'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(theme => ({
   mainContainer: {
@@ -31,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 export const FirebaseError = () => {
   const classes = useStyles()
+  const { t } = useTranslation()
   return (
     <Box className={classes.mainContainer}>
       <Box className={classes.mainContent}>
@@ -38,12 +40,12 @@ export const FirebaseError = () => {
           <Box className={classes.imageContainer}>
             <CableIcon className={classes.image} />
           </Box>
-          <Typography variant="h3">Firebase is not available!</Typography>
+          <Typography variant="h3">{t('common.firebase_not_available')}</Typography>
           <Typography
             className={classes.description}
             variant="body2"
           >
-            Check your connection
+            {t('common.check_connection')}
           </Typography>
         </Box>
       </Box>

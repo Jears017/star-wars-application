@@ -79,6 +79,14 @@ export default function Films () {
       <Box className={classes.search}>
         <Search onSearchChange={onChange} value={search} />
       </Box>
+      {count > LIMIT_CARDS_PER_PAGE && (
+        <Box className={classes.pagination}>
+          <Pagination
+            count={getCountOfPages(count)}
+            handleChange={handleChange}
+          />
+        </Box>
+      )}
       {isLoading
         ? (
         <Spinner />
@@ -90,14 +98,6 @@ export default function Films () {
             data={filmsList}
             imageUrl={FILMS_IMAGE_URL}
           />
-          {count > LIMIT_CARDS_PER_PAGE && (
-            <Box className={classes.pagination}>
-              <Pagination
-                count={getCountOfPages(count)}
-                handleChange={handleChange}
-              />
-            </Box>
-          )}
         </Box>
           )}
     </Box>

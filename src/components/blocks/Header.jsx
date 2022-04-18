@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
       display: 'block',
     },
     textDecoration: 'none',
-    color: theme.palette.text.primary,
+    color: theme.palette.common.white,
   },
   logoSm: {
     display: 'block',
@@ -52,11 +52,12 @@ const useStyles = makeStyles(theme => ({
       display: 'none',
     },
     textDecoration: 'none',
-    color: theme.palette.text.primary,
+    color: theme.palette.common.white,
   },
   icons: {
     alignItems: 'center',
     display: 'flex',
+    color: theme.palette.common.white,
   },
   navMenu: {
     [theme.breakpoints.down('md')]: {
@@ -75,14 +76,17 @@ const useStyles = makeStyles(theme => ({
   },
   navLink: {
     marginRight: theme.spacing(10),
-    color: theme.palette.text.primary,
+    color: theme.palette.common.white,
     textDecoration: 'none',
     textTransform: 'uppercase',
     fontFamily: theme.typography.fontFamily,
   },
   loginLink: {
     display: 'flex',
-    color: theme.palette.text.primary,
+    color: theme.palette.common.white,
+  },
+  navButton: {
+    color: theme.palette.common.white,
   },
 }))
 
@@ -185,17 +189,17 @@ export const Header = () => {
         </Box>
         <Box className={classes.icons}>
           <IconButton onClick={changeThemeHandler}>
-            <LightModeIcon />
+            <LightModeIcon className={classes.navButton} />
           </IconButton>
           <IconButton onClick={changeLanguageHandler}>
-            <LanguageIcon />
+            <LanguageIcon className={classes.navButton} />
           </IconButton>
           {user
             ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu}>
-                  <AccountCircleIcon />
+                  <AccountCircleIcon className={classes.navButton} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -225,7 +229,7 @@ export const Header = () => {
             : (
             <IconButton>
               <Link className={classes.loginLink} to={LOGIN_PAGE_PATH}>
-                <LoginIcon />
+                <LoginIcon className={classes.navButton} />
               </Link>
             </IconButton>
               )}

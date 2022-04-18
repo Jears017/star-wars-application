@@ -1,7 +1,8 @@
 import React from 'react'
 import pt from 'prop-types'
-import { Box, Grid } from '@mui/material'
+import { Box } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { Link } from 'react-router-dom'
 
 import Card from '@/components/blocks/Card'
 import { getId } from '@/utils/getId'
@@ -14,6 +15,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     paddingTop: theme.spacing(3),
   },
+  cardLink: {
+    textDecoration: 'none',
+    color: theme.palette.text.primary,
+  },
 }))
 
 export default function TemplateOfCardList ({ data, imageUrl, pathUrl }) {
@@ -22,14 +27,19 @@ export default function TemplateOfCardList ({ data, imageUrl, pathUrl }) {
     <Box className={classes.itemsList}>
       {data.map(content => {
         return (
-          <Card
+          <Link
             key={content.name}
-            name={content.name}
-            title={content.title}
-            imageUrl={`${imageUrl}${getId(content.url)}.jpg`}
-            id={getId(content.url)}
-            pathUrl={pathUrl}
-          />
+            className={classes.cardLink}
+            to={`${pathUrl}/${getId(content.url)}`}
+          >
+            <Card
+              name={content.name}
+              title={content.title}
+              imageUrl={`${imageUrl}${getId(content.url)}.jpg`}
+              id={getId(content.url)}
+              pathUrl={pathUrl}
+            />
+          </Link>
         )
       })}
     </Box>

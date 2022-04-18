@@ -16,12 +16,17 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       width: 320,
     },
-    border: `1px solid ${theme.palette.common.black}`,
     borderRadius: theme.custom.threeBorderRadius,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.custom.bgOfAdditionalInfoBlock,
     color: theme.palette.text.primary,
+    marginTop: theme.spacing(3),
   },
-  additionalIconContainer: { display: 'flex', gap: 24, flexWrap: 'wrap' },
+  additionalIconContainer: {
+    display: 'flex',
+    gap: 24,
+    flexWrap: 'wrap',
+    paddingTop: theme.spacing(1),
+  },
 }))
 
 export default function AdditionalInfo ({ data, path, img, title }) {
@@ -31,7 +36,7 @@ export default function AdditionalInfo ({ data, path, img, title }) {
     <Box className={classes.additionalContainer}>
       <Box>{title}</Box>
       <Box className={classes.additionalIconContainer}>
-        {data.map(res => (
+        {data.slice(0, 21).map(res => (
           <Link key={res} to={`${path}/${getId(res)}`}>
             <Avatar alt="Remy Sharp" src={`${img}${getId(res)}.jpg`} />
           </Link>
