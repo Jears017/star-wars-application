@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-around',
     borderRadius: theme.custom.threeBorderRadius,
     color: theme.palette.text.primary,
-    backgroundColor: theme.custom.bgOfAdditionalInfoBlock,
+    backgroundColor: theme.custom.background.main,
     [theme.breakpoints.down('sm')]: {
       display: 'block',
     },

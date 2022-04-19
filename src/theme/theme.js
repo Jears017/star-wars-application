@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles'
+import { grey } from '@mui/material/colors'
 
 export const darkTheme = createTheme({
   palette: {
@@ -6,7 +7,9 @@ export const darkTheme = createTheme({
   },
   custom: {
     threeBorderRadius: 12,
-    bgOfAdditionalInfoBlock: '#121212',
+    background: {
+      main: '#121212',
+    },
   },
   typography: {
     h1: {
@@ -50,7 +53,9 @@ export const lightTheme = createTheme({
   },
   custom: {
     threeBorderRadius: 12,
-    bgOfAdditionalInfoBlock: '#eeeeee',
+    background: {
+      main: grey[200],
+    },
   },
   typography: {
     h1: {

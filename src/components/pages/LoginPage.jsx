@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   logInContent: {
-    backgroundColor: theme.custom.bgOfAdditionalInfoBlock,
+    backgroundColor: theme.custom.background.main,
     padding: '70px 20px',
     borderRadius: theme.custom.threeBorderRadius,
     [theme.breakpoints.down('lg')]: {

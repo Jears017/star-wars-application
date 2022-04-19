@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   itemsList: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '23px',
+    gap: theme.spacing(3),
     justifyContent: 'center',
     paddingTop: theme.spacing(3),
   },
