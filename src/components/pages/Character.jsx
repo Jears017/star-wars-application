@@ -11,7 +11,7 @@ import WestIcon from '@mui/icons-material/West'
 import { charactersDetailsRequest } from '@/actions'
 import AdditionalInfo from '@/components/blocks/AdditionalInfo'
 import { Spinner } from '@/components/blocks/Preloader'
-import { useNameFromApi } from '@/hooks/useNameFromApi'
+import { useEntityName } from '@/hooks/useEntityName'
 
 import {
   CHARACTERS_IMAGE_URL,
@@ -89,8 +89,8 @@ export default function Character () {
     state => state.charactersDetails,
   )
 
-  const homeWorld = useNameFromApi(data.homeworld)
-  const species = useNameFromApi(data.species)
+  const homeWorld = useEntityName(data.homeworld)
+  const species = useEntityName(data.species)
 
   const dispatch = useDispatch()
 
@@ -144,8 +144,7 @@ export default function Character () {
                   {t('character.birth_year')}: {data.birth_year}
                 </Typography>
                 <Typography variant="h6">
-                  {t('character.species')}:{' '}
-                  {species}
+                  {t('character.species')}: {species}
                 </Typography>
                 <Typography variant="h6">
                   {t('character.height')}: {data.height}

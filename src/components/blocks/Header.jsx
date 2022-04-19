@@ -85,7 +85,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     color: theme.palette.common.white,
   },
-  navButton: {
+  iconButton: {
     color: theme.palette.common.white,
   },
 }))
@@ -189,17 +189,17 @@ export const Header = () => {
         </Box>
         <Box className={classes.icons}>
           <IconButton onClick={changeThemeHandler}>
-            <LightModeIcon className={classes.navButton} />
+            <LightModeIcon className={classes.iconButton} />
           </IconButton>
           <IconButton onClick={changeLanguageHandler}>
-            <LanguageIcon className={classes.navButton} />
+            <LanguageIcon className={classes.iconButton} />
           </IconButton>
           {user
             ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu}>
-                  <AccountCircleIcon className={classes.navButton} />
+                  <AccountCircleIcon className={classes.iconButton} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -229,7 +229,7 @@ export const Header = () => {
             : (
             <IconButton>
               <Link className={classes.loginLink} to={LOGIN_PAGE_PATH}>
-                <LoginIcon className={classes.navButton} />
+                <LoginIcon className={classes.iconButton} />
               </Link>
             </IconButton>
               )}

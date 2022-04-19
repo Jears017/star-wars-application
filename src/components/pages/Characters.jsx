@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 
 import {
   CHARACTERS_IMAGE_URL,
-  LIMIT_CARDS_PER_PAGE,
+  CARDS_PER_PAGE,
   CHARACTERS_PAGE_PATH,
 } from '@/constants'
 
@@ -82,7 +82,7 @@ export default function Characters () {
       <Box className={classes.search}>
         <Search onSearchChange={onChange} value={search} />
       </Box>
-      {count > LIMIT_CARDS_PER_PAGE && (
+      {count > CARDS_PER_PAGE && (
         <Box className={classes.pagination}>
           <Pagination
             count={getCountOfPages(count)}
@@ -92,9 +92,7 @@ export default function Characters () {
         </Box>
       )}
       {isLoading
-        ? (
-        <Spinner />
-          )
+        ? (<Spinner />)
         : (
           <TemplateOfCardList
             pathUrl={CHARACTERS_PAGE_PATH}
