@@ -37,15 +37,14 @@ const useStyles = makeStyles(theme => ({
   filmContent: {
     display: 'flex',
     justifyContent: 'space-around',
-    border: `1px solid ${theme.palette.common.black}`,
     borderRadius: theme.custom.threeBorderRadius,
     color: theme.palette.text.primary,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.custom.background.main,
     [theme.breakpoints.down('sm')]: {
       display: 'block',
     },
   },
-  filmContentDetails: { maxWidth: 600 },
+  filmContentDetails: { maxWidth: 475.5 },
   filmImageContainer: {
     [theme.breakpoints.down('md')]: {
       display: 'flex',
@@ -55,6 +54,7 @@ const useStyles = makeStyles(theme => ({
   filmImage: {
     borderRadius: theme.custom.threeBorderRadius,
     width: 345,
+    height: '100%',
     [theme.breakpoints.down('sm')]: {
       width: 255,
     },

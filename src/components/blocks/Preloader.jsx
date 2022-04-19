@@ -4,10 +4,10 @@ import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles(theme => ({
   preloader: {
-    height: '85vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: theme.spacing(12),
   },
 }))
 

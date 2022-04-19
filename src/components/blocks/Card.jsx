@@ -8,13 +8,15 @@ import {
 } from '@mui/material'
 
 import { makeStyles } from '@mui/styles'
-import { Link } from 'react-router-dom'
 
 import PropTypesOfCard from '@/prop-types/PropTypesOfCard'
 
 const useStyles = makeStyles(theme => ({
   cardWrapper: {
     width: 345,
+    [theme.breakpoints.down('sm')]: {
+      width: 320,
+    },
   },
   cardMediaContainer: {
     height: 250,
@@ -38,7 +40,6 @@ export default function Card ({ name, imageUrl, id, title, pathUrl }) {
         <img className={classes.cardImg} src={imageUrl} />
       </Box>
       <CardContent>
-        <Link className={classes.cardLink} to={`${pathUrl}/${id}`}>
           <Typography
             gutterBottom
             variant="h5"
@@ -46,7 +47,6 @@ export default function Card ({ name, imageUrl, id, title, pathUrl }) {
           >
             {name || title}
           </Typography>
-        </Link>
       </CardContent>
     </MuiCard>
   )

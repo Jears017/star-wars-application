@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 
 import {
   FILMS_IMAGE_URL,
-  LIMIT_CARDS_PER_PAGE,
+  CARDS_PER_PAGE,
   FILMS_PAGE_PATH,
 } from '@/constants'
 
@@ -79,10 +79,16 @@ export default function Films () {
       <Box className={classes.search}>
         <Search onSearchChange={onChange} value={search} />
       </Box>
+      {count > CARDS_PER_PAGE && (
+        <Box className={classes.pagination}>
+          <Pagination
+            count={getCountOfPages(count)}
+            handleChange={handleChange}
+          />
+        </Box>
+      )}
       {isLoading
-        ? (
-        <Spinner />
-          )
+        ? (<Spinner />)
         : (
         <Box>
           <TemplateOfCardList
@@ -90,14 +96,6 @@ export default function Films () {
             data={filmsList}
             imageUrl={FILMS_IMAGE_URL}
           />
-          {count > LIMIT_CARDS_PER_PAGE && (
-            <Box className={classes.pagination}>
-              <Pagination
-                count={getCountOfPages(count)}
-                handleChange={handleChange}
-              />
-            </Box>
-          )}
         </Box>
           )}
     </Box>

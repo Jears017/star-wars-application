@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 
 import {
   CHARACTERS_IMAGE_URL,
-  LIMIT_CARDS_PER_PAGE,
+  CARDS_PER_PAGE,
   CHARACTERS_PAGE_PATH,
 } from '@/constants'
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   pagination: {
     display: 'flex',
     justifyContent: 'flex-end',
-    paddingTop: theme.spacing(6),
+    paddingTop: theme.spacing(1),
     [theme.breakpoints.down('xl')]: {
       justifyContent: 'center',
     },
@@ -82,26 +82,23 @@ export default function Characters () {
       <Box className={classes.search}>
         <Search onSearchChange={onChange} value={search} />
       </Box>
+      {count > CARDS_PER_PAGE && (
+        <Box className={classes.pagination}>
+          <Pagination
+            count={getCountOfPages(count)}
+            handleChange={handleChange}
+            disabledValue={isLoading}
+          />
+        </Box>
+      )}
       {isLoading
-        ? (
-        <Spinner />
-          )
+        ? (<Spinner />)
         : (
-        <Box>
           <TemplateOfCardList
             pathUrl={CHARACTERS_PAGE_PATH}
             data={charactersList}
             imageUrl={CHARACTERS_IMAGE_URL}
           />
-          {count > LIMIT_CARDS_PER_PAGE && (
-            <Box className={classes.pagination}>
-              <Pagination
-                count={getCountOfPages(count)}
-                handleChange={handleChange}
-              />
-            </Box>
-          )}
-        </Box>
           )}
     </Box>
   )

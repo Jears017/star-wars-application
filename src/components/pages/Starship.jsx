@@ -38,16 +38,15 @@ const useStyles = makeStyles(theme => ({
   starshipContent: {
     display: 'flex',
     justifyContent: 'space-around',
-    border: `1px solid ${theme.palette.common.black}`,
     borderRadius: theme.custom.threeBorderRadius,
     color: theme.palette.text.primary,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.custom.background.main,
     [theme.breakpoints.down('sm')]: {
       display: 'block',
     },
   },
   starshipImageContainer: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'flex',
       justifyContent: 'center',
     },
@@ -55,7 +54,7 @@ const useStyles = makeStyles(theme => ({
   starshipImage: {
     borderRadius: theme.shape.borderRadius * 3,
     width: 345,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       width: 255,
     },
   },
@@ -65,7 +64,6 @@ const useStyles = makeStyles(theme => ({
     gap: 20,
     flexWrap: 'wrap',
     justifyContent: 'center',
-    paddingTop: theme.spacing(2),
   },
   planetGoBackButton: {
     display: 'flex',
@@ -77,6 +75,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
+  },
+  starshipDescription: {
+    maxWidth: '475.5px',
   },
 }))
 
@@ -96,7 +97,6 @@ export default function Starship () {
   }, [])
 
   let starshipComponentRef = useRef(null)
-
   if (isLoading) {
     return <Spinner />
   }
@@ -133,7 +133,7 @@ export default function Starship () {
                   className={classes.starshipImage}
                 />
               </Box>
-              <Box>
+              <Box className={classes.starshipDescription}>
                 <Typography variant="h2">{data.name}</Typography>
                 <Typography variant="h6">
                   {t('starship.model')}: {data.model}

@@ -3,6 +3,7 @@ import { Box, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { Link } from 'react-router-dom'
 import TravelExploreIcon from '@mui/icons-material/TravelExplore'
+import { useTranslation } from 'react-i18next'
 
 import { ROOT_PATH } from '@/constants/paths'
 
@@ -36,6 +37,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function PageNotFound () {
   const classes = useStyles()
+  const { t } = useTranslation()
   return (
     <Box className={classes.mainContainer}>
       <Box>
@@ -43,9 +45,9 @@ export default function PageNotFound () {
           <TravelExploreIcon className={classes.image} />
         </Box>
         <Box className={classes.pageNotFoundTextContainer}>
-          <Typography variant="h3">Page not found!</Typography>
+          <Typography variant="h3">{t('common.not_found')}</Typography>
           <Link className={classes.link} to={ROOT_PATH}>
-            redirect to main
+            {t('common.return_main')}
           </Link>
         </Box>
       </Box>
