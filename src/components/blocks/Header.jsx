@@ -64,6 +64,13 @@ const useStyles = makeStyles(theme => ({
       display: 'none',
     },
   },
+  responsiveNavMenu: {
+    flexGrow: 1,
+    display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+    },
+  },
   menu: {
     display: 'none',
     [theme.breakpoints.down('md')]: {
@@ -87,6 +94,12 @@ const useStyles = makeStyles(theme => ({
   },
   iconButton: {
     color: theme.palette.common.white,
+  },
+  logoutWrapper: {
+    flexGrow: 0,
+  },
+  logout: {
+    marginTop: theme.spacing(5),
   },
 }))
 
@@ -128,48 +141,50 @@ export const Header = () => {
     <AppBar position="fixed">
       <Toolbar className={classes.toolbar}>
         <Box className={classes.logoContainer}>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              className={classes.menu}
-            >
-              {pages.map(page => (
-                <Link
-                  className={classes.menuItemResponsive}
-                  to={`/${page}`}
-                  key={page}
-                >
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography variant="body2" textAlign="center">
-                      {t(`header.${page}`)}
-                    </Typography>
-                  </MenuItem>
-                </Link>
-              ))}
-            </Menu>
-          </Box>
+          {user && (
+            <Box className={classes.responsiveNavMenu}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                className={classes.menu}
+              >
+                {pages.map(page => (
+                  <Link
+                    className={classes.menuItemResponsive}
+                    to={`/${page}`}
+                    key={page}
+                  >
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography variant="body2" textAlign="center">
+                        {t(`header.${page}`)}
+                      </Typography>
+                    </MenuItem>
+                  </Link>
+                ))}
+              </Menu>
+            </Box>
+          )}
           <Link className={classes.logoLg} to={ROOT_PATH}>
             <Typography variant="h6">Star Wars</Typography>
           </Link>
@@ -177,33 +192,38 @@ export const Header = () => {
             <Typography variant="h6">SW</Typography>
           </Link>
         </Box>
-        <Box className={classes.navMenu}>
-          {pages.map(page => (
-            <Link key={page}
-              className={classes.navLink}
-              to={`/${page}`}
-            >
-              {t(`header.${page}`)}
-            </Link>
-          ))}
-        </Box>
+        {user && (
+          <Box className={classes.navMenu}>
+            {pages.map(page => (
+              <Link key={page} className={classes.navLink}
+to={`/${page}`}
+              >
+                {t(`header.${page}`)}
+              </Link>
+            ))}
+          </Box>
+        )}
         <Box className={classes.icons}>
-          <IconButton onClick={changeThemeHandler}>
-            <LightModeIcon className={classes.iconButton} />
-          </IconButton>
-          <IconButton onClick={changeLanguageHandler}>
-            <LanguageIcon className={classes.iconButton} />
-          </IconButton>
+          {user && (
+            <>
+              <IconButton onClick={changeThemeHandler}>
+                <LightModeIcon className={classes.iconButton} />
+              </IconButton>
+              <IconButton onClick={changeLanguageHandler}>
+                <LanguageIcon className={classes.iconButton} />
+              </IconButton>
+            </>
+          )}
           {user
             ? (
-            <Box sx={{ flexGrow: 0 }}>
+            <Box className={classes.logoutWrapper}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu}>
                   <AccountCircleIcon className={classes.iconButton} />
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: '45px' }}
+                className={classes.logout}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
