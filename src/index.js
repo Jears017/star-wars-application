@@ -7,6 +7,7 @@ import App from '@/App'
 import { store } from '@/store'
 
 import './firebase'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
 ReactDOM.render(
   <Provider store={store}>
@@ -16,3 +17,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root'),
 )
+
+serviceWorkerRegistration.register()
