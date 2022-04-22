@@ -51,7 +51,8 @@ registerRoute(
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  ({ url }) =>
+    url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
     cacheName: 'images',
     plugins: [
@@ -62,8 +63,6 @@ registerRoute(
   }),
 )
 
-// This allows the web app to trigger skipWaiting via
-// registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting()
@@ -71,3 +70,59 @@ self.addEventListener('message', event => {
 })
 
 // Any other custom service worker logic can go here.
+
+const CACHE_VERSION = 10
+const CURRENT_CACHE = `main-${CACHE_VERSION}`
+
+const cacheFiles = ['/', '/planets/', '/characters/', '/films/', '/starships/']
+
+self.addEventListener('activate', evt =>
+  evt.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => cacheName !== CURRENT_CACHE && caches.delete(cacheName)),
+      )
+    }),
+  ),
+)
+
+self.addEventListener('install', evt =>
+  evt.waitUntil(
+    caches.open(CURRENT_CACHE).then(cache => {
+      return cache.addAll(cacheFiles)
+    }),
+  ),
+)
+
+const fromNetwork = (request, timeout) =>
+  new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(reject, timeout)
+    fetch(request).then(response => {
+      clearTimeout(timeoutId)
+      resolve(response)
+      update(request)
+    }, reject)
+  })
+
+const fromCache = request =>
+  caches
+    .open(CURRENT_CACHE)
+    .then(cache =>
+      cache
+        .match(request)
+        .then(matching => matching || cache.match('/offline/')),
+    )
+
+const update = request =>
+  caches
+    .open(CURRENT_CACHE)
+    .then(cache =>
+      fetch(request).then(response => cache.put(request, response)),
+    )
+
+self.addEventListener('fetch', evt => {
+  evt.respondWith(
+    fromNetwork(evt.request, 10000).catch(() => fromCache(evt.request)),
+  )
+  evt.waitUntil(update(evt.request))
+})
