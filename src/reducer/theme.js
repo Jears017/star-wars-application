@@ -1,7 +1,7 @@
 import { SET_THEME } from '@/constants'
 
 const initialState = {
-  dark: false,
+  dark: localStorage.getItem('mode'),
 }
 
 export default function (state = initialState, { type, payload } = {}) {
