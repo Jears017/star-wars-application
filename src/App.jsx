@@ -32,6 +32,7 @@ import {
   REGISTER_PAGE_PATH,
   FATAL_ERROR_PAGE_PATH,
   NOT_AUTHORIZED_PATH,
+  DARK_MODE,
 } from '@/constants'
 
 import { useInternalizationConnector } from './hooks/useInternalizationConnector'
@@ -42,7 +43,7 @@ export default function App () {
   useInternalizationConnector()
 
   return (
-    <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+    <ThemeProvider theme={dark === DARK_MODE ? darkTheme : lightTheme}>
       <Paper className="main">
         <Header />
         <Grid container>

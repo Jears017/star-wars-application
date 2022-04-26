@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@mui/styles'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 import {
@@ -14,6 +14,7 @@ import {
   Toolbar,
   Typography,
   Tooltip,
+  Select,
 } from '@mui/material'
 
 import {
@@ -24,9 +25,10 @@ import {
   Login as LoginIcon,
 } from '@mui/icons-material/'
 
-import { ROOT_PATH, ENGLISH, RUSSIAN, LOGIN_PAGE_PATH } from '@/constants'
+import { ROOT_PATH, ENGLISH, RUSSIAN, LOGIN_PAGE_PATH, LOCAL_STORAGE_THEME_KEY, LIGHT_MODE, DARK_MODE } from '@/constants'
 import { setTheme } from '@/actions'
 import auth, { logout } from '@/firebase'
+import { useLocalStorage } from '@/hooks/useLocalStorage'
 
 const pages = ['planets', 'characters', 'starships', 'films']
 const useStyles = makeStyles(theme => ({
@@ -101,16 +103,25 @@ const useStyles = makeStyles(theme => ({
   logout: {
     marginTop: theme.spacing(5),
   },
+  themeSwitcher: {
+    color: theme.palette.common.white,
+  },
 }))
 
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
+
+  const [mode, setMode] = useLocalStorage(LOCAL_STORAGE_THEME_KEY, LIGHT_MODE)
+
   const [user] = useAuthState(auth)
   const classes = useStyles({ open })
 
   const dispatch = useDispatch()
-  const { dark } = useSelector(state => state.theme)
+
+  useEffect(() => {
+    dispatch(setTheme(mode))
+  }, [mode])
 
   const { t, i18n } = useTranslation()
 
@@ -118,8 +129,8 @@ export const Header = () => {
     i18n.changeLanguage(i18n.language === ENGLISH ? RUSSIAN : ENGLISH)
   }
 
-  const changeThemeHandler = () => {
-    dispatch(setTheme(!dark))
+  const handleChange = event => {
+    setMode(event.target.value)
   }
 
   const handleOpenNavMenu = event => {
@@ -206,12 +217,19 @@ to={`/${page}`}
         <Box className={classes.icons}>
           {user && (
             <>
-              <IconButton onClick={changeThemeHandler}>
-                <LightModeIcon className={classes.iconButton} />
-              </IconButton>
               <IconButton onClick={changeLanguageHandler}>
                 <LanguageIcon className={classes.iconButton} />
               </IconButton>
+              <Select
+                className={classes.themeSwitcher}
+                value={mode}
+                onChange={handleChange}
+                displayEmpty
+                inputProps={{ 'aria-label': 'Without label' }}
+              >
+                <MenuItem value={DARK_MODE}>{t('common.dark')}</MenuItem>
+                <MenuItem value={LIGHT_MODE}>{t('common.light')}</MenuItem>
+              </Select>
             </>
           )}
           {user
